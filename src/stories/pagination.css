@@ -1,0 +1,25 @@
+.pagination {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pagination-button {
+  display: flex;
+  width: 55px;
+  height: 55px;
+  padding: 17px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--Grayscale-20, #f9f9f9);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.pagination-button.currentPage {
+  border: 1px solid var(--sunny-secondary-afd-278, #afd278);
+  background: var(--sunny-secondary-afd-278, #afd278);
+}
+.pagination-button.nextPage {
+  border: 1px solid var(--sunny-secondary-afd-278, #afd278);
+}
