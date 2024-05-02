@@ -1,0 +1,68 @@
+.button {
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+  overflow: hidden;
+
+  &-size {
+    &-full {
+      width: 100%;
+      height: 48px;
+    }
+    &-lg {
+      height: 48px;
+      padding: 0 32px;
+    }
+    &-md {
+      height: 40px;
+      padding: 0 24px;
+    }
+    &-sm {
+      height: 32px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
+
+  &-variant {
+    &-default {
+      position: relative;
+      color: #f9f9f9;
+      background-color: #afd278;
+      border: none;
+
+      &:hover::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #222;
+        content: '';
+        opacity: 3%;
+      }
+    }
+    &-another {
+      position: relative;
+      color: #afd278;
+      background-color: #f9f9f9;
+      border: 1px solid #afd278;
+
+      &:hover::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #222;
+        content: '';
+        opacity: 1%;
+      }
+    }
+  }
+}
