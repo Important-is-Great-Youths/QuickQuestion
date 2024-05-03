@@ -1,0 +1,14 @@
+:root {
+  --primary: #{$sunny-primary};
+  --secondary: #{$sunny-secondary};
+}
+
+[data-theme='rainy'] {
+  --primary: #{$rainy-primary};
+  --secondary: #{$rainy-secondary};
+}
+
+[data-theme='snowy'] {
+  --primary: #{$snowy-primary};
+  --secondary: #{$snowy-secondary};
+}
