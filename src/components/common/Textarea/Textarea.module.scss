@@ -1,0 +1,21 @@
+.textarea {
+  display: block;
+  width: 100%;
+  background-color: $white;
+  border: 1px solid $gray20;
+  border-radius: 12px;
+  resize: none;
+
+  @include responsive(T) {
+    @include text-style(16);
+
+    height: 140px;
+    padding: 16px;
+  }
+  @include responsive(M) {
+    @include text-style(14);
+
+    height: 180px;
+    padding: 12px;
+  }
+}
