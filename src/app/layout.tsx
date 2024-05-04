@@ -2,13 +2,19 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import classNames from 'classnames/bind'
+
 import '@/styles/base/common.scss'
+
 import styles from './layout.module.scss'
 
 const cx = classNames.bind(styles)
 
 export const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2'
+})
+
+export const yangjin = localFont({
+  src: './fonts/YangjinV0.9.ttf'
 })
 
 export const metadata: Metadata = {
