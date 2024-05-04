@@ -36,5 +36,5 @@ yarn-error.log*
 next-env.d.ts
 
 # settings
-.prettierrc
+# .prettierrc
 *storybook.log
