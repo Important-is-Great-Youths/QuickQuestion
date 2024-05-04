@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import classNames from 'classnames/bind'
 import '@/styles/base/common.scss'
+import styles from './layout.module.scss'
+
+const cx = classNames.bind(styles)
 
 export const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2'
@@ -21,7 +25,9 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={pretendard.className}>
         <NextThemeProvider themes={['sunny', 'rainy', 'snowy']}>
-          {children}
+          <div className={cx('container')}>
+            <main className={cx('main')}>{children}</main>
+          </div>
         </NextThemeProvider>
       </body>
     </html>
