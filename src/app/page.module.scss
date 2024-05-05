@@ -2,3 +2,16 @@
   display: flex;
   flex-direction: column;
 }
+
+.text {
+  @include text-style(52);
+
+  color: $white;
+
+  @include responsive(T) {
+    @include text-style(40);
+  }
+  @include responsive(M) {
+    @include text-style(28);
+  }
+}
