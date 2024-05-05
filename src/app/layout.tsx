@@ -3,8 +3,9 @@ import localFont from 'next/font/local'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import classNames from 'classnames/bind'
 
-import '@/styles/base/common.scss'
+import ThemeButton from '@/components/common/Button/ThemeButton'
 
+import '@/styles/base/common.scss'
 import styles from './layout.module.scss'
 
 const cx = classNames.bind(styles)
@@ -33,6 +34,7 @@ export default function RootLayout({
         <NextThemeProvider themes={['sunny', 'rainy', 'snowy']}>
           <div className={cx('container')}>
             <main className={cx('main')}>{children}</main>
+            <ThemeButton />
           </div>
         </NextThemeProvider>
       </body>

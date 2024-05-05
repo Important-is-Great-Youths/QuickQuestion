@@ -1,0 +1,17 @@
+.button-list {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  gap: 8px;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: $white;
+    border-radius: 50%;
+  }
+}
