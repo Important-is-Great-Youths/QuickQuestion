@@ -1,14 +1,14 @@
 import classNames from "classnames/bind";
 import styles from "./Pagination.module.scss";
 import { useState } from "react";
-import data from "./data.json";
+import data from "../data.json";
 
 const cx = classNames.bind(styles);
 
 interface PaginationProps {
-  size: "lg" | "md";
-  totalCount: number;
-  limit: number;
+  size?: "lg" | "md";
+  totalCount?: number;
+  limit?: number;
 }
 //total 데이터 총 갯수, limit 한 페이지에 나타낼 데이터 갯수
 export const Pagination = ({
@@ -32,6 +32,7 @@ export const Pagination = ({
     buttons.push(
       <button
         key={i}
+        type="button"
         className={cx("button", `button-size-${size}`, {
           "button-active": i === currentPage
         })}
