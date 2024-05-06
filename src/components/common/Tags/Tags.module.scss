@@ -26,9 +26,9 @@
   display: none;
   margin: 0;
   &:checked + .label {
-    color: #f9f9f9;
-    background-color: #afd278;
-    border: 1px solid #afd278;
+    color: $white;
+    background-color: $secondary;
+    border: 1px solid $secondary;
   }
 }
 
@@ -42,8 +42,8 @@
   white-space: nowrap;
 
   color: #222;  
-  background-color: #f9f9f9;
-  border: 1px solid #bbb;
+  background-color: $white;
+  border: 1px solid $gray20;
 
   &-size {
     &-md {
@@ -61,7 +61,7 @@
   }
 
   &:hover{
-    border: 1px solid #afd278;
+    border: 1px solid $secondary;
   }
 }
 
