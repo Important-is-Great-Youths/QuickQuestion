@@ -1,0 +1,60 @@
+.header {
+  width: 100%;
+  background-color: #f9f9f9;
+
+  &-size {
+    &-lg {
+      height: 100px;
+    }
+    &-sm {
+      height: 80px;
+    }
+  }
+
+  &-frame {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    &-size {
+      &-lg { 
+        max-width: 1280px;
+        justify-content: center; 
+        padding: 0 24px;
+        margin: 0 auto;
+      }
+      &-sm { 
+        justify-content: space-between;
+        padding: 0 16px;
+      }
+    }
+  }
+
+  &-logo {
+    position: relative;
+    &-size {
+      &-lg {
+        width: 218px;
+        height: 80px;
+      }
+      &-sm {
+        width: 164px;
+        height: 60px;
+      }
+    }
+  }
+
+
+  &-button {
+    &-size {
+      &-lg {
+        position: absolute;
+        right: 24px;
+      }
+      &-sm {
+        position: relative;
+      }
+    }
+  }
+}
