@@ -16,7 +16,10 @@ const Reaction = ({ happyCount, lolCount, curiCount }: ReactionProps) => {
     { emoji: '🧐', count: curiCount }
   ]
 
-  const handleClickCount: any = () => {}
+  const handleClickCount: any = () => {
+    // todo : api 연결 하기
+  }
+
   return (
     <div>
       {emojiandCountList.map(({ emoji, count }) => (

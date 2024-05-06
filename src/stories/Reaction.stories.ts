@@ -10,8 +10,4 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof Reaction>
 
-export const Default: Story = {
-  args: {
-    emoji: '😊'
-  }
-}
+export const Default: Story = {}
