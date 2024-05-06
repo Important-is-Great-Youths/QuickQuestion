@@ -4,17 +4,32 @@ import styles from './Reaction.module.scss'
 const cx = classNames.bind(styles)
 
 interface ReactionProps {
-  emoji: '😊' | '🤣' | '🧐'
-  count: number
+  happyCount: number
+  lolCount: number
+  curiCount: number
 }
 
-const Reaction = ({ emoji, count }: ReactionProps) => {
-  count = count ?? 0
+const Reaction = ({ happyCount, lolCount, curiCount }: ReactionProps) => {
+  const emojiandCountList = [
+    { emoji: '😊', count: happyCount },
+    { emoji: '🤣', count: lolCount },
+    { emoji: '🧐', count: curiCount }
+  ]
+
+  const handleClickCount: any = () => {}
   return (
-    <button className={cx('reaction')} type="button">
-      <span className={cx('reaction-emoji')}>{emoji}</span>
-      <span>{count}</span>
-    </button>
+    <div>
+      {emojiandCountList.map(({ emoji, count }) => (
+        <button
+          className={cx('reaction')}
+          type="button"
+          onClick={handleClickCount}
+        >
+          <span className={cx('reaction-emoji')}>{emoji}</span>
+          <span>{count ?? 0}</span>
+        </button>
+      ))}
+    </div>
   )
 }
 
