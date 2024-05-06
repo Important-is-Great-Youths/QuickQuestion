@@ -1,10 +1,9 @@
 .tags {
   display: flex;
   flex-direction: row;
-
-  &-size {
-    &-md { gap: 12px; }
-    &-sm { gap:8px; }
+  gap: 12px;
+  @include responsive(T) {
+    gap:8px;
   }
 }
 
@@ -12,13 +11,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  &-size {
-    &-md {
-      height: 40px;
-    }
-    &-sm {
-      height: 32px;
-    }
+  height: 40px;
+  @include responsive(T) {
+    height: 32px;
   }
 }
 
@@ -44,20 +39,16 @@
   color: #222;  
   background-color: $white;
   border: 1px solid $gray20;
+  font-size: 16px;
+  padding: 0 24px;
+  border-radius: 12px;
+  line-height: 40px;
 
-  &-size {
-    &-md {
-      font-size: 16px;
-      padding: 0 24px;
-      border-radius: 12px;
-      line-height: 40px;
-    }
-    &-sm {
-      font-size: 14px;
-      padding: 0 20px;
-      border-radius: 8px;
-      line-height: 32px;
-    }
+  @include responsive(T) {
+    font-size: 14px;
+    padding: 0 20px;
+    border-radius: 8px;
+    line-height: 32px;
   }
 
   &:hover{
