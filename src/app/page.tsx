@@ -15,7 +15,7 @@ export default function Home() {
           <div>card list</div>
         </div>
         <div>
-          <p className={cx(yangjin.className)}>빠르게 질문해보세요!</p>
+          <p className={cx(yangjin.className, 'text')}>빠르게 질문 해보세요!</p>
         </div>
       </div>
     </div>
