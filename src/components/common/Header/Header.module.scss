@@ -2,13 +2,12 @@
   width: 100%;
   background-color: #f9f9f9;
 
-  &-size {
-    &-lg {
-      height: 100px;
-    }
-    &-sm {
-      height: 80px;
-    }
+  height: 100px;
+  @include responsive(T) {
+    height: 80px;
+  }
+  @include responsive(M) {
+    height: 80px;
   }
 
   &-frame {
@@ -17,44 +16,44 @@
     flex-direction: row;
     align-items: center;
     height: 100%;
-    &-size {
-      &-lg { 
-        max-width: 1280px;
-        justify-content: center; 
-        padding: 0 24px;
-        margin: 0 auto;
-      }
-      &-sm { 
-        justify-content: space-between;
-        padding: 0 16px;
-      }
+
+    max-width: 1280px;
+    justify-content: center; 
+    padding: 0 24px;
+    margin: 0 auto;
+    @include responsive(T) {
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    @include responsive(M) {
+      justify-content: space-between;
+      padding: 0 16px;
     }
   }
 
   &-logo {
     position: relative;
-    &-size {
-      &-lg {
-        width: 218px;
-        height: 80px;
-      }
-      &-sm {
-        width: 164px;
-        height: 60px;
-      }
+    width: 218px;
+    height: 80px;
+    @include responsive(T) {
+      width: 164px;
+      height: 60px;
+    }
+    @include responsive(M) {
+      width: 164px;
+      height: 60px;
     }
   }
 
 
   &-button {
-    &-size {
-      &-lg {
-        position: absolute;
-        right: 24px;
-      }
-      &-sm {
-        position: relative;
-      }
+    position: absolute;
+    right: 24px;
+    @include responsive(T) {
+      position: relative;
     }
-  }
+    @include responsive(M) {
+      position: relative;
+    }
+}
 }
