@@ -15,14 +15,14 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Small: Story = {
+export const Default: Story = {
   args: {
-    size: 'sm'
+    isAll: false
   }
 }
 
-export const Medium: Story = {
+export const IsAll: Story = {
   args: {
-    size: 'md'
+    isAll: true
   }
 }
