@@ -1,0 +1,31 @@
+.card {
+  display: flex;
+  padding: 12px 16px;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: $main-shadow;
+  box-sizing: border-box;
+
+  &-title {
+    color: $secondary;
+    @include text-style(14, bold);
+  }
+
+  &-text {
+    color: $black;
+    @include text-style(16);
+    height: 86px;
+  }
+
+  &-footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-answer {
+    color: $black;
+    @include text-style(14);
+    margin-left: auto;
+  }
+}
