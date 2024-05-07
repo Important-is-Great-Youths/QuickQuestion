@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./Pagination.module.scss";
 import { useState } from "react";
-import data from "../data.json";
+import data from "./data.json";
 
 const cx = classNames.bind(styles);
 
