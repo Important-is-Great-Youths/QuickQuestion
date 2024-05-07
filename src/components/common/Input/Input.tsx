@@ -1,6 +1,6 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 import styles from './Input.module.scss'
-import { Controller, RegisterOptions, useFormContext } from 'react-hook-form'
 
 const cx = classNames.bind(styles)
 
@@ -10,14 +10,18 @@ interface InputProps {
   placeholder?: string
 }
 
-const Input = ({ size, type, placeholder }: InputProps) => {
-  return (
-    <input
-      className={cx('input', `input-size-${size}`)}
-      type={type}
-      placeholder={placeholder}
-    />
-  )
-}
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ size, type, placeholder, ...props }, ref) => {
+    return (
+      <input
+        className={cx('input', `input-size-${size}`)}
+        type={type}
+        placeholder={placeholder}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
 
 export default Input
