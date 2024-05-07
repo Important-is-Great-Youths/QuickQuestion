@@ -47,7 +47,8 @@ const PopUp = ({}: PopUpProps) => {
             placeholder="비밀번호를 입력해주세요"
             {...register('password', {
               required: { value: true, message: '필수 항목입니다.' },
-              maxLength: { value: 4, message: '최대 4자만 입력 가능합니다.' },
+              minLength: { value: 4, message: '숫자 4자만 입력 가능합니다.' },
+              maxLength: { value: 4, message: '숫자 4자만 입력 가능합니다.' },
               pattern: { value: /^\d+$/, message: '숫자만 입력 가능합니다.' }
             })}
           />
