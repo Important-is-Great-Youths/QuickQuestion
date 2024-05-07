@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import classNames from 'classnames/bind'
 
+import { Providers } from '@/app/providers'
 import ThemeButton from '@/components/common/Button/ThemeButton'
 
 import '@/styles/base/common.scss'
@@ -12,10 +12,6 @@ const cx = classNames.bind(styles)
 
 export const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2'
-})
-
-export const yangjin = localFont({
-  src: './fonts/YangjinV0.9.ttf'
 })
 
 export const metadata: Metadata = {
@@ -31,12 +27,12 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={pretendard.className}>
-        <NextThemeProvider themes={['sunny', 'rainy', 'snowy']}>
+        <Providers>
           <div className={cx('container')}>
             <main className={cx('main')}>{children}</main>
             <ThemeButton />
           </div>
-        </NextThemeProvider>
+        </Providers>
       </body>
     </html>
   )

@@ -1,12 +1,20 @@
+'use client'
+
 import classNames from 'classnames/bind'
 
-import { yangjin } from '@/app/layout'
+import {
+  useGetRecipientsList,
+  usePostRecipientsCreate
+} from '@/hooks/useRecipients'
 
 import styles from './page.module.scss'
 
 const cx = classNames.bind(styles)
 
 export default function Home() {
+  const { data } = useGetRecipientsList(100)
+  const { mutate } = usePostRecipientsCreate()
+
   return (
     <div className={styles.main}>
       <div className={cx('container')}>
@@ -15,7 +23,7 @@ export default function Home() {
           <div>card list</div>
         </div>
         <div>
-          <p className={cx(yangjin.className, 'text')}>빠르게 질문 해보세요!</p>
+          <p className={cx('text')}>빠르게 질문 해보세요!</p>
         </div>
       </div>
     </div>
