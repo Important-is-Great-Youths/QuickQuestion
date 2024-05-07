@@ -71,7 +71,7 @@ const FormModal = ({ question, onClose }: any) => {
                 {...register('sender', {
                   required: true,
                   minLength: 1,
-                  maxLength: 10,
+                  maxLength: 4,
                   pattern: {
                     value: /^[A-Za-z0-9가-힣]{3,10}$/,
                     message: ERROR_MESSAGE.nickname.required
