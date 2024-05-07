@@ -38,6 +38,9 @@ const PopUp = ({}: PopUpProps) => {
               maxLength: { value: 4, message: '최대 4자만 입력 가능합니다.' }
             })}
           />
+          {errors.nickname && (
+            <p className={cx('popup-form-error')}>{errors.nickname.message}</p>
+          )}
         </div>
         <div className={cx('popup-form')}>
           <p className={cx('popup-form-label')}>비밀번호</p>
@@ -52,6 +55,9 @@ const PopUp = ({}: PopUpProps) => {
               pattern: { value: /^\d+$/, message: '숫자만 입력 가능합니다.' }
             })}
           />
+          {errors.password && (
+            <p className={cx('popup-form-error')}>{errors.password.message}</p>
+          )}
         </div>
       </div>
       <Button text="내 질문 보러 가기" size="md" type="submit" />
