@@ -11,6 +11,12 @@
   background-color: $white;
   box-shadow: $popup-shadow;
 
+  // 궁금해서 넣어본 드래그 방지 코드입니당. 잘 되는구만
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+
   &-forms {
     display: flex;
     flex-direction: column;
@@ -20,6 +26,7 @@
   }
 
   &-form {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -30,6 +37,16 @@
       @include text-style(18, bold);
       color: $secondary;
       margin: 0;
+    }
+
+    &-error {
+      position: absolute;
+      left: 8px;
+      bottom: -16px;
+      margin: 0;
+
+      @include text-style-12;
+      color: $red;
     }
   }
 }
