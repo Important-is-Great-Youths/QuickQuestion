@@ -6,7 +6,6 @@ const cx = classNames.bind(styles);
 
 interface TagsProps {
   isAll?: boolean
-  theme?: 'sunny' | 'rainy' | 'snowy'
 }
 
 const tagList: Array<'전체' | '학문' | '연예' | '게임' | '기타'> = [
@@ -17,7 +16,7 @@ const tagList: Array<'전체' | '학문' | '연예' | '게임' | '기타'> = [
   '기타'
 ]
 
-const Tags = ({ isAll = true, theme = 'sunny' }: TagsProps) => {
+const Tags = ({ isAll = true }: TagsProps) => {
   const filteredTagList = isAll ? tagList : tagList.slice(1)
   return (
     <div className={cx('tags')}>
