@@ -1,0 +1,28 @@
+.pwpopup {
+  display: flex;
+  padding: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  border-radius: 12px;
+  border: 1px solid $secondary;
+  background-color: $white;
+
+
+  &-label {
+    @include text-style(18, bold);
+    color: $secondary;
+    margin: 0;
+  }
+
+  &-inputbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+
+    &-input {
+      width: 52px;
+    }
+  }
+}
