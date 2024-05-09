@@ -1,0 +1,86 @@
+.label {
+  @include text-style(20, bold);
+  display: block;
+  margin-bottom: 8px;
+  color: $secondary;
+
+  @include responsive(M) {
+    @include text-style(18, bold);
+  }
+}
+
+.responsive-flex {
+  display: flex;
+  column-gap: 24px;
+
+  @include responsive(M) {
+    flex-direction: column;
+    row-gap: 28px;
+  }
+
+  &-item {
+    flex: 1;
+  }
+}
+
+.form {
+  display: flex;
+  gap: 60px;
+  flex-direction: column;
+  padding: 32px;
+  background-color: $white;
+  border-radius: 20px;
+
+  @include responsive(M) {
+    padding: 24px;
+  }
+
+  &-field {
+    display: flex;
+    gap: 32px;
+    flex-direction: column;
+
+    &-message {
+      @include text-style(14);
+      position: absolute;
+      margin-top: 4px;
+      color: $red;
+
+      @include responsive(M) {
+        @include text-style(12);
+      }
+    }
+
+    &-image {
+      &-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 140px;
+        height: 140px;
+        border: solid 1px $gray20;
+        border-radius: 16px;
+        cursor: pointer;
+      }
+
+      &-icon {
+        width: 28px;
+        height: 28px;
+        color: $secondary;
+      }
+
+      &-input {
+        display: none;
+      }
+    }
+  }
+}
+
+.button {
+  width: 400px;
+  margin: 0 auto;
+
+  @include responsive(M) {
+    width: 100%;
+  }
+}

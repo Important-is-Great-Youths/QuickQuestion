@@ -1,6 +1,7 @@
 .button {
   @include text-style(16, bold);
-
+  width: fit-content;
+  margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
 
