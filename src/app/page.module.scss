@@ -5,14 +5,18 @@
 
 .text {
   @include text-style(52);
-
+  margin-bottom: 40px;
   color: $white;
   font-family: 'Yangjin';
+  text-align: center;
+  letter-spacing: 2px;
 
   @include responsive(T) {
     @include text-style(40);
+    margin-bottom: 20px;
   }
   @include responsive(M) {
     @include text-style(28);
+    margin-bottom: 12px;
   }
 }
