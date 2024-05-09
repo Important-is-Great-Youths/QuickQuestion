@@ -25,4 +25,11 @@
       width: 52px;
     }
   }
+
+  &-error {
+    margin: 0;
+
+    @include text-style-12;
+    color: $red;
+  }
 }
