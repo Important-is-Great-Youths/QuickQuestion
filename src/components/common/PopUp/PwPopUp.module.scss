@@ -3,10 +3,12 @@
   padding: 12px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 8px;
   border-radius: 12px;
   border: 1px solid $secondary;
   background-color: $white;
+
+  width: 160px;
 
 
   &-label {
@@ -22,7 +24,7 @@
     align-self: stretch;
 
     &-input {
-      width: 52px;
+      flex: 1;
     }
   }
 
