@@ -1,6 +1,6 @@
 .input {
   border-radius: 12px;
-  @include text-style(16, bold);
+  @include text-style(16);
   width: 100%;
   color: $black;
   display: block;
@@ -19,6 +19,16 @@
       @include text-style(14);
       height: 40px;
       padding: 0px 12px;
+    }
+    &-responsive {
+      height: 48px;
+      padding: 0px 16px;
+      @include responsive(M) {
+        border-radius: 8px;
+        @include text-style(14);
+        height: 40px;
+        padding: 0px 12px;
+      }
     }
   }
 }

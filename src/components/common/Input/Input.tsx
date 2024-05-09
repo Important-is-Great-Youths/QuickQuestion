@@ -5,7 +5,7 @@ import styles from './Input.module.scss'
 const cx = classNames.bind(styles)
 
 interface InputProps {
-  size: 'lg' | 'md'
+  size: 'lg' | 'md' | 'responsive'
   type: 'text' | 'password'
   id?: string
   placeholder?: string

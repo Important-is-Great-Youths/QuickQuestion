@@ -50,7 +50,7 @@ const QuestionForm = () => {
             </label>
             <Input
               id="nickName"
-              size="lg"
+              size="responsive"
               type="text"
               placeholder={PLACEHOLDER.nickname}
               {...register('nickName', {
@@ -76,7 +76,7 @@ const QuestionForm = () => {
             </label>
             <Input
               id="password"
-              size="lg"
+              size="responsive"
               type="text"
               placeholder={PLACEHOLDER.password}
               {...register('password')}
