@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   gap: 12px;
-  @include responsive(T) {
+  @include responsive(M) {
     gap:8px;
   }
 }
@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   height: 40px;
-  @include responsive(T) {
+  @include responsive(M) {
     height: 32px;
   }
 }
@@ -36,15 +36,16 @@
   text-align: center;
   white-space: nowrap;
 
-  color: #222;  
+  color: $black;  
   background-color: $white;
   border: 1px solid $gray20;
   font-size: 16px;
   padding: 0 24px;
   border-radius: 12px;
   line-height: 40px;
+  cursor: pointer;
 
-  @include responsive(T) {
+  @include responsive(M) {
     font-size: 14px;
     padding: 0 20px;
     border-radius: 8px;
