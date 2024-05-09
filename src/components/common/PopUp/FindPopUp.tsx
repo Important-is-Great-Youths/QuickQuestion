@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import styles from './PopUp.module.scss'
+import styles from './FindPopUp.module.scss'
 import { useState } from 'react'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
@@ -7,28 +7,28 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 const cx = classNames.bind(styles)
 
-interface PopUpProps {}
+interface FindPopUpProps {}
 
-type PopUpFormValues = {
+type FindPopUpFormValues = {
   nickname: string
   password: string
 }
 
-const PopUp = ({}: PopUpProps) => {
+const FindPopUp = ({}: FindPopUpProps) => {
   const {
     register,
     formState: { errors },
     handleSubmit
-  } = useForm<PopUpFormValues>()
-  const onSubmit: SubmitHandler<PopUpFormValues> = (data) => {
+  } = useForm<FindPopUpFormValues>()
+  const onSubmit: SubmitHandler<FindPopUpFormValues> = (data) => {
     console.log(data)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cx('popup')}>
-      <div className={cx('popup-forms')}>
-        <div className={cx('popup-form')}>
-          <p className={cx('popup-form-label')}>닉네임</p>
+    <form onSubmit={handleSubmit(onSubmit)} className={cx('findpopup')}>
+      <div className={cx('findpopup-forms')}>
+        <div className={cx('findpopup-form')}>
+          <p className={cx('findpopup-form-label')}>닉네임</p>
           <Input
             size="sm"
             type="text"
@@ -39,11 +39,13 @@ const PopUp = ({}: PopUpProps) => {
             })}
           />
           {errors.nickname && (
-            <p className={cx('popup-form-error')}>{errors.nickname.message}</p>
+            <p className={cx('findpopup-form-error')}>
+              {errors.nickname.message}
+            </p>
           )}
         </div>
-        <div className={cx('popup-form')}>
-          <p className={cx('popup-form-label')}>비밀번호</p>
+        <div className={cx('findpopup-form')}>
+          <p className={cx('findpopup-form-label')}>비밀번호</p>
           <Input
             size="sm"
             type="password"
@@ -56,7 +58,9 @@ const PopUp = ({}: PopUpProps) => {
             })}
           />
           {errors.password && (
-            <p className={cx('popup-form-error')}>{errors.password.message}</p>
+            <p className={cx('findpopup-form-error')}>
+              {errors.password.message}
+            </p>
           )}
         </div>
       </div>
@@ -65,4 +69,4 @@ const PopUp = ({}: PopUpProps) => {
   )
 }
 
-export default PopUp
+export default FindPopUp
