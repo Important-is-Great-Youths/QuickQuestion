@@ -1,14 +1,12 @@
 .input {
   border-radius: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 24px;
+  @include text-style(16, bold);
   width: 100%;
-  color: #222;
+  color: $black;
   display: block;
   box-sizing: border-box;
   outline: none;
-  border: 1px solid #bbb;
+  border: 1px solid $gray20;
   background-color: $white;
 
   &-size {
@@ -16,10 +14,9 @@
       height: 48px;
       padding: 0px 16px;
     }
-    &-sm {
+    &-md {
       border-radius: 8px;
-      font-size: 14px;
-      line-height: 22px;
+      @include text-style(14);
       height: 40px;
       padding: 0px 12px;
     }
