@@ -36,6 +36,16 @@ const ModalProvider = ({ children }: { children: ReactNode }) => {
   const closeAllModals = () => {
     setModals([])
   }
+
+  return (
+    <ModalContext.Provider value={{ openModal, closeModal, closeAllModals }}>
+      {modals.map((modal) => (
+        <div key={modal.id} id={modal.id}>
+          {modal.content}
+        </div>
+      ))}
+    </ModalContext.Provider>
+  )
 }
 
 export const useModal = () => {
