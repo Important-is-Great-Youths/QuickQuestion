@@ -58,16 +58,3 @@ export const postRecipientsReactionsCreate = async (
   const res = await instance.get(`recipients/${id}/reactions/`, value)
   return res.data
 }
-
-export const postImageUrlCreate = async (formData: FormData) => {
-  const res = await instance.post(
-    'https://api.imgbb.com/1/upload?key=76c9edc5314add556ab072dbb9120f8b',
-    formData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }
-  )
-  return res.data
-}
