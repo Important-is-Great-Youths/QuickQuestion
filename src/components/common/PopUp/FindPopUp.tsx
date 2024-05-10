@@ -30,7 +30,7 @@ const FindPopUp = ({}: FindPopUpProps) => {
         <div className={cx('findpopup-form')}>
           <p className={cx('findpopup-form-label')}>닉네임</p>
           <Input
-            size="sm"
+            size="md"
             type="text"
             placeholder="닉네임을 입력해주세요"
             {...register('nickname', {
@@ -47,7 +47,7 @@ const FindPopUp = ({}: FindPopUpProps) => {
         <div className={cx('findpopup-form')}>
           <p className={cx('findpopup-form-label')}>비밀번호</p>
           <Input
-            size="sm"
+            size="md"
             type="password"
             placeholder="비밀번호를 입력해주세요"
             {...register('password', {
