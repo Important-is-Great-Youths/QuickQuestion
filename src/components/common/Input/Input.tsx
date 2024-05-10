@@ -9,16 +9,18 @@ interface InputProps {
   type: 'text' | 'password'
   id?: string
   placeholder?: string
+  maxLength?: number
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ size, type, id, placeholder, ...props }, ref) => {
+  ({ size, type, id, placeholder, maxLength, ...props }, ref) => {
     return (
       <input
         className={cx('input', `input-size-${size}`)}
         type={type}
         id={id}
         placeholder={placeholder}
+        maxLength={maxLength}
         ref={ref}
         {...props}
       />
