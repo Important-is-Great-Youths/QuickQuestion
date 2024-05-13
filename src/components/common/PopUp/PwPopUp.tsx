@@ -32,7 +32,7 @@ const PwPopUp = ({}: PwPopUpProps) => {
       <div className={cx('pwpopup-inputbox')}>
         <div className={cx('pwpopup-inputbox-input')}>
           <Input
-            size="sm"
+            size="md"
             type="password"
             placeholder="****"
             {...register('password', {
