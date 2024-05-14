@@ -1,5 +1,8 @@
 import { instance } from '@/lib/axios'
-import { PostRecipientsCreate } from '@/types/recipients'
+import {
+  PostRecipientsCreate,
+  PostRecipientsReactionsCreate
+} from '@/types/recipients'
 
 export const getRecipientsList = async (limit?: number, offset?: number) => {
   const res = await instance.get('recipients/', { params: { limit, offset } })
@@ -41,7 +44,7 @@ export const postRecipientsMessagesCreate = async (
 }
 
 export const getRecipientsReactionsList = async (
-  id: number,
+  id: string,
   limit?: number,
   offset?: number
 ) => {
@@ -52,10 +55,10 @@ export const getRecipientsReactionsList = async (
 }
 
 export const postRecipientsReactionsCreate = async (
-  id: number,
-  value: any /* 타입 변경해주세요 */
+  id: string,
+  value: PostRecipientsReactionsCreate
 ) => {
-  const res = await instance.get(`recipients/${id}/reactions/`, value)
+  const res = await instance.post(`recipients/${id}/reactions/`, value)
   return res.data
 }
 

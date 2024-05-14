@@ -16,3 +16,10 @@ export interface PostRecipientsCreate {
   backgroundColor?: string
   backgroundImageURL?: string | undefined
 }
+
+export interface PostRecipientsReactionsCreate {
+  emoji: string
+  type: 'increase' | 'decrease'
+  team?: string
+  id?: string
+}
