@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { UseFormReturn } from 'react-hook-form'
 
 import {
   getRecipientsList,
@@ -18,7 +19,10 @@ export const usePostRecipientsCreate = () =>
     mutationFn: (value: PostRecipientsCreate) => postRecipientsCreate(value)
   })
 
-export const usePostImageUrlCreate = () =>
+export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>
   useMutation({
-    mutationFn: (formData: FormData) => postImageUrlCreate(formData)
+    mutationFn: (formData: FormData) => postImageUrlCreate(formData),
+    onSuccess(data) {
+      setValue('backgroundImageURL', data.data.url)
+    }
   })
