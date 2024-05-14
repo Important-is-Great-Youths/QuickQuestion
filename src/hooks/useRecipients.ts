@@ -3,9 +3,14 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   getRecipientsList,
   postRecipientsCreate,
-  postImageUrlCreate
+  postImageUrlCreate,
+  getRecipientsReactionsList,
+  postRecipientsReactionsCreate
 } from '@/apis/recipients'
-import { PostRecipientsCreate } from '@/types/recipients'
+import {
+  PostRecipientsCreate,
+  PostRecipientsReactionsCreate
+} from '@/types/recipients'
 
 export const useGetRecipientsList = (limit?: number, offset?: number) =>
   useQuery({
@@ -21,4 +26,16 @@ export const usePostRecipientsCreate = () =>
 export const usePostImageUrlCreate = () =>
   useMutation({
     mutationFn: (formData: FormData) => postImageUrlCreate(formData)
+  })
+
+export const useGetReaction = (id: string, limit?: number, offset?: number) =>
+  useQuery({
+    queryKey: ['reaction'],
+    queryFn: () => getRecipientsReactionsList(id, limit, offset)
+  })
+
+export const usePostReaction = (id: string) =>
+  useMutation({
+    mutationFn: (value: PostRecipientsReactionsCreate) =>
+      postRecipientsReactionsCreate(id, value)
   })

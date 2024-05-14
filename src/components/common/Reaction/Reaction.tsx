@@ -1,39 +1,100 @@
 import classNames from 'classnames/bind'
 import styles from './Reaction.module.scss'
-
+import { useGetReaction, usePostReaction } from '@/hooks/useRecipients'
+import { useState, useEffect } from 'react'
 const cx = classNames.bind(styles)
 
 interface ReactionProps {
-  happyCount: number
-  lolCount: number
-  curiCount: number
+  id: string
+  isHide?: boolean
 }
 
-const Reaction = ({ happyCount, lolCount, curiCount }: ReactionProps) => {
-  const emojiandCountList = [
-    { emoji: '😊', count: happyCount },
-    { emoji: '🤣', count: lolCount },
-    { emoji: '🧐', count: curiCount }
-  ]
+interface ReactionData {
+  results: { emoji: string; count: number }[]
+}
 
-  const handleClickCount: any = () => {
-    // todo : api 연결 하기
+const emojiMap: { [key: string]: string } = {
+  '😊': 'happy',
+  '🤣': 'lol',
+  '🧐': 'curious'
+}
+
+interface EmojiCounts {
+  [key: string]: number
+}
+
+const Reaction = ({ id, isHide }: ReactionProps) => {
+  const { data } = useGetReaction(id) as { data: ReactionData }
+  const { mutate } = usePostReaction(id)
+
+  const [clickState, setClickState] = useState<{ [key: string]: boolean }>({
+    '😊': false,
+    '🤣': false,
+    '🧐': false
+  })
+
+  const [emojiCounts, setEmojiCounts] = useState<EmojiCounts>({
+    happy: 0,
+    lol: 0,
+    curious: 0
+  })
+
+  useEffect(() => {
+    data?.results.forEach(({ emoji, count }) => {
+      const key = emojiMap[emoji]
+      if (key) {
+        setEmojiCounts((prevCounts) => ({
+          ...prevCounts,
+          [key]: count
+        }))
+      }
+    })
+  }, [data])
+
+  const handleClickCount = (emoji: string) => {
+    const type = clickState[emoji] ? 'decrease' : 'increase'
+
+    mutate(
+      { emoji, type },
+      {
+        onSuccess: () => updateEmojiCount(emoji, type),
+        onError: (error) => console.error(`${emoji} 반응 전송 에러: `, error)
+      }
+    )
   }
 
-  return (
-    <div>
-      {emojiandCountList.map(({ emoji, count }) => (
+  const updateEmojiCount = (emoji: string, type: 'increase' | 'decrease') => {
+    const key = emojiMap[emoji]
+    if (key) {
+      setEmojiCounts((prevCounts) => ({
+        ...prevCounts,
+        [key]:
+          type === 'increase'
+            ? prevCounts[key] + 1
+            : Math.max(0, prevCounts[key] - 1)
+      }))
+    }
+
+    setClickState((prevState) => ({ ...prevState, [emoji]: !prevState[emoji] }))
+  }
+
+  const renderButton = (emoji: string) => {
+    const key = emojiMap[emoji]
+    const count = emojiCounts[key]
+    return (
+      (!isHide || count > 0) && (
         <button
           className={cx('reaction')}
-          type="button"
-          onClick={handleClickCount}
+          onClick={() => handleClickCount(emoji)}
         >
           <span className={cx('reaction-emoji')}>{emoji}</span>
-          <span>{count ?? 0}</span>
+          <span>{count}</span>
         </button>
-      ))}
-    </div>
-  )
+      )
+    )
+  }
+
+  return <div>{Object.keys(emojiMap).map((emoji) => renderButton(emoji))}</div>
 }
 
 export default Reaction
