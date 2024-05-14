@@ -1,4 +1,3 @@
-// FormProvider 사용 예시입니다. Tags 컴포넌트 사용시 참고해주세요.
 import { FormProvider, useForm } from 'react-hook-form'
 import Tags from '../Tags/Tags'
 
@@ -6,12 +5,15 @@ const TestModal = () => {
   const methods = useForm()
   const onSubmit = (data) => console.log(data)
   return (
-    <FormProvider {...methods}>
+    <div>
+      {/* <Tags isAll /> */}
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Tags />
+        <Tags
+          {...methods.register('tags', { required: '분야를 선택해주세요' })}
+        />
         <button type="submit">Submit</button>
       </form>
-    </FormProvider>
+    </div>
   )
 }
 
