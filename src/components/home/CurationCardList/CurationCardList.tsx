@@ -11,6 +11,7 @@ const CurationCardList = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [transX, setTransX] = useState(0)
   const [cardWidth, setCardWidth] = useState(0)
+  const [visibleCardCount, setVisibleCardCount] = useState(3)
 
   const cardRef = useRef<HTMLLIElement>(null)
 
@@ -34,6 +35,24 @@ const CurationCardList = () => {
     }
   }, [cardRef.current])
 
+  useEffect(() => {
+    const handleResize = () => {
+      const currentWindowSize = window.innerWidth
+
+      if (currentWindowSize > 767 && visibleCardCount === 2) {
+        setVisibleCardCount(3)
+      } else if (currentWindowSize <= 767 && visibleCardCount === 3) {
+        setVisibleCardCount(2)
+      }
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [visibleCardCount])
+
   const handleGetCardWidth = () => {
     setCardWidth(
       Number(cardRef.current?.getBoundingClientRect().width) + cardListGap
@@ -53,7 +72,7 @@ const CurationCardList = () => {
             setTransX(inrange(deltaX, -cardWidth, cardWidth))
           },
           onDragEnd: (deltaX) => {
-            const maxIndex = cards.length - 1
+            const maxIndex = cards.length - visibleCardCount
 
             if (deltaX < -100)
               setCurrentIndex(inrange(currentIndex + 1, 0, maxIndex))
