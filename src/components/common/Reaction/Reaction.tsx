@@ -6,6 +6,7 @@ const cx = classNames.bind(styles)
 
 interface ReactionProps {
   id: string
+  isHide?: boolean
 }
 
 interface ReactionData {
@@ -18,7 +19,7 @@ const initialClickState: { [key: string]: boolean } = {
   '🧐': false
 }
 
-const Reaction = ({ id }: ReactionProps) => {
+const Reaction = ({ id, isHide }: ReactionProps) => {
   const { data } = useGetReaction(id) as { data: ReactionData }
   const { mutate } = usePostReaction(id)
 
@@ -83,18 +84,33 @@ const Reaction = ({ id }: ReactionProps) => {
 
   return (
     <div>
-      <button className={cx('reaction')} onClick={() => handleClickCount('😊')}>
-        <span className={cx('reaction-emoji')}>😊</span>
-        <span>{happyCount}</span>
-      </button>
-      <button className={cx('reaction')} onClick={() => handleClickCount('🤣')}>
-        <span className={cx('reaction-emoji')}>🤣</span>
-        <span>{lolCount}</span>
-      </button>
-      <button className={cx('reaction')} onClick={() => handleClickCount('🧐')}>
-        <span className={cx('reaction-emoji')}>🧐</span>
-        <span>{curiousCount}</span>
-      </button>
+      {(!isHide || happyCount > 0) && (
+        <button
+          className={cx('reaction')}
+          onClick={() => handleClickCount('😊')}
+        >
+          <span className={cx('reaction-emoji')}>😊</span>
+          <span>{happyCount}</span>
+        </button>
+      )}
+      {(!isHide || lolCount > 0) && (
+        <button
+          className={cx('reaction')}
+          onClick={() => handleClickCount('🤣')}
+        >
+          <span className={cx('reaction-emoji')}>🤣</span>
+          <span>{lolCount}</span>
+        </button>
+      )}
+      {(!isHide || curiousCount > 0) && (
+        <button
+          className={cx('reaction')}
+          onClick={() => handleClickCount('🧐')}
+        >
+          <span className={cx('reaction-emoji')}>🧐</span>
+          <span>{curiousCount}</span>
+        </button>
+      )}
     </div>
   )
 }
