@@ -23,3 +23,13 @@ export interface PostRecipientsReactionsCreate {
   team?: string
   id?: string
 }
+
+export interface PostRecipientsMessagesCreate {
+  team: string
+  recipientId: string
+  sender: string
+  profileImageURL: string
+  relationship: string
+  content: string
+  font: string
+}

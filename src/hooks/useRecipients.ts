@@ -6,11 +6,13 @@ import {
   postRecipientsCreate,
   postImageUrlCreate,
   getRecipientsReactionsList,
-  postRecipientsReactionsCreate
+  postRecipientsReactionsCreate,
+  postRecipientsMessagesCreate
 } from '@/apis/recipients'
 import {
   PostRecipientsCreate,
-  PostRecipientsReactionsCreate
+  PostRecipientsReactionsCreate,
+  PostRecipientsMessagesCreate
 } from '@/types/recipients'
 
 export const useGetRecipientsList = (limit?: number, offset?: number) =>
@@ -32,6 +34,12 @@ export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>
     }
   })
 
+export const usePostRecipientsMessagesCreate = (id: string) => {
+  useMutation({
+    mutationFn: (value: PostRecipientsMessagesCreate) =>
+      postRecipientsMessagesCreate(id, value)
+  })
+}
 export const useGetReaction = (id: string, limit?: number, offset?: number) =>
   useQuery({
     queryKey: ['reaction'],

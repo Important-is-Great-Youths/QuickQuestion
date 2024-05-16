@@ -36,7 +36,7 @@ export const getRecipientsMessagesList = async (
 }
 
 export const postRecipientsMessagesCreate = async (
-  id: number,
+  id: string,
   value: any /* 타입 변경해주세요 */
 ) => {
   const res = await instance.get(`recipients/${id}/messages/`, value)

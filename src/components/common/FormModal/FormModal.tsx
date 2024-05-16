@@ -13,55 +13,47 @@ import { usePostRecipientsCreate } from '@/hooks/useRecipients'
 
 const cx = classNames.bind(styles)
 
-const FormModal = ({ question, onClose }: any) => {
+const FormModal = ({ onClose }: any) => {
   const {
     mutate: postRecipientsCreate,
     status,
     error
-  } = usePostRecipientsCreate()
+  } = usePostRecipientsCreate() // usePostRecipientsCreate 훅에서 반환된 객체의 이름을 postRecipientsCreate로 변경
 
-const FormModal = ({ question, onClose }: any) => {
-  const {
-    mutate: postRecipientsCreate,
-    status,
-    error
-  } = usePostRecipientsCreate()
+  let initialFormState = {
+    team: '',
+    recipientId: 0,
+    sender: '',
+    profileImageURL: '',
+    relationship: '친구',
+    content: '',
+    font: 'Noto Sans'
+  } //react-hook-form 사용해서 불러오기 state 사용 안해도 됨!
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors }
-  } = useForm({
-    defaultValues: {
-      team: '',
-      recipientId: 0,
-      sender: '',
-      profileImageURL: '',
-      relationship: '친구',
-      content: '',
-      font: 'Noto Sans',
-      password: ''
-    }
-  })
+  } = useForm()
+
+  const [question, setQuestion] = useState('') //질문 내용
+  const [form, setForm] = useState(initialFormState)
 
   const onSubmit = async (formData: any) => {
-    postRecipientsCreate(formData, {
-      onSuccess: () => {
-        console.log('Success!')
-        onClose()
-      },
-      onError: (err) => {
-        console.error('Error:', err)
-      }
-    })
+    // const { mutate } = usePostRecipientsCreate()
+    const { ...initialFormState } = formData
+    console.log(initialFormState)
+    // mutate(initialFormState) //
   }
-
   const handleCancel = () => {
     onClose()
   }
 
+
   return (
     <>
+      <div className={cx('modalWrapper')}>
       <div className={cx('modalWrapper')}>
         <div className={cx('question-container')}>
           <p className={cx('question-title')}>질문</p>
@@ -71,42 +63,32 @@ const FormModal = ({ question, onClose }: any) => {
           <div className={cx('questionField')}>
             <div className={cx('content-container')}>
               <label className={cx('label')}>프로필 사진</label>
-              <input type="text" {...register('profileImageURL')} />
             </div>
             <div className={cx('content-container')}>
               <label className={cx('label')}>닉네임</label>
               <Input
                 size="md"
                 type="text"
-                {...register('sender', {
+                {...register('nickname', {
                   required: true,
                   minLength: 1,
-                  maxLength: 10,
+                  maxLength: 4,
                   pattern: {
-                    value: /^[A-Za-z0-9가-힣]{3,10}$/,
-                    message: ERROR_MESSAGE.nickname.required
-                    value: /^[A-Za-z0-9가-힣]{3,10}$/,
+                    value: /^[A-za-z0-9가-힣]{3,10}$/,
                     message: ERROR_MESSAGE.nickname.required
                   }
                 })}
                 placeholder={PLACEHOLDER.nickname}
-                placeholder={PLACEHOLDER.nickname}
               />
-              {errors.sender && (
+              {errors.nickname && (
                 <p className={cx('error')}>
-                  {errors.sender.message?.toString()}
-                </p>
-              )}
-              {errors.sender && (
-                <p className={cx('error')}>
-                  {errors.sender.message?.toString()}
+                  {errors.nickname.message?.toString()}
                 </p>
               )}
             </div>
             <div className={cx('content-container')}>
               <label className={cx('label')}>비밀번호</label>
               <Input
-                size="md"
                 size="md"
                 type="password"
                 {...register('password', {
@@ -116,17 +98,10 @@ const FormModal = ({ question, onClose }: any) => {
                   pattern: {
                     value: /^[0-9]*$/,
                     message: ERROR_MESSAGE.password.required
-                    message: ERROR_MESSAGE.password.required
                   }
                 })}
                 placeholder={PLACEHOLDER.password}
-                placeholder={PLACEHOLDER.password}
               />
-              {errors.password && (
-                <p className={cx('error')}>
-                  {errors.password.message?.toString()}
-                </p>
-              )}
               {errors.password && (
                 <p className={cx('error')}>
                   {errors.password.message?.toString()}
@@ -136,7 +111,7 @@ const FormModal = ({ question, onClose }: any) => {
             <div className={cx('content-container')}>
               <label className={cx('label')}>답변 내용</label>
               <Textarea
-                {...register('content', {
+                {...register('answer', {
                   required: {
                     value: true,
                     message: ERROR_MESSAGE.answer.required
@@ -150,48 +125,17 @@ const FormModal = ({ question, onClose }: any) => {
                     message: ERROR_MESSAGE.answer.max
                   }
                 })}
-                id="content"
+                id="answer"
                 placeholder={PLACEHOLDER.answer}
               />
-              {errors.content && (
+              {errors.answer && (
                 <p className={cx('error')}>
-                  {errors.content.message?.toString()}
-                </p>
-              )}
-              <Textarea
-                {...register('content', {
-                  required: {
-                    value: true,
-                    message: ERROR_MESSAGE.answer.required
-                  },
-                  minLength: {
-                    value: 5,
-                    message: ERROR_MESSAGE.answer.min
-                  },
-                  maxLength: {
-                    value: 255,
-                    message: ERROR_MESSAGE.answer.max
-                  }
-                })}
-                id="content"
-                placeholder={PLACEHOLDER.answer}
-              />
-              {errors.content && (
-                <p className={cx('error')}>
-                  {errors.content.message?.toString()}
+                  {errors.answer.message?.toString()}
                 </p>
               )}
             </div>
           </div>
           <div className="button-container">
-            <Button
-              text="취소하기"
-              size="md"
-              variant="another"
-              type="button"
-              onClick={handleCancel}
-            />
-            <Button text="답변하기" size="md" variant="default" type="submit" />
             <Button
               text="취소하기"
               size="md"
