@@ -6,10 +6,12 @@
   border-radius: 16px;
   box-shadow: $main-shadow;
   box-sizing: border-box;
+  background: $white;
 
   &-title {
     color: $secondary;
     @include text-style(14, bold);
+    margin-bottom: 4px;
   }
 
   &-text {
@@ -21,6 +23,7 @@
   &-footer {
     display: flex;
     flex-direction: column;
+    gap: 4px;
   }
 
   &-answer {
