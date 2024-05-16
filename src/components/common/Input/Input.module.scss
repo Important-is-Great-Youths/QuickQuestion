@@ -1,3 +1,7 @@
+.container {
+  position: relative;
+}
+
 .input {
   border-radius: 12px;
   @include text-style(16);
@@ -31,4 +35,13 @@
       }
     }
   }
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
