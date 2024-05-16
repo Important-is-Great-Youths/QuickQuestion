@@ -9,7 +9,7 @@ const queryClient = new QueryClient()
 
 export function Providers(props: any) {
   return (
-    <ThemeProvider themes={['sunny', 'rainy', 'snowy']}>
+    <ThemeProvider themes={['sunny', 'rainy', 'snowy']} defaultTheme="sunny">
       <QueryClientProvider client={queryClient}>
         <ReactQueryStreamedHydration>
           {props.children}
