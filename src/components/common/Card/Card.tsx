@@ -1,8 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './Card.module.scss'
 import Reaction from '../Reaction/Reaction'
-import { useState } from 'react'
-import { TagKey, tagList } from '../Tags/Tags'
 const cx = classNames.bind(styles)
 
 interface CardProps {
