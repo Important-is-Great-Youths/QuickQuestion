@@ -1,5 +1,6 @@
 .reaction {
-  padding: 4px 8px;
+  @include text-style(14);
+  padding: 2px 8px;
   border-radius: 36px;
   border: 1px solid $secondary;
   color: $secondary;

@@ -1,11 +1,21 @@
 import { useState, useRef, useEffect } from 'react'
 import classNames from 'classnames/bind'
 
+import { useGetRecipientsList } from '@/hooks/useRecipients'
+import { GetRecipientsList } from '@/types/recipients'
 import registDragEvent from '@/utils/registDragEvent'
+import Card from '@/components/common/Card/Card'
 
 import styles from './CurationCardList.module.scss'
 
 const cx = classNames.bind(styles)
+
+interface CardType {
+  id: string
+  name: string
+  backgroundColor: 'beige' | 'purple' | 'blue' | 'green'
+  messageCount: number
+}
 
 const CurationCardList = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -13,12 +23,12 @@ const CurationCardList = () => {
   const [cardWidth, setCardWidth] = useState(0)
   const [visibleCardCount, setVisibleCardCount] = useState(3)
 
+  const { data: cards } = useGetRecipientsList(100)
+
   const cardRef = useRef<HTMLLIElement>(null)
 
   const totalCards = 6
   const cardListGap = 16
-
-  const cards = Array.from({ length: totalCards }, (_, index) => index + 1)
 
   const inrange = (v: number, min: number, max: number) => {
     if (v < min) return min
@@ -83,11 +93,21 @@ const CurationCardList = () => {
           }
         })}
       >
-        {cards.map((card) => (
-          <li className={cx('card-list-item')} key={card} ref={cardRef}>
-            {card}
-          </li>
-        ))}
+        {cards?.results
+          .sort(
+            (a: GetRecipientsList, b: GetRecipientsList) =>
+              b.reactionCount - a.reactionCount
+          )
+          .map(({ id, name, backgroundColor, messageCount }: CardType) => (
+            <li className={cx('card-list-item')} ref={cardRef} key={id}>
+              <Card
+                id={id}
+                cardTitle={backgroundColor}
+                cardText={name}
+                answerCount={messageCount}
+              />
+            </li>
+          ))}
       </ul>
     </div>
   )
