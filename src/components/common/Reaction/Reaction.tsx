@@ -24,11 +24,9 @@ interface EmojiCounts {
 }
 
 const Reaction = ({ id, isHide }: ReactionProps) => {
-  console.log(`나는 몇번째 ${id}`)
   const { data } = useGetReaction(id) as { data: ReactionData }
   const { mutate } = usePostReaction(id)
 
-  console.log(data)
   const [clickState, setClickState] = useState<{ [key: string]: boolean }>({
     '😊': false,
     '🤣': false,
