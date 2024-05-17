@@ -8,6 +8,7 @@ export const ERROR_MESSAGE = {
     required: '닉네임을 입력해 주세요',
     max: '4자 이내로 입력해 주세요',
     duplicate: '이미 사용중인 닉네임입니다',
+    letters: '특수문자는 포함할 수 없습니다',
     register: '닉네임 또는 비밀번호를 확인해 주세요'
   },
   password: {
