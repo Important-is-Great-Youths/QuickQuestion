@@ -34,7 +34,8 @@ const QuestionForm = () => {
 
   const { data } = useGetRecipientsList(100)
   const { mutate } = usePostRecipientsCreate()
-  const { mutate: getImageUrl } = usePostImageUrlCreate(setValue)
+  const { mutate: getImageUrl, isPending: isPendingGetImageUrl } =
+    usePostImageUrlCreate(setValue)
 
   const handleCreateImageUrl = async (
     value: React.ChangeEvent<HTMLInputElement>
@@ -61,8 +62,7 @@ const QuestionForm = () => {
 
     const newValue = { ...values, ...{ team: '2-3' } }
 
-    console.log(newValue)
-    // mutate(newValue)
+    mutate(newValue)
   }
 
   return (
@@ -103,7 +103,11 @@ const QuestionForm = () => {
                 required: ERROR_MESSAGE.nickname.required,
                 maxLength: {
                   value: 4,
-                  message: ERROR_MESSAGE.nickname.required
+                  message: ERROR_MESSAGE.nickname.max
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
+                  message: ERROR_MESSAGE.nickname.letters
                 },
                 validate: (value) =>
                   data.results.some(
@@ -162,45 +166,54 @@ const QuestionForm = () => {
         <div>
           <label className={cx('label')}>사진 (선택)</label>
           <div className={cx('form-field-image')}>
-            {imagePreview ? (
-              <div
-                className={cx('form-field-image-wrap')}
-                onClick={handleResetImage}
-              >
-                <div className={cx('form-field-image-preview')}>
-                  <Image
-                    className={cx('form-field-image-preview-cover')}
-                    src={imagePreview}
-                    alt="질문 등록 첨부 사진"
-                    fill
-                    sizes="100%"
-                  />
-                </div>
-                <X className={cx('form-field-image-wrap-icon')} />
-              </div>
-            ) : (
-              <>
-                <label
-                  className={cx('form-field-image-label')}
-                  htmlFor="backgroundImageSelect"
+            {!isPendingGetImageUrl ? (
+              imagePreview ? (
+                <div
+                  className={cx('form-field-image-wrap')}
+                  onClick={handleResetImage}
                 >
-                  <Plus className={cx('form-field-image-icon')} />
-                </label>
-                <input
-                  className={cx('form-field-image-input')}
-                  id="backgroundImageSelect"
-                  type="file"
-                  {...register('backgroundImageSelect', {
-                    onChange: (value) => handleCreateImageUrl(value)
-                  })}
-                />
-              </>
+                  <div className={cx('form-field-image-preview')}>
+                    <Image
+                      className={cx('form-field-image-preview-cover')}
+                      src={imagePreview}
+                      alt="질문 등록 첨부 사진"
+                      fill
+                      sizes="100%"
+                    />
+                  </div>
+                  <X className={cx('form-field-image-wrap-icon')} />
+                </div>
+              ) : (
+                <>
+                  <label
+                    className={cx('form-field-image-label')}
+                    htmlFor="backgroundImageSelect"
+                  >
+                    <Plus className={cx('form-field-image-icon')} />
+                  </label>
+                  <input
+                    className={cx('form-field-image-input')}
+                    id="backgroundImageSelect"
+                    type="file"
+                    {...register('backgroundImageSelect', {
+                      onChange: (value) => handleCreateImageUrl(value)
+                    })}
+                  />
+                </>
+              )
+            ) : (
+              <span className={cx('loader')}></span>
             )}
           </div>
         </div>
       </div>
       <div className={cx('button')}>
-        <Button text="질문하기" size="full" type="submit" />
+        <Button
+          text="질문하기"
+          size="full"
+          type="submit"
+          isDisabled={isPendingGetImageUrl}
+        />
       </div>
     </form>
   )

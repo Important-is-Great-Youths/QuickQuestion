@@ -3,9 +3,12 @@
   width: fit-content;
   margin: 0 auto;
   border-radius: 12px;
+  white-space: nowrap;
   overflow: hidden;
 
-  white-space: nowrap;
+  &:disabled {
+    background-color: $gray10;
+  }
 
   &-size {
     &-full {
@@ -36,7 +39,7 @@
       background-color: $secondary;
       border: none;
 
-      &:hover::after {
+      &:hover::after:not(:disabled) {
         position: absolute;
         top: 0;
         right: 0;
@@ -55,7 +58,7 @@
       background-color: $white;
       border: 1px solid $secondary;
 
-      &:hover::after {
+      &:hover::after:not(:disabled) {
         position: absolute;
         top: 0;
         right: 0;

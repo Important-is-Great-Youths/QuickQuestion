@@ -8,6 +8,7 @@ interface ButtonProps {
   size: 'full' | 'lg' | 'md' | 'sm'
   type: 'button' | 'submit'
   variant?: 'default' | 'another'
+  isDisabled?: boolean
   onClick?: () => void
 }
 const Button = ({
@@ -15,6 +16,7 @@ const Button = ({
   size,
   type,
   variant = 'default',
+  isDisabled,
   onClick
 }: ButtonProps) => {
   return (
@@ -26,6 +28,7 @@ const Button = ({
       )}
       type={type}
       onClick={onClick}
+      disabled={isDisabled}
     >
       {text}
     </button>
