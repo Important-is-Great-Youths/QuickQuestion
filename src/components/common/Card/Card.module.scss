@@ -1,6 +1,6 @@
 .card {
   display: flex;
-  padding: 12px 16px;
+  padding: 12px 12px;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
@@ -9,6 +9,11 @@
   box-shadow: $main-shadow;
   box-sizing: border-box;
   background: $white;
+
+  &-body {
+    height: 100%;
+    -webkit-user-drag: none;
+  }
 
   &-title {
     color: $secondary;
