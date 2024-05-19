@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './FormModal.module.scss'
 import Button from '@/components/common/Button/Button'
@@ -8,7 +8,17 @@ import { useForm } from 'react-hook-form'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import { usePostRecipientsCreate } from '@/hooks/useRecipients'
 
+import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
+import { usePostRecipientsCreate } from '@/hooks/useRecipients'
+
 const cx = classNames.bind(styles)
+
+const FormModal = ({ question, onClose }: any) => {
+  const {
+    mutate: postRecipientsCreate,
+    status,
+    error
+  } = usePostRecipientsCreate()
 
 const FormModal = ({ question, onClose }: any) => {
   const {
@@ -71,14 +81,22 @@ const FormModal = ({ question, onClose }: any) => {
                 {...register('sender', {
                   required: true,
                   minLength: 1,
-                  maxLength: 4,
+                  maxLength: 10,
                   pattern: {
+                    value: /^[A-Za-z0-9가-힣]{3,10}$/,
+                    message: ERROR_MESSAGE.nickname.required
                     value: /^[A-Za-z0-9가-힣]{3,10}$/,
                     message: ERROR_MESSAGE.nickname.required
                   }
                 })}
                 placeholder={PLACEHOLDER.nickname}
+                placeholder={PLACEHOLDER.nickname}
               />
+              {errors.sender && (
+                <p className={cx('error')}>
+                  {errors.sender.message?.toString()}
+                </p>
+              )}
               {errors.sender && (
                 <p className={cx('error')}>
                   {errors.sender.message?.toString()}
@@ -89,6 +107,7 @@ const FormModal = ({ question, onClose }: any) => {
               <label className={cx('label')}>비밀번호</label>
               <Input
                 size="md"
+                size="md"
                 type="password"
                 {...register('password', {
                   required: true,
@@ -97,10 +116,17 @@ const FormModal = ({ question, onClose }: any) => {
                   pattern: {
                     value: /^[0-9]*$/,
                     message: ERROR_MESSAGE.password.required
+                    message: ERROR_MESSAGE.password.required
                   }
                 })}
                 placeholder={PLACEHOLDER.password}
+                placeholder={PLACEHOLDER.password}
               />
+              {errors.password && (
+                <p className={cx('error')}>
+                  {errors.password.message?.toString()}
+                </p>
+              )}
               {errors.password && (
                 <p className={cx('error')}>
                   {errors.password.message?.toString()}
@@ -132,9 +158,40 @@ const FormModal = ({ question, onClose }: any) => {
                   {errors.content.message?.toString()}
                 </p>
               )}
+              <Textarea
+                {...register('content', {
+                  required: {
+                    value: true,
+                    message: ERROR_MESSAGE.answer.required
+                  },
+                  minLength: {
+                    value: 5,
+                    message: ERROR_MESSAGE.answer.min
+                  },
+                  maxLength: {
+                    value: 255,
+                    message: ERROR_MESSAGE.answer.max
+                  }
+                })}
+                id="content"
+                placeholder={PLACEHOLDER.answer}
+              />
+              {errors.content && (
+                <p className={cx('error')}>
+                  {errors.content.message?.toString()}
+                </p>
+              )}
             </div>
           </div>
           <div className="button-container">
+            <Button
+              text="취소하기"
+              size="md"
+              variant="another"
+              type="button"
+              onClick={handleCancel}
+            />
+            <Button text="답변하기" size="md" variant="default" type="submit" />
             <Button
               text="취소하기"
               size="md"

@@ -1,7 +1,7 @@
 .modalWrapper {
   display: flex;
   border-radius: 16px;
-  background: $gray20;
+  background: $white;
   flex-direction: column;
   @include responsive(T) {
     width: 600px;
@@ -100,4 +100,8 @@
   @include responsive(M) {
     gap: 20px;
   }
+}
+.error {
+  color: $red;
+  @include text-style-12;
 }

@@ -8,7 +8,7 @@
   border: 1px solid $gray20;
   border-radius: 12px;
   resize: none;
-
+  color: $black;
   @include responsive(M) {
     @include text-style(14);
     height: 180px;

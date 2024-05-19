@@ -6,6 +6,7 @@ import CurationCardList from '@/components/home/CurationCardList/CurationCardLis
 import QuestionForm from '@/components/home/QuestionForm/QuestionForm'
 
 import styles from './page.module.scss'
+import FormModal from '@/components/common/FormModal/FormModal'
 
 const cx = classNames.bind(styles)
 
@@ -20,6 +21,9 @@ const Home = () => {
         <div>
           <p className={cx('question-title')}>빠르게 질문 해보세요!</p>
           <QuestionForm />
+        </div>
+        <div>
+          <FormModal open={open} />
         </div>
       </div>
     </div>
