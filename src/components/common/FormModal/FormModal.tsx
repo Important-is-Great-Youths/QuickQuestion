@@ -1,64 +1,58 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 import styles from './FormModal.module.scss'
 import Button from '@/components/common/Button/Button'
 import Input from '@/components/common/Input/Input'
 import Textarea from '@/components/common/Textarea/Textarea'
-import { useState } from 'react'
-import { useMutation } from 'react-query'
-import axios from 'axios'
+import { useForm } from 'react-hook-form'
+import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
+import { usePostRecipientsCreate } from '@/hooks/useRecipients'
+import { GetRecipientsList } from '@/types/recipients'
+
 const cx = classNames.bind(styles)
 
-const FormModal = () => {
-  const initialFormState = {
-    nickname: '',
-    password: '',
-    answer: ''
-  }
-  const [question, setQuestion] = useState('') //질문 내용
-  const [formState, setFormState] = useState(initialFormState) //
+interface FormModalProps {
+  question: GetRecipientsList
+  onClose: () => void
+}
 
-  const handleNicknameInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    let nickname = event.target.value
-    if (nickname.length > 4) {
-      nickname = nickname.slice(0, 4)
-    }
-    setFormState((prevState) => ({
-      ...prevState,
-      nickname: event.target.value
-    }))
-  }
+const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
+  const {
+    mutate: postRecipientsCreate,
+    status,
+    error
+  } = usePostRecipientsCreate()
 
-  const handlePasswordInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    let newPassword = event.target.value
-    if (newPassword.length > 4) {
-      newPassword = newPassword.slice(0, 4)
-    }
-    setFormState((prevState) => ({
-      ...prevState,
-      password: newPassword
-    }))
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
+  const onSubmit = async (formData: any) => {
+    console.log(formData)
+    postRecipientsCreate(formData, {
+      onSuccess: () => {
+        console.log('Success!')
+        onClose()
+      },
+      onError: (err) => {
+        console.error('Error:', err)
+      }
+    })
   }
 
-  const handleAnswerInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      answer: event.target.value
-    }))
+  const handleCancel = () => {
+    onClose()
   }
+
   return (
-    <>
-      <div className={cx('modalWraaper')}>
-        <div className={cx('question-container')}>
-          <p className={cx('question-title')}>질문</p>
-          <p className={cx('question')}>{question}</p>
-        </div>
-
+    <div className={cx('modalWrapper')}>
+      <div className={cx('question-container')}>
+        <p className={cx('question-title')}>질문</p>
+        <p className={cx('question')}>{question.name}</p>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={cx('questionField')}>
           <div className={cx('content-container')}>
             <label className={cx('label')}>프로필 사진</label>
@@ -66,35 +60,84 @@ const FormModal = () => {
           <div className={cx('content-container')}>
             <label className={cx('label')}>닉네임</label>
             <Input
-              size="sm"
+              size="md"
               type="text"
-              // maxLength={4}
-              // onChange={handleNicknameInputChange}
+              {...register('sender', {
+                required: true,
+                minLength: 1,
+                maxLength: 10,
+                pattern: {
+                  value: /^[A-Za-z0-9가-힣]{3,10}$/,
+                  message: ERROR_MESSAGE.nickname.required
+                }
+              })}
+              placeholder={PLACEHOLDER.nickname}
             />
-            //reacthookform 컨트롤러 사용
+            {errors.sender && (
+              <p className={cx('error')}>{errors.sender.message?.toString()}</p>
+            )}
           </div>
           <div className={cx('content-container')}>
             <label className={cx('label')}>비밀번호</label>
             <Input
-              size="sm"
+              size="md"
               type="password"
-              // onChange={handlePasswordInputChange}
-              // maxLength={4}
+              {...register('password', {
+                required: true,
+                minLength: 4,
+                maxLength: 4,
+                pattern: {
+                  value: /^[0-9]*$/,
+                  message: ERROR_MESSAGE.password.required
+                }
+              })}
+              placeholder={PLACEHOLDER.password}
             />
+            {errors.password && (
+              <p className={cx('error')}>
+                {errors.password.message?.toString()}
+              </p>
+            )}
           </div>
           <div className={cx('content-container')}>
             <label className={cx('label')}>답변 내용</label>
             <Textarea
-            // onChange={handleAnswerInputChange}
+              {...register('content', {
+                required: {
+                  value: true,
+                  message: ERROR_MESSAGE.answer.required
+                },
+                minLength: {
+                  value: 5,
+                  message: ERROR_MESSAGE.answer.min
+                },
+                maxLength: {
+                  value: 255,
+                  message: ERROR_MESSAGE.answer.max
+                }
+              })}
+              id="content"
+              placeholder={PLACEHOLDER.answer}
             />
+            {errors.content && (
+              <p className={cx('error')}>
+                {errors.content.message?.toString()}
+              </p>
+            )}
           </div>
         </div>
         <div className="button-container">
-          <Button text="취소하기" size="md" variant="another" type="submit" />
-          <Button text="답변하기" size="md" variant="another" type="submit" />
+          <Button
+            text="취소하기"
+            size="md"
+            variant="another"
+            type="button"
+            onClick={handleCancel}
+          />
+          <Button text="답변하기" size="md" variant="default" type="submit" />
         </div>
-      </div>
-    </>
+      </form>
+    </div>
   )
 }
 
