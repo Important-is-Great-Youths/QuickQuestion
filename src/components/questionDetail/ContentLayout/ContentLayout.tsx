@@ -21,10 +21,13 @@ const ContentLayout = ({ text, messageCount = 0 }: ContentLayoutProps) => {
 
   return (
     <div className={cx('ContentLayout')}>
-      {isShow && (
-        <span className={cx('ContentLayout-num')}>{messageCount}개의</span>
-      )}
-      <span className={cx('ContentLayout-text')}>{text}</span>
+      <div className={cx('ContentLayout-title')}>
+        {isShow && (
+          <span className={cx('ContentLayout-num')}>{messageCount}개의</span>
+        )}
+        <span className={cx('ContentLayout-text')}>{text}</span>
+      </div>
+      {/* 컨텐츠 컴포넌트는 여기 붙여주세요 */}
     </div>
   )
 }
