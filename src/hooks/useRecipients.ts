@@ -34,7 +34,7 @@ export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>
 
 export const useGetReaction = (id: string, limit?: number, offset?: number) =>
   useQuery({
-    queryKey: ['reaction'],
+    queryKey: ['reaction', id],
     queryFn: () => getRecipientsReactionsList(id, limit, offset)
   })
 
