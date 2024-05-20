@@ -47,3 +47,18 @@ const Tags = React.forwardRef<HTMLInputElement, TagsProps>(
 )
 
 export default Tags
+
+// 사용 예시
+// const methods = useForm()
+// const onSubmit = (data) => console.log(data)
+// return (
+//   <div>
+//     {/* <Tags isAll /> */}
+//     <form onSubmit={methods.handleSubmit(onSubmit)}>
+//       <Tags
+//         {...methods.register('tags', { required: '분야를 선택해주세요' })}
+//       />
+//       <button type="submit">Submit</button>
+//     </form>
+//   </div>
+// )

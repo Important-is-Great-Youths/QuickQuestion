@@ -5,17 +5,26 @@ import Button from '../Button/Button'
 
 const cx = classNames.bind(styles)
 
-interface AlertModalProps {}
+interface AlertModalProps {
+  onCancel: () => void
+  onDelete: () => void
+}
 
-const AlertModal = ({}: AlertModalProps) => {
+const AlertModal = ({ onCancel, onDelete }: AlertModalProps) => {
   return (
     <div className={cx(`alertModal`)}>
       <div className={cx('alertModal-textBox')}>
         <p>답변을 삭제하시겠습니까?</p>
       </div>
       <div className={cx(`alertModal-buttonBox`)}>
-        <Button text="취소하기" size="md" type="button" variant="another" />
-        <Button text="답변하기" size="md" type="button" />
+        <Button
+          text="취소하기"
+          size="md"
+          type="button"
+          variant="another"
+          onClick={onCancel}
+        />
+        <Button text="답변하기" size="md" type="button" onClick={onDelete} />
       </div>
     </div>
   )

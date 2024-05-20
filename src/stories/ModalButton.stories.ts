@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
-import TestModal from '@/components/common/TestModal/TestModal'
+import ModalButton from '@/components/test/ModalButton'
 
 const meta = {
-  title: 'TestModal',
-  component: TestModal,
+  title: 'ModalButton',
+  component: ModalButton,
   parameters: {
     layout: 'centered'
   },
   tags: ['autodocs']
-} satisfies Meta<typeof TestModal>
+} satisfies Meta<typeof ModalButton>
 
 export default meta
 type Story = StoryObj<typeof meta>
