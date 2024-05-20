@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import classNames from 'classnames/bind'
 import styles from './Card.module.scss'
 import Reaction from '../Reaction/Reaction'
@@ -32,10 +33,10 @@ const Card = ({ id, cardTitle, cardText, answerCount }: CardProps) => {
   const koreanTitle = getKoreanTitle(cardTitle)
   return (
     <div className={cx('card')}>
-      <div className={cx('card-body')}>
+      <Link className={cx('card-body')} href={`/questiondetail/${id}`}>
         <h1 className={cx('card-title')}>{koreanTitle}</h1>
         <p className={cx('card-text')}>{getText}</p>
-      </div>
+      </Link>
       <div className={cx('card-footer')}>
         <Reaction id={id} isHide />
         <div className={cx('card-answer')}>답변 {answerCount}개</div>

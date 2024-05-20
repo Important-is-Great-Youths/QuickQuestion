@@ -1,5 +1,11 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
 .viewer {
   height: 220px;
+  padding: 0 4px;
   overflow: hidden;
 }
 
@@ -11,9 +17,26 @@
   &-item {
     flex-shrink: 0;
     width: calc((100% - 32px) / 3);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
     @include responsive(M) {
       width: calc((100% - 16px) / 2);
     }
+
+    @media screen and (max-width: 619px) {
+      width: calc((100%) / 1);
+    }
+  }
+}
+
+.button {
+  color: $white;
+
+  &-icon {
+    width: 28px;
+    height: 28px;
   }
 }

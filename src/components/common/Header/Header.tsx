@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import classNames from 'classnames/bind'
@@ -10,19 +11,17 @@ import Button from '@/components/common/Button/Button'
 
 const cx = classNames.bind(styles)
 
-interface HeaderProps {
-  page: 'main' | 'etc'
-}
-
-const Header = ({ page = 'main' }: HeaderProps) => {
+const Header = () => {
   const [mounted, setMounted] = useState(false)
   const { theme } = useTheme()
+  const params = usePathname()
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  const buttonText = page === 'main' ? '내 질문 찾기' : '질문 보러 가기'
+  const isParams = params.includes('questionlist')
+
   return (
     <header className={cx(`header`)}>
       <div className={cx(`header-frame`)}>
@@ -38,9 +37,25 @@ const Header = ({ page = 'main' }: HeaderProps) => {
             )}
           </div>
         </Link>
-        <div className={cx(`header-button`)}>
-          <Button text={buttonText} size="md" type="button" variant="default" />
-        </div>
+        {isParams ? (
+          <div className={cx(`header-button`)}>
+            <Button
+              text="내 질문 찾기"
+              size="md"
+              type="button"
+              variant="default"
+            />
+          </div>
+        ) : (
+          <Link className={cx(`header-button`)} href={'/questionlist'}>
+            <Button
+              text="질문 보러 가기"
+              size="md"
+              type="button"
+              variant="default"
+            />
+          </Link>
+        )}
       </div>
     </header>
   )
