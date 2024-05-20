@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  gap: 60px;
+  flex-direction: column;
+
+  @include responsive(M) {
+    gap: 48px;
+  }
+}
+
+.curation-card-list {
+  &-title {
+    @include text-style(28, bold);
+    margin-bottom: 16px;
+    color: $white;
+
+    @include responsive(M) {
+      @include text-style(24, bold);
+      margin-bottom: 12px;
+    }
+  }
+}
+
+.question-title {
+  @include text-style(52);
+  margin-bottom: 40px;
+  color: $white;
+  font-family: 'Yangjin';
+  text-align: center;
+  letter-spacing: 2px;
+
+  @include responsive(T) {
+    @include text-style(40);
+    margin-bottom: 20px;
+  }
+
+  @include responsive(M) {
+    @include text-style(28);
+    margin-bottom: 12px;
+  }
+}

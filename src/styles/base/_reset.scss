@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: $black;
+  background-color: $white;
+}
+
+h1 {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  background-color: transparent;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+input {
+  background-color: inherit;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px $white inset !important;
+}

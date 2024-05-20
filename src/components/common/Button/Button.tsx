@@ -8,8 +8,17 @@ interface ButtonProps {
   size: 'full' | 'lg' | 'md' | 'sm'
   type: 'button' | 'submit'
   variant?: 'default' | 'another'
+  isDisabled?: boolean
+  onClick?: () => void
 }
-const Button = ({ text, size, type, variant = 'default' }: ButtonProps) => {
+const Button = ({
+  text,
+  size,
+  type,
+  variant = 'default',
+  isDisabled,
+  onClick
+}: ButtonProps) => {
   return (
     <button
       className={cx(
@@ -18,6 +27,8 @@ const Button = ({ text, size, type, variant = 'default' }: ButtonProps) => {
         `button-variant-${variant}`
       )}
       type={type}
+      onClick={onClick}
+      disabled={isDisabled}
     >
       {text}
     </button>

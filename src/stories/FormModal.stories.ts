@@ -1,24 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import Button from '@/components/common/Button/Button'
+import FormModal from '@/components/common/FormModal/FormModal'
 
 const meta = {
-  title: 'Button',
-  component: Button
-} satisfies Meta<typeof Button>
+  title: 'FormModal',
+  component: FormModal
+} satisfies Meta<typeof FormModal>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    size: 'full',
-    text: '텍스트',
-    type: 'button',
-    variant: 'default'
-  }
-}
-
-export const Another: Story = {
   args: {
     size: 'full',
     text: '텍스트',

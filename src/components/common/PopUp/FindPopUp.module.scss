@@ -1,0 +1,52 @@
+.findpopup {
+  display: flex;
+  width: 240px;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+
+  border-radius: 16px;
+  border: 1px solid $secondary;
+  background-color: $white;
+  box-shadow: $popup-shadow;
+
+  // 궁금해서 넣어본 드래그 방지 코드입니당. 잘 되는구만
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+
+  &-forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    align-self: stretch;
+  }
+
+  &-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+
+    &-label {
+      @include text-style(18, bold);
+      color: $secondary;
+      margin: 0;
+    }
+
+    &-error {
+      position: absolute;
+      left: 8px;
+      bottom: -16px;
+      margin: 0;
+
+      @include text-style-12;
+      color: $red;
+    }
+  }
+}
