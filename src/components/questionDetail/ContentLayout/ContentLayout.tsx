@@ -6,9 +6,14 @@ const cx = classNames.bind(styles)
 interface ContentLayoutProps {
   text: '질문' | '답변'
   messageCount?: number
+  children: React.ReactNode
 }
 
-const ContentLayout = ({ text, messageCount = 0 }: ContentLayoutProps) => {
+const ContentLayout = ({
+  text,
+  messageCount = 0,
+  children
+}: ContentLayoutProps) => {
   const [isShow, setIsShow] = useState(false)
 
   useEffect(() => {
@@ -27,7 +32,7 @@ const ContentLayout = ({ text, messageCount = 0 }: ContentLayoutProps) => {
         )}
         <span className={cx('ContentLayout-text')}>{text}</span>
       </div>
-      {/* 컨텐츠 컴포넌트는 여기 붙여주세요 */}
+      {children}
     </div>
   )
 }
