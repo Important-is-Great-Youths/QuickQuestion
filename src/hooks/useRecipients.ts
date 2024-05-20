@@ -6,7 +6,8 @@ import {
   postRecipientsCreate,
   postImageUrlCreate,
   getRecipientsReactionsList,
-  postRecipientsReactionsCreate
+  postRecipientsReactionsCreate,
+  getRecipientsRead
 } from '@/apis/recipients'
 import {
   PostRecipientsCreate,
@@ -23,6 +24,13 @@ export const usePostRecipientsCreate = () =>
   useMutation({
     mutationFn: (value: PostRecipientsCreate) => postRecipientsCreate(value)
   })
+
+export const useGetRecipientsRead = (id: string) => {
+  return useQuery({
+    queryKey: ['recipientsRead', id],
+    queryFn: () => getRecipientsRead(id)
+  })
+}
 
 export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>
   useMutation({
