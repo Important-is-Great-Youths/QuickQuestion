@@ -1,0 +1,15 @@
+.ReactionContent {
+  display: flex;
+  padding: 28px;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  border-radius: 20px;
+  background: $white;
+  box-shadow: $main-shadow;
+
+  &-title {
+    color: $black;
+    @include text-style(20);
+  }
+}
