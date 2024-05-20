@@ -1,4 +1,5 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import ModalWrapper from '@/components/common/ModalWrapper/ModalWrapper'
+import { createContext, ReactNode, useContext, useState } from 'react'
 
 type ModalType = {
   id: string
@@ -40,10 +41,13 @@ const ModalProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ModalContext.Provider value={{ openModal, closeModal, closeAllModals }}>
       {modals.map((modal) => (
-        <div key={modal.id} id={modal.id}>
-          {modal.content}
-        </div>
+        <ModalWrapper key={modal.id} id={modal.id} onRemove={closeModal}>
+          <div key={modal.id} id={modal.id}>
+            {modal.content}
+          </div>
+        </ModalWrapper>
       ))}
+      {children}
     </ModalContext.Provider>
   )
 }

@@ -1,13 +1,17 @@
-import { createPortal } from 'react-dom'
+import { useModal } from '@/contexts/ModalProvider'
+import TestModal from '../TestModal/TestModal'
 
 const TestModalButton = () => {
+  const modalId = crypto.randomUUID()
+  const { openModal, closeModal } = useModal()
+
+  const handleTestModal = () => {
+    openModal(<TestModal />, modalId)
+  }
+
   return (
-    <div style={{ border: '2px solid black' }}>
-      <p>This child is placed in the parent div.</p>
-      {createPortal(
-        <p>This child is placed in the document body.</p>,
-        document.body
-      )}
+    <div>
+      <button onClick={handleTestModal}>openmodal</button>
     </div>
   )
 }
