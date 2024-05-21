@@ -62,6 +62,8 @@ const QuestionForm = () => {
 
     const newValue = { ...values, ...{ team: '2-3' } }
 
+    localStorage.setItem('user', JSON.stringify({ nickName, password }))
+
     mutate(newValue)
   }
 
