@@ -7,21 +7,17 @@ import Textarea from '@/components/common/Textarea/Textarea'
 import { useForm } from 'react-hook-form'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import { usePostRecipientsCreate } from '@/hooks/useRecipients'
-import { GetRecipientsList } from '@/types/recipients'
+import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인터페이스를 가져옴
 
 const cx = classNames.bind(styles)
 
 interface FormModalProps {
-  question: GetRecipientsList
-  onClose: () => void
+  question: string
+  onClose: () => void // 모달 닫기 함수
 }
 
 const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
-  const {
-    mutate: postRecipientsCreate,
-    status,
-    error
-  } = usePostRecipientsCreate()
+  const { mutate: postRecipientsCreate } = usePostRecipientsCreate()
 
   const {
     register,
@@ -31,6 +27,7 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
 
   const onSubmit = async (formData: any) => {
     console.log(formData)
+
     postRecipientsCreate(formData, {
       onSuccess: () => {
         console.log('Success!')
@@ -50,7 +47,7 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
     <div className={cx('modalWrapper')}>
       <div className={cx('question-container')}>
         <p className={cx('question-title')}>질문</p>
-        <p className={cx('question')}>{question.name}</p>
+        <p className={cx('question')}>{question}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={cx('questionField')}>
@@ -64,8 +61,8 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
               type="text"
               {...register('sender', {
                 required: true,
-                minLength: 1,
-                maxLength: 10,
+                minLength: 4,
+                maxLength: 4,
                 pattern: {
                   value: /^[A-Za-z0-9가-힣]{3,10}$/,
                   message: ERROR_MESSAGE.nickname.required

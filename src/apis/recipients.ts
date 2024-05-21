@@ -14,8 +14,8 @@ export const postRecipientsCreate = async (value: PostRecipientsCreate) => {
   return res.data
 }
 
-export const getRecipientsRead = async (id: number) => {
-  const res = await instance.get(`recipients/${id}`)
+export const getRecipientsRead = async (id: string) => {
+  const res = await instance.get(`recipients/${id}/`)
   return res.data
 }
 
