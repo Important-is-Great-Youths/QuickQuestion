@@ -12,7 +12,7 @@ import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인�
 const cx = classNames.bind(styles)
 
 interface FormModalProps {
-  question: GetRecipientsList
+  question: string
   onClose: () => void // 모달 닫기 함수
 }
 
@@ -47,7 +47,7 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
     <div className={cx('modalWrapper')}>
       <div className={cx('question-container')}>
         <p className={cx('question-title')}>질문</p>
-        <p className={cx('question')}>{question.name}</p>
+        <p className={cx('question')}>{question}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={cx('questionField')}>

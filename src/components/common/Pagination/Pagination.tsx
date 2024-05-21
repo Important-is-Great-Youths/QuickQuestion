@@ -7,7 +7,7 @@ const cx = classNames.bind(styles)
 
 interface PaginationProps {
   size?: 'lg' | 'md'
-  data: GetRecipientsList[]
+  data: GetRecipientsList
   limit: number
   currentPage: number
   totalCount?: number
@@ -18,7 +18,7 @@ export const Pagination = ({
   data,
   limit,
   currentPage,
-  totalCount = data.length,
+  totalCount = data.length || 0,
   size,
   onPageChange
 }: PaginationProps) => {
@@ -31,7 +31,6 @@ export const Pagination = ({
 
   const prev = Math.max(1, currentPage - 1) // 이전버튼
   const next = Math.min(totalPage, currentPage + 1) //다음버튼
-
   const buttons = [] //버튼들 배열
   for (let i = firstNumber; i <= lastNumber; i++) {
     buttons.push(
