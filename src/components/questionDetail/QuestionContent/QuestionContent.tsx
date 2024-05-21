@@ -5,6 +5,9 @@ import styles from './QuestionContent.module.scss'
 import useDate from '@/hooks/useDate'
 import { useGetRecipientsRead } from '@/hooks/useRecipients'
 import { useEffect, useState } from 'react'
+import { useModal } from '@/contexts/ModalProvider'
+import AlertModal from '@/components/common/AlertModal/AlertModal'
+import FormModal from '@/components/common/FormModal/FormModal'
 
 const cx = classNames.bind(styles)
 
@@ -41,8 +44,20 @@ const QuestionContent = ({ id }: QuestionContentProps) => {
   const questionText = name.split('/')[2]
   const date = useDate(data.createdAt)
 
-  const handleAnswer = () => {
+  const modalId = crypto.randomUUID()
+  const { openModal, closeModal } = useModal()
+
+  const handleAnswerModal = () => {
     console.log('답변하기')
+    openModal(
+      <FormModal
+        question={questionText}
+        onClose={() => {
+          closeModal(modalId)
+        }}
+      />,
+      modalId
+    )
   }
 
   return (
@@ -62,7 +77,7 @@ const QuestionContent = ({ id }: QuestionContentProps) => {
             text="답변하기"
             size="lg"
             type="button"
-            onClick={handleAnswer}
+            onClick={handleAnswerModal}
           />
         </div>
       )}
