@@ -1,1 +1,9 @@
-// 스타일
+.container {
+  display: flex;
+  gap: 60px;
+  flex-direction: column;
+
+  @include responsive(M) {
+    gap: 40px;
+  }
+}
