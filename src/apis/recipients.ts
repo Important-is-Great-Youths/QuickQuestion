@@ -19,13 +19,13 @@ export const getRecipientsRead = async (id: string) => {
   return res.data
 }
 
-export const deleteRecipientsDelete = async (id: number) => {
-  const res = await instance.get(`recipients/${id}`)
+export const deleteRecipientsDelete = async (id: string) => {
+  const res = await instance.get(`recipients/${id}/`)
   return res.data
 }
 
 export const getRecipientsMessagesList = async (
-  id: number,
+  id: string,
   limit?: number,
   offset?: number
 ) => {
@@ -36,7 +36,7 @@ export const getRecipientsMessagesList = async (
 }
 
 export const postRecipientsMessagesCreate = async (
-  id: number,
+  id: string,
   value: any /* 타입 변경해주세요 */
 ) => {
   const res = await instance.get(`recipients/${id}/messages/`, value)

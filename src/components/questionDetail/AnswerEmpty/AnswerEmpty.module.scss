@@ -1,0 +1,13 @@
+.container {
+  @include text-style(20, bold);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 24px;
+  color: $gray20;
+  background-color: $white;
+  border: solid 1px $secondary;
+  border-radius: 16px;
+}
