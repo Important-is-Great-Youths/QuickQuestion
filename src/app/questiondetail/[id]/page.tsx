@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import classNames from 'classnames/bind'
 
 import { useGetRecipientsRead } from '@/hooks/useRecipients'
-import AnswerEmpty from '@/components/questionDetail/AnswerEmpty/AnswerEmpty'
 
 import styles from './questiondetail.module.scss'
 
@@ -30,11 +29,7 @@ const QuestionDetailPage = () => {
     }
   })
 
-  return (
-    <div className={cx('container')}>
-      <AnswerEmpty userStatus={userState} />
-    </div>
-  )
+  return <div className={cx('container')}></div>
 }
 
 export default QuestionDetailPage
