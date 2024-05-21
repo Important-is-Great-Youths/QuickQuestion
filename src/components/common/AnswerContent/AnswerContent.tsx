@@ -2,14 +2,14 @@ import classNames from 'classnames/bind'
 import styles from './AnswerContent.module.scss'
 import Image from 'next/image'
 import { CheckCircle2, SquarePen, SquareX } from 'lucide-react'
-import { format } from 'date-fns'
+import useDate from '@/hooks/useDate'
 
 const cx = classNames.bind(styles)
 
 const testData = {
   src: 'https://images.unsplash.com/photo-1525351326368-efbb5cb6814d?q=80&w=1180&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   nickname: '김답변',
-  date: new Date(),
+  date: new Date().toISOString(),
   answer: `병아리들은 애기때는 깃털이 아닌 솜털이에요!
         부화한지 일주일정도 지나게 되면 노란 솜털이 빠지고하얀 깃털, 갈색 깃털
         등 다양한 색의 깃털이 나오게 되는거죵.
@@ -20,7 +20,7 @@ const testData = {
 interface AnswerContentProps {
   profileImage: string
   nickname: string
-  date: Date
+  date: string
   answer: string
   onEdit: () => void
   onDelete: () => void
@@ -35,7 +35,7 @@ const AnswerContent = ({
   onDelete,
   onCheck
 }: AnswerContentProps) => {
-  const formattedDate = format(date, 'yyyy.MM.dd')
+  const formattedDate = useDate(date)
   return (
     <div className={cx('answercontent')}>
       <div className={cx('answercontent-top')}>
