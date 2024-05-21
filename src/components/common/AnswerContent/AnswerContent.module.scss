@@ -1,0 +1,113 @@
+.answercontent {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+
+  border-radius: 16px;
+  border: 1px solid $secondary;
+  width: 100%;
+
+  @include responsive(T){
+    padding: 16px;
+  }
+
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+
+    &-profile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        p {
+          @include text-style-16
+        }
+      }
+
+      &-image {
+        border-radius: 100%;
+      }
+
+      p {
+        margin: 0;
+        color: $gray20;
+        @include text-style-14
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+
+      button {
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        color: $secondary;
+        width: 24px;
+        height: 24px;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  &-middle {
+    color: $black;
+    @include text-style-18;
+    width: 100%;
+    margin: 0;
+  }
+
+  &-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    align-self: stretch;
+
+    &-check {
+      display: flex;
+      height: 40px;
+      padding: 0 16px;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      border: 1px solid $gray10;
+      background-color: transparent;
+      color: $secondary;
+
+      &:hover {
+        color: $primary;
+      }
+
+      &-image {
+        width: 20px;
+        height: 20px;
+      }
+
+      p {
+        margin: 0;
+        @include text-style-16
+      }
+    }
+  }
+}
