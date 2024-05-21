@@ -19,7 +19,7 @@ const AnswerEmpty = ({ userStatus }: AnswerEmpty) => {
         width={100}
         height={77}
       />
-      {userStatus ? (
+      {userStatus === 'answer' ? (
         <p>당신의 지식을 공유해주세요</p>
       ) : (
         <p>답변을 기다려 주세요</p>
