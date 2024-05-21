@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import classNames from 'classnames/bind'
 
@@ -17,6 +17,18 @@ const QuestionDetailPage = () => {
   const { data } = useGetRecipientsRead(id)
 
   const [userState, setUserState] = useState<'question' | 'answer'>('answer')
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem('user')
+
+    if (localStorageData) {
+      JSON.parse(localStorageData).nickName === data?.name.split('/')[0] &&
+        JSON.parse(localStorageData).password === data?.name.split('/')[1] &&
+        setUserState('question')
+    } else {
+      setUserState('answer')
+    }
+  })
 
   return (
     <div className={cx('container')}>
