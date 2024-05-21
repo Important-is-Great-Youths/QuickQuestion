@@ -1,0 +1,46 @@
+.questionContent {
+  background: $white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.questionHeader {
+  display: flex;
+  align-items: center;
+  &-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    @include text-style(18, bold);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: $secondary;
+    font-style: normal;
+    margin-right: 8px;
+  }
+  &-category {
+    color: $secondary;
+  }
+}
+
+.questionDetails {
+  color: $gray20;
+  &-author {
+    margin-right: 12px;
+    @include text-style(16);
+  }
+  &-date {
+    @include text-style(14);
+  }
+}
+
+.questionText {
+  color: $black;
+  @include text-style(20, bold);
+}
+
+.questionBtn {
+  margin-left: auto;
+}
