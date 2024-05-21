@@ -111,11 +111,11 @@ const CurationCardList = () => {
           })}
         >
           {cards?.results
-            .slice(0, totalCards)
             .sort(
               (a: GetRecipientsList, b: GetRecipientsList) =>
                 b.reactionCount - a.reactionCount
             )
+            .slice(0, totalCards)
             .map(({ id, name, backgroundColor, messageCount }: CardType) => (
               <li className={cx('card-list-item')} ref={cardRef} key={id}>
                 <Card
