@@ -1,4 +1,4 @@
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { UseFormReturn } from 'react-hook-form'
 
@@ -33,16 +33,9 @@ export const usePostRecipientsCreate = () => {
 
 export const useGetRecipientsRead = (id: string) =>
   useQuery({
-    queryKey: ['recipientsRead'],
-    queryFn: () => getRecipientsRead(id)
-  })
-
-export const useGetRecipientsRead = (id: string) => {
-  return useQuery({
     queryKey: ['recipientsRead', id],
     queryFn: () => getRecipientsRead(id)
   })
-}
 
 export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>
   useMutation({
