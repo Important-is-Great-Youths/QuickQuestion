@@ -3,6 +3,8 @@ import styles from './AnswerContent.module.scss'
 import Image from 'next/image'
 import { CheckCircle2, SquarePen, SquareX } from 'lucide-react'
 import useDate from '@/hooks/useDate'
+import PwPopUp from '../PopUp/PwPopUp'
+import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 
@@ -22,8 +24,6 @@ interface AnswerContentProps {
   nickname: string
   date: string
   answer: string
-  onEdit: () => void
-  onDelete: () => void
   onCheck: () => void
 }
 
@@ -31,11 +31,26 @@ const AnswerContent = ({
   profileImage = testData.src,
   nickname = testData.nickname,
   date = testData.date,
-  onEdit,
-  onDelete,
   onCheck
 }: AnswerContentProps) => {
   const formattedDate = useDate(date)
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [popupMode, setPopupMode] = useState('')
+
+  const handlePopupOpen = () => {
+    setIsPopupOpen(!isPopupOpen)
+  }
+
+  const onEdit = () => {
+    handlePopupOpen()
+    setPopupMode('edit')
+  }
+
+  const onDelete = () => {
+    handlePopupOpen()
+    setPopupMode('delete')
+  }
+
   return (
     <div className={cx('answercontent')}>
       <div className={cx('answercontent-top')}>
@@ -53,12 +68,23 @@ const AnswerContent = ({
           <p>{formattedDate}</p>
         </div>
         <div className={cx('answercontent-top-buttons')}>
-          <button onClick={onEdit}>
+          <button
+            onClick={onEdit}
+            className={cx('answercontent-top-buttons-button')}
+          >
             <SquarePen />
           </button>
-          <button onClick={onDelete}>
+          <button
+            onClick={onDelete}
+            className={cx('answercontent-top-buttons-button')}
+          >
             <SquareX />
           </button>
+          {isPopupOpen && (
+            <div className={cx('answercontent-top-pwpopup')}>
+              <PwPopUp />
+            </div>
+          )}
         </div>
       </div>
       <p className={cx('answercontent-middle')}>{testData.answer}</p>

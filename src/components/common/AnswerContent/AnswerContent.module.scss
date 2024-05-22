@@ -50,11 +50,12 @@
     }
 
     &-buttons {
+      position: relative;
       display: flex;
       align-items: flex-start;
       gap: 12px;
 
-      button {
+      &-button {
         border: 0;
         background-color: transparent;
         padding: 0;
@@ -67,6 +68,11 @@
           color: $primary;
         }
       }
+    }
+    &-pwpopup {
+      position: absolute;
+      top: 112%;
+      right: 0;
     }
   }
 
