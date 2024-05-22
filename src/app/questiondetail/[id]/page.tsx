@@ -57,6 +57,7 @@ const QuestionDetailPage = () => {
         ) : (
           recentMessages.map((answer: RecentMessages) => (
             <AnswerContent
+              key={answer.id}
               profileImage={answer.profileImageURL}
               nickname={answer.sender}
               date={answer.createdAt}
