@@ -8,7 +8,7 @@ interface PaginationProps {
   data: GetRecipientsList
   limit: number
   currentPage: number
-  totalCount?: number
+  totalCount: number
   viewCount: number
   onPageChange: (page: number) => void
 }
