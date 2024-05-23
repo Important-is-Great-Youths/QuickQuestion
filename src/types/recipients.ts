@@ -23,3 +23,26 @@ export interface PostRecipientsReactionsCreate {
   team?: string
   id?: string
 }
+
+export interface RecentMessages {
+  id: number
+  recipientId: number
+  sender: string
+  profileImageURL: string
+  relationship: string
+  content: string
+  font: string
+  createdAt: string
+}
+
+export interface RecipientsDetailData {
+  id: number
+  name: string
+  backgroundColor: 'beige' | 'purple' | 'blue' | 'green'
+  backgroundImageURL: string
+  createdAt: string
+  messageCount: number
+  recentMessages: RecentMessages[]
+  reactionCount: number
+  topReactions: any[]
+}

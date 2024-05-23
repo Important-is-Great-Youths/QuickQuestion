@@ -8,35 +8,22 @@ import { useEffect, useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
 import FormModal from '@/components/common/FormModal/FormModal'
+import { RecipientsDetailData } from '@/types/recipients'
 
 const cx = classNames.bind(styles)
 
 interface QuestionContentProps {
   id?: string
+  userStatus: 'question' | 'answer'
+  data: RecipientsDetailData
 }
 
-const QuestionContent = ({ id }: QuestionContentProps) => {
+const QuestionContent = ({ id, userStatus, data }: QuestionContentProps) => {
   if (id === undefined) {
     return <div>Invalid ID</div>
   }
-  const userId = window.localStorage.getItem('id')
-  const [answerUser, setAnswerUser] = useState(true)
 
-  useEffect(() => {
-    if (userId === id) {
-      setAnswerUser(false)
-    }
-    return () => {
-      setAnswerUser(true)
-    }
-  }, [id])
-
-  const { data } = useGetRecipientsRead(id)
   const getTagName = useChangeTagName()
-
-  if (!data) {
-    return <div>Loading...</div>
-  }
 
   const tagName = getTagName(data.backgroundColor)
   const name = data.name
@@ -71,7 +58,7 @@ const QuestionContent = ({ id }: QuestionContentProps) => {
         <span className={cx('questionDetails-date')}>{date}</span>
       </div>
       <div className={cx('questionText')}>{questionText}</div>
-      {answerUser && (
+      {userStatus === 'answer' && (
         <div className={cx('questionBtn')}>
           <Button
             text="답변하기"
