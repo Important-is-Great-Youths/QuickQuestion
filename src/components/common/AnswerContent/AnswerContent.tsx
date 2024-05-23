@@ -6,8 +6,8 @@ import useDate from '@/hooks/useDate'
 import PwPopUp from '../PopUp/PwPopUp'
 import { useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
-import AlertModal from '../AlertModal/AlertModal'
-import Textarea from '../Textarea/Textarea'
+import AlertModal from '@/components/common/AlertModal/AlertModal'
+import Textarea from '@/components/common/Textarea/Textarea'
 
 const cx = classNames.bind(styles)
 
@@ -23,7 +23,7 @@ interface AnswerContentProps {
   nickname: string
   date: string
   answer: string
-  userType: 'questioner' | 'respondent' | 'etc'
+  userType: 'question' | 'answer'
   onCheck: () => void
 }
 
@@ -32,7 +32,7 @@ const AnswerContent = ({
   nickname = testData.nickname,
   date = testData.date,
   answer = testData.answer,
-  userType = 'etc',
+  userType = 'question',
   onCheck
 }: AnswerContentProps) => {
   const formattedDate = useDate(date)
@@ -96,7 +96,7 @@ const AnswerContent = ({
           </div>
           <p>{formattedDate}</p>
         </div>
-        {userType === 'respondent' && (
+        {userType === 'answer' && (
           <div className={cx('answercontent-top-buttons')}>
             <button
               onClick={handleEditButton}
@@ -123,7 +123,7 @@ const AnswerContent = ({
       ) : (
         <p className={cx('answercontent-middle')}>{answer}</p>
       )}
-      {userType === 'questioner' && (
+      {userType === 'question' && (
         <div className={cx('answercontent-bottom')}>
           <button
             className={cx('answercontent-bottom-check')}
