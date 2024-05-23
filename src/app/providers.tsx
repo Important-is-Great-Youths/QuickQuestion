@@ -11,14 +11,14 @@ const queryClient = new QueryClient()
 export function Providers(props: any) {
   return (
     <ThemeProvider themes={['sunny', 'rainy', 'snowy']} defaultTheme="sunny">
-      <ModalProvider>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryStreamedHydration>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryStreamedHydration>
+          <ModalProvider>
             {props.children}
             <ReactQueryDevtools initialIsOpen={false} />
-          </ReactQueryStreamedHydration>
-        </QueryClientProvider>
-      </ModalProvider>
+          </ModalProvider>
+        </ReactQueryStreamedHydration>
+      </QueryClientProvider>
     </ThemeProvider>
   )
 }
