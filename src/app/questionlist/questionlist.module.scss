@@ -13,6 +13,10 @@
   letter-spacing: 2px;
   @include text-style-52;
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+}
 .cardContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
