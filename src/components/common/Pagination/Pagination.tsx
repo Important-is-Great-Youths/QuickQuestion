@@ -50,8 +50,7 @@ export const Pagination = ({
       </button>
     )
   }
-  console.log(currentPage)
-  console.log({ totalPage, currentGroup, firstNumber, lastNumber })
+
   return (
     <div className={cx('pagination')}>
       <button

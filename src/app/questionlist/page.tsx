@@ -10,6 +10,7 @@ import { useState } from 'react'
 import FormModal from '@/components/common/FormModal/FormModal'
 import { Pagination } from '@/components/common/Pagination/Pagination'
 import Card from '@/components/common/Card/Card'
+import Tags from '@/components/common/Tags/Tags'
 
 const cx = classNames.bind(styles)
 
@@ -44,20 +45,27 @@ const QuestionListPage = () => {
     )
   }
   const totalCount = data.results.length
-  // Math.ceil(현재 페이지 번호 / 한 화면에 보여질 페이지 개수)
+
   const pageGroup = Math.ceil(currentPage / 5)
   const startIndex = (currentPage - 1) * 6
-  // const startIndex = (pageGroup - 1) * 5 + 1
+
   const endIndex = startIndex + viewCount
   const paginatedData = data.results.slice(startIndex, endIndex)
   console.log(startIndex, endIndex, paginatedData)
 
   return (
     <div className={cx('main')}>
-      <button onClick={handleTestModal}>openmodal</button>
-      <ul>
+      <p className={cx('title')}> 당신의 지식을 뽐내보세요! </p>
+
+      <div>
+        <Tags />
+        <button onClick={handleTestModal}>openmodal</button>
+      </div>
+
+      <ul className={cx('cardContainer')}>
         {paginatedData.map((question: GetRecipientsList) => (
           <Card
+            key={question.id}
             id={question.id.toString()}
             cardTitle={'beige'}
             cardText={question.name}
@@ -65,15 +73,16 @@ const QuestionListPage = () => {
           />
         ))}
       </ul>
-
-      <Pagination
-        data={data.results}
-        viewCount={viewCount}
-        totalCount={data.results.length}
-        limit={limit}
-        currentPage={currentPage}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+      <div className={cx('paginationContainer')}>
+        <Pagination
+          data={data.results}
+          viewCount={viewCount}
+          totalCount={data.results.length}
+          limit={limit}
+          currentPage={currentPage}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      </div>
     </div>
   )
 }
