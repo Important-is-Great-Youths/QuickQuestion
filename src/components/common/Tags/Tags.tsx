@@ -30,6 +30,7 @@ const Tags = React.forwardRef<HTMLInputElement, TagsProps>(
             <input
               id={tag}
               type="radio"
+              name="tags"
               value={tagList[tag as TagKey]}
               className={cx('radio')}
               defaultChecked={index === 0} // 첫번째 tag가 기본 선택
