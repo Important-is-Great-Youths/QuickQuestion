@@ -1,27 +1,53 @@
-import classNames from 'classnames/bind'
-import styles from './FindPopUp.module.scss'
-import { useState } from 'react'
-import Input from '../Input/Input'
-import Button from '../Button/Button'
+import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import classNames from 'classnames/bind'
+import { useGetRecipientsList } from '@/hooks/useRecipients'
+import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
+import Input from '@/components/common/Input/Input'
+import Button from '@/components/common/Button/Button'
+import styles from './FindPopUp.module.scss'
 
 const cx = classNames.bind(styles)
-
-interface FindPopUpProps {}
 
 type FindPopUpFormValues = {
   nickname: string
   password: string
 }
 
-const FindPopUp = ({}: FindPopUpProps) => {
+const FindPopUp = () => {
   const {
     register,
+    setError,
     formState: { errors },
     handleSubmit
   } = useForm<FindPopUpFormValues>()
-  const onSubmit: SubmitHandler<FindPopUpFormValues> = (data) => {
-    console.log(data)
+
+  const { data } = useGetRecipientsList(100)
+
+  const router = useRouter()
+
+  const onSubmit: SubmitHandler<FindPopUpFormValues> = (value) => {
+    if (
+      !data.results.some(
+        (user: any) =>
+          user.name.split('/')[0] + '/' + user.name.split('/')[1] ===
+          value.nickname + '/' + value.password
+      )
+    ) {
+      setError('nickname', { message: ERROR_MESSAGE.nickname.register })
+      return
+    } else {
+      const foundId = data.results.find(
+        (user: any) =>
+          user.name.split('/')[0] + '/' + user.name.split('/')[1] ===
+          value.nickname + '/' + value.password
+      )
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ nickname: value.nickname, password: value.password })
+      )
+      router.push(`/questiondetail/${foundId.id}`)
+    }
   }
 
   return (
@@ -32,10 +58,18 @@ const FindPopUp = ({}: FindPopUpProps) => {
           <Input
             size="md"
             type="text"
-            placeholder="닉네임을 입력해주세요"
+            placeholder={PLACEHOLDER.nicknameHidden}
+            maxLength={4}
             {...register('nickname', {
-              required: { value: true, message: '필수 항목입니다.' },
-              maxLength: { value: 4, message: '최대 4자만 입력 가능합니다.' }
+              required: ERROR_MESSAGE.nickname.required,
+              maxLength: {
+                value: 4,
+                message: ERROR_MESSAGE.nickname.max
+              },
+              pattern: {
+                value: /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
+                message: ERROR_MESSAGE.nickname.letters
+              }
             })}
           />
           {errors.nickname && (
@@ -49,12 +83,21 @@ const FindPopUp = ({}: FindPopUpProps) => {
           <Input
             size="md"
             type="password"
-            placeholder="비밀번호를 입력해주세요"
+            placeholder={PLACEHOLDER.passwordHidden}
             {...register('password', {
-              required: { value: true, message: '필수 항목입니다.' },
-              minLength: { value: 4, message: '숫자 4자만 입력 가능합니다.' },
-              maxLength: { value: 4, message: '숫자 4자만 입력 가능합니다.' },
-              pattern: { value: /^\d+$/, message: '숫자만 입력 가능합니다.' }
+              required: ERROR_MESSAGE.password.required,
+              minLength: {
+                value: 4,
+                message: ERROR_MESSAGE.password.letters
+              },
+              maxLength: {
+                value: 4,
+                message: ERROR_MESSAGE.password.letters
+              },
+              pattern: {
+                value: /^\d{4}$/,
+                message: ERROR_MESSAGE.password.number
+              }
             })}
           />
           {errors.password && (

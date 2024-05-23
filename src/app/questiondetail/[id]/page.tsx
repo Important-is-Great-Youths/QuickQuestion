@@ -21,7 +21,7 @@ const QuestionDetailPage = () => {
     const localStorageData = localStorage.getItem('user')
 
     if (localStorageData) {
-      JSON.parse(localStorageData).nickName === data?.name.split('/')[0] &&
+      JSON.parse(localStorageData).nickname === data?.name.split('/')[0] &&
         JSON.parse(localStorageData).password === data?.name.split('/')[1] &&
         setUserState('question')
     } else {
