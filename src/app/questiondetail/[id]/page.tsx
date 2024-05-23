@@ -55,15 +55,23 @@ const QuestionDetailPage = () => {
         {empty === 0 ? (
           <AnswerEmpty userStatus={userState} />
         ) : (
-          recentMessages.map((answer: RecentMessages) => (
-            <AnswerContent
-              key={answer.id}
-              profileImage={answer.profileImageURL}
-              nickname={answer.sender}
-              date={answer.createdAt}
-              answer={answer.content}
-            />
-          ))
+          recentMessages.map(
+            ({
+              id,
+              profileImageURL,
+              sender,
+              createdAt,
+              content
+            }: RecentMessages) => (
+              <AnswerContent
+                key={id}
+                profileImage={profileImageURL}
+                nickname={sender}
+                date={createdAt}
+                answer={content}
+              />
+            )
+          )
         )}
       </ContentLayout>
     </div>

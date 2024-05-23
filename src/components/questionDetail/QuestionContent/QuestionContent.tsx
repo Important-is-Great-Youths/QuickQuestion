@@ -58,7 +58,7 @@ const QuestionContent = ({ id, userStatus, data }: QuestionContentProps) => {
         <span className={cx('questionDetails-date')}>{date}</span>
       </div>
       <div className={cx('questionText')}>{questionText}</div>
-      {userStatus && (
+      {userStatus === 'answer' && (
         <div className={cx('questionBtn')}>
           <Button
             text="답변하기"
