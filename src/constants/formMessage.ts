@@ -26,6 +26,8 @@ export const ERROR_MESSAGE = {
 export const PLACEHOLDER = {
   question: '질문을 입력해 주세요 (30자 이내)',
   nickname: '닉네임을 입력해 주세요 (4자 이내)',
+  nicknameHidden: '닉네임을 입력해 주세요',
   password: '비밀번호를 입력해 주세요 (숫자 4자리)',
+  passwordHidden: '비밀번호를 입력해 주세요',
   answer: '답변을 입력해 주세요'
 }
