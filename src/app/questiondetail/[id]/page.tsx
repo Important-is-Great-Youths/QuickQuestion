@@ -83,6 +83,7 @@ const QuestionDetailPage = () => {
                 date={createdAt}
                 answer={content}
                 checkId={checkId}
+                userType={userState}
               />
             )
           )
