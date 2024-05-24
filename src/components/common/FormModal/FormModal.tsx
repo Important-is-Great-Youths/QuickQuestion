@@ -5,6 +5,7 @@ import Button from '@/components/common/Button/Button'
 import Input from '@/components/common/Input/Input'
 import Textarea from '@/components/common/Textarea/Textarea'
 import { useForm } from 'react-hook-form'
+import Image from 'next/image'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import { usePostRecipientsCreate } from '@/hooks/useRecipients'
 import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인터페이스를 가져옴
@@ -18,7 +19,7 @@ interface FormModalProps {
 
 const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
   const { mutate: postRecipientsCreate } = usePostRecipientsCreate()
-
+  const profileImage = '/assets/images/account_circle.svg'
   const {
     register,
     handleSubmit,
@@ -43,29 +44,47 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
     onClose()
   }
 
+  const handleProfileImage = () => {
+    alert('이미지등록')
+  }
+
   return (
     <div className={cx('modalWrapper')}>
       <div className={cx('question-container')}>
-        <p className={cx('question-title')}>질문</p>
+        <p className={cx('title')}>질문</p>
         <p className={cx('question')}>{question}</p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={cx('questionFieldWrap')}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className={cx('questionField')}>
           <div className={cx('content-container')}>
             <label className={cx('label')}>프로필 사진</label>
+            <div onClick={handleProfileImage}>
+              <Image
+                src={profileImage}
+                alt="프로필 이미지"
+                width={60}
+                height={60}
+                className={cx('img')}
+              />
+            </div>
           </div>
           <div className={cx('content-container')}>
             <label className={cx('label')}>닉네임</label>
             <Input
-              size="md"
+              size="responsive"
               type="text"
               {...register('sender', {
-                required: true,
-                minLength: 4,
-                maxLength: 4,
+                required: ERROR_MESSAGE.nickname.required,
+                maxLength: {
+                  value: 4,
+                  message: ERROR_MESSAGE.nickname.max
+                },
                 pattern: {
-                  value: /^[A-Za-z0-9가-힣]{3,10}$/,
-                  message: ERROR_MESSAGE.nickname.required
+                  value: /^[A-Za-z0-9가-힣]*$/,
+                  message: ERROR_MESSAGE.nickname.letters
                 }
               })}
               placeholder={PLACEHOLDER.nickname}
@@ -77,15 +96,17 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
           <div className={cx('content-container')}>
             <label className={cx('label')}>비밀번호</label>
             <Input
-              size="md"
+              size="responsive"
               type="password"
               {...register('password', {
-                required: true,
-                minLength: 4,
-                maxLength: 4,
+                required: ERROR_MESSAGE.password.required,
+                maxLength: {
+                  value: 4,
+                  message: ERROR_MESSAGE.password.letters
+                },
                 pattern: {
                   value: /^[0-9]*$/,
-                  message: ERROR_MESSAGE.password.required
+                  message: ERROR_MESSAGE.password.number
                 }
               })}
               placeholder={PLACEHOLDER.password}
@@ -123,7 +144,7 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
             )}
           </div>
         </div>
-        <div className="button-container">
+        <div className={cx('button-container')}>
           <Button
             text="취소하기"
             size="md"
