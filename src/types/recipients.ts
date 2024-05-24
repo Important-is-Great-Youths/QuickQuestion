@@ -46,3 +46,13 @@ export interface RecipientsDetailData {
   reactionCount: number
   topReactions: any[]
 }
+
+export interface PostRecipientsMessagesCreateData {
+  team?: string
+  recipientId: string
+  sender: string
+  profileImageURL: string
+  relationship?: string
+  content: string
+  font?: string
+}

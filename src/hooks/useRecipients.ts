@@ -8,11 +8,13 @@ import {
   postImageUrlCreate,
   getRecipientsReactionsList,
   postRecipientsReactionsCreate,
-  getRecipientsRead
+  getRecipientsRead,
+  postRecipientsMessagesCreate
 } from '@/apis/recipients'
 import {
   PostRecipientsCreate,
-  PostRecipientsReactionsCreate
+  PostRecipientsReactionsCreate,
+  PostRecipientsMessagesCreateData
 } from '@/types/recipients'
 
 export const useGetRecipientsList = (limit?: number, offset?: number) =>
@@ -44,6 +46,27 @@ export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>
       setValue('backgroundImageURL', data.data.url)
     }
   })
+
+export const usePostProfileImageUrlCreate = (
+  setValue: UseFormReturn['setValue']
+) =>
+  useMutation({
+    mutationFn: (formData: FormData) => postImageUrlCreate(formData),
+    onSuccess(data) {
+      setValue('profileImageURL', data.data.url)
+    }
+  })
+
+export const usePostRecipientsMessagesCreate = (id: string) => {
+  const router = useRouter()
+  return useMutation({
+    mutationFn: (formData: PostRecipientsMessagesCreateData) =>
+      postRecipientsMessagesCreate(id, formData),
+    onSuccess(data) {
+      router.push(`/questiondetail/${data.recipientId}`)
+    }
+  })
+}
 
 export const useGetReaction = (id: string, limit?: number, offset?: number) =>
   useQuery({
