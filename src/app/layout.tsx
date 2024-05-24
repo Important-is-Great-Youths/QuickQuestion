@@ -29,7 +29,7 @@ const RootLayout = ({
     <html lang="ko" suppressHydrationWarning>
       <body className={pretendard.className}>
         <Providers>
-          <Header page="main" />
+          <Header />
           <div className={cx('container')}>
             <main className={cx('main')}>{children}</main>
             <ThemeButton />

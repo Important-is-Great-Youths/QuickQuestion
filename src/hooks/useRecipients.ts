@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { UseFormReturn } from 'react-hook-form'
 
@@ -6,7 +7,8 @@ import {
   postRecipientsCreate,
   postImageUrlCreate,
   getRecipientsReactionsList,
-  postRecipientsReactionsCreate
+  postRecipientsReactionsCreate,
+  getRecipientsRead
 } from '@/apis/recipients'
 import {
   PostRecipientsCreate,
@@ -19,9 +21,20 @@ export const useGetRecipientsList = (limit?: number, offset?: number) =>
     queryFn: () => getRecipientsList(limit, offset)
   })
 
-export const usePostRecipientsCreate = () =>
-  useMutation({
-    mutationFn: (value: PostRecipientsCreate) => postRecipientsCreate(value)
+export const usePostRecipientsCreate = () => {
+  const router = useRouter()
+  return useMutation({
+    mutationFn: (value: PostRecipientsCreate) => postRecipientsCreate(value),
+    onSuccess(data) {
+      router.push(`/questiondetail/${data.id}`)
+    }
+  })
+}
+
+export const useGetRecipientsRead = (id: string) =>
+  useQuery({
+    queryKey: ['recipientsRead', id],
+    queryFn: () => getRecipientsRead(id)
   })
 
 export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>

@@ -7,7 +7,9 @@ import { ERROR_MESSAGE } from '@/constants/formMessage'
 
 const cx = classNames.bind(styles)
 
-interface PwPopUpProps {}
+interface PwPopUpProps {
+  onCheck: () => void
+}
 
 type PwPopUpFormValues = {
   password: string
@@ -15,7 +17,7 @@ type PwPopUpFormValues = {
 
 const pwmessage = ERROR_MESSAGE.password
 
-const PwPopUp = ({}: PwPopUpProps) => {
+const PwPopUp = ({ onCheck }: PwPopUpProps) => {
   const {
     register,
     formState: { errors },
@@ -24,6 +26,7 @@ const PwPopUp = ({}: PwPopUpProps) => {
 
   const onSubmit: SubmitHandler<PwPopUpFormValues> = (data) => {
     console.log(data)
+    onCheck()
   }
 
   return (

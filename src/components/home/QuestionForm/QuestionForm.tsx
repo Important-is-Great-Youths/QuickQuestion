@@ -55,12 +55,14 @@ const QuestionForm = () => {
   }
 
   const onSubmit: SubmitHandler<FieldValues> = (value: FieldValues) => {
-    value.name = `${value.nickName}/${value.password}/${value.question}`
+    value.name = `${value.nickname}/${value.password}/${value.question}`
 
-    const { question, nickName, password, backgroundImageSelect, ...values } =
+    const { question, nickname, password, backgroundImageSelect, ...values } =
       value
 
     const newValue = { ...values, ...{ team: '2-3' } }
+
+    localStorage.setItem('user', JSON.stringify({ nickname, password }))
 
     mutate(newValue)
   }
@@ -90,16 +92,16 @@ const QuestionForm = () => {
         </div>
         <div className={cx('responsive-flex')}>
           <div className={cx('responsive-flex-item')}>
-            <label className={cx('label')} htmlFor="nickName">
+            <label className={cx('label')} htmlFor="nickname">
               닉네임
             </label>
             <Input
-              id="nickName"
+              id="nickname"
               size="responsive"
               type="text"
               placeholder={PLACEHOLDER.nickname}
               maxLength={4}
-              {...register('nickName', {
+              {...register('nickname', {
                 required: ERROR_MESSAGE.nickname.required,
                 maxLength: {
                   value: 4,
@@ -118,9 +120,9 @@ const QuestionForm = () => {
                     : true
               })}
             />
-            {errors.nickName && (
+            {errors.nickname && (
               <p className={cx('form-field-message')}>
-                {errors.nickName.message?.toString()}
+                {errors.nickname.message?.toString()}
               </p>
             )}
           </div>

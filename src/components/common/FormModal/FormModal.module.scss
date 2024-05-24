@@ -1,7 +1,7 @@
 .modalWrapper {
   display: flex;
   border-radius: 16px;
-  background: $gray20;
+  background: $white;
   flex-direction: column;
   @include responsive(T) {
     width: 600px;
@@ -10,6 +10,7 @@
     gap: 28px;
   }
   @include responsive(M) {
+    display: flex;
     padding: 16px;
     align-items: flex-start;
     gap: 8px;
@@ -19,8 +20,8 @@
 .question-container {
   display: flex;
   border-radius: 16px;
-  background: $sunny-secondary;
-  color: $gray20;
+  background: $secondary;
+  color: $white;
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
@@ -37,15 +38,6 @@
   @include responsive(M) {
     padding: 16px;
   }
-}
-.question-title {
-  color: $gray20;
-  font-feature-settings:
-    'clig' off,
-    'liga' off;
-  font-weight: 500;
-  line-height: 24px; /* 150% */
-  @include text-style(16, normal);
 }
 .question {
   font-weight: 600;
@@ -56,7 +48,6 @@
   color: $gray20;
   @include text-style(18, normal);
 }
-
 .questionField {
   display: flex;
   flex-direction: column;
@@ -64,30 +55,13 @@
   gap: 32px;
   align-self: stretch;
   border-radius: 16px;
-  border: 1px solid $sunny-secondary;
+  border: 1px solid $secondary;
   @include responsive(T) {
     padding: 24px;
   }
   @include responsive(M) {
     padding: 16px;
   }
-}
-.label {
-  color: $sunny-secondary;
-  font-feature-settings:
-    'clig' off,
-    'liga' off;
-
-  font-weight: 600;
-  line-height: 28px; /* 140% */
-  @include text-style(20, normal);
-}
-.content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  align-self: stretch;
 }
 .button-container {
   display: flex;
@@ -100,4 +74,8 @@
   @include responsive(M) {
     gap: 20px;
   }
+}
+.error {
+  color: $red;
+  @include text-style-12;
 }
