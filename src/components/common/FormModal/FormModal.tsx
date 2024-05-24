@@ -13,12 +13,17 @@ import { CircleUser } from 'lucide-react'
 const cx = classNames.bind(styles)
 
 interface FormModalProps {
-  question: string
+  question: GetRecipientsList // 선택된 질문 객체
   onClose: () => void // 모달 닫기 함수
 }
 
 const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
-  const { mutate: postRecipientsCreate } = usePostRecipientsCreate()
+  const {
+    mutate: postRecipientsCreate,
+    status,
+    error
+  } = usePostRecipientsCreate()
+
   const {
     register,
     handleSubmit,
@@ -27,7 +32,7 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
 
   const onSubmit = async (formData: any) => {
     console.log(formData)
-
+    // 선택된 질문 객체에 데이터 추가 또는 API 호출
     postRecipientsCreate(formData, {
       onSuccess: () => {
         console.log('Success!')
@@ -50,8 +55,8 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
   return (
     <div className={cx('modalWrapper')}>
       <div className={cx('question-container')}>
-        <p className={cx('title')}>질문</p>
-        <p className={cx('question')}>{question}</p>
+        <p className={cx('question-title')}>질문</p>
+        <p className={cx('question')}>{question.name}</p>
       </div>
       <form
         className={cx('questionFieldWrap')}

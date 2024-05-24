@@ -21,11 +21,7 @@ function ModalWrapper({ children, id, onRemove }: Props) {
     }
 
     const handleClickOutside = (e: MouseEvent) => {
-      if (
-        ref.current &&
-        e.target instanceof Node &&
-        !ref.current.contains(e.target)
-      ) {
+      if (ref.current && e.target instanceof Node && ref.current === e.target) {
         onRemove(id)
       }
     }
