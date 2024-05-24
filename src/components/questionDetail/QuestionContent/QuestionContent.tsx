@@ -16,9 +16,15 @@ interface QuestionContentProps {
   id?: string
   userStatus: 'question' | 'answer'
   data: RecipientsDetailData
+  isChecked: string | undefined
 }
 
-const QuestionContent = ({ id, userStatus, data }: QuestionContentProps) => {
+const QuestionContent = ({
+  id,
+  userStatus,
+  data,
+  isChecked
+}: QuestionContentProps) => {
   if (id === undefined) {
     return <div>Invalid ID</div>
   }
@@ -58,7 +64,7 @@ const QuestionContent = ({ id, userStatus, data }: QuestionContentProps) => {
         <span className={cx('questionDetails-date')}>{date}</span>
       </div>
       <div className={cx('questionText')}>{questionText}</div>
-      {userStatus === 'answer' && (
+      {userStatus === 'answer' && !isChecked && (
         <div className={cx('questionBtn')}>
           <Button
             text="답변하기"

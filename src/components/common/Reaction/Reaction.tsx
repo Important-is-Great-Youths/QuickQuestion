@@ -85,7 +85,7 @@ const Reaction = ({ id, isHide }: ReactionProps) => {
       (!isHide || count > 0) && (
         <button
           key={emoji}
-          className={cx('reaction')}
+          className={cx('reaction', { 'reaction-none': isHide })}
           onClick={() => handleClickCount(emoji)}
         >
           <span className={cx('reaction-emoji')}>{emoji}</span>
