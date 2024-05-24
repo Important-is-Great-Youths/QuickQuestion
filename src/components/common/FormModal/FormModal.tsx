@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import { usePostRecipientsCreate } from '@/hooks/useRecipients'
 import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인터페이스를 가져옴
+import { CircleUser } from 'lucide-react'
 
 const cx = classNames.bind(styles)
 
@@ -47,30 +48,41 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
     onClose()
   }
 
+  const handleProfileImage = () => {
+    alert('이미지등록')
+  }
+
   return (
     <div className={cx('modalWrapper')}>
       <div className={cx('question-container')}>
         <p className={cx('question-title')}>질문</p>
         <p className={cx('question')}>{question.name}</p>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={cx('questionFieldWrap')}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className={cx('questionField')}>
           <div className={cx('content-container')}>
             <label className={cx('label')}>프로필 사진</label>
-            <Input type="text" {...register('profileImageURL')} />
+            <div onClick={handleProfileImage}>
+              <CircleUser className={cx('img')} strokeWidth={0.5} />
+            </div>
           </div>
           <div className={cx('content-container')}>
             <label className={cx('label')}>닉네임</label>
             <Input
-              size="md"
+              size="responsive"
               type="text"
               {...register('sender', {
-                required: true,
-                minLength: 4,
-                maxLength: 4,
+                required: ERROR_MESSAGE.nickname.required,
+                maxLength: {
+                  value: 4,
+                  message: ERROR_MESSAGE.nickname.max
+                },
                 pattern: {
-                  value: /^[A-Za-z0-9가-힣]{3,10}$/,
-                  message: ERROR_MESSAGE.nickname.required
+                  value: /^[A-Za-z0-9가-힣]*$/,
+                  message: ERROR_MESSAGE.nickname.letters
                 }
               })}
               placeholder={PLACEHOLDER.nickname}
@@ -82,15 +94,17 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
           <div className={cx('content-container')}>
             <label className={cx('label')}>비밀번호</label>
             <Input
-              size="md"
+              size="responsive"
               type="password"
               {...register('password', {
-                required: true,
-                minLength: 4,
-                maxLength: 4,
+                required: ERROR_MESSAGE.password.required,
+                maxLength: {
+                  value: 4,
+                  message: ERROR_MESSAGE.password.letters
+                },
                 pattern: {
                   value: /^[0-9]*$/,
-                  message: ERROR_MESSAGE.password.required
+                  message: ERROR_MESSAGE.password.number
                 }
               })}
               placeholder={PLACEHOLDER.password}
@@ -128,7 +142,7 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
             )}
           </div>
         </div>
-        <div className="button-container">
+        <div className={cx('button-container')}>
           <Button
             text="취소하기"
             size="md"
