@@ -3,7 +3,8 @@ import styles from './AnswerContent.module.scss'
 import Image from 'next/image'
 import { CheckCircle2, SquarePen, SquareX } from 'lucide-react'
 import useDate from '@/hooks/useDate'
-import PwPopUp from '../PopUp/PwPopUp'
+import { usePostReaction } from '@/hooks/useRecipients'
+import PwPopUp from '@/components/common/PopUp/PwPopUp'
 import { useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
@@ -19,20 +20,26 @@ const testData = {
 }
 
 interface AnswerContentProps {
+  answerId: string
+  questionId: string
   profileImage: string
   nickname: string
   date: string
   answer: string
+  checkId: string
   userType: 'question' | 'answer'
   onCheck: () => void
 }
 
 const AnswerContent = ({
+  answerId,
+  questionId,
   profileImage = testData.src,
   nickname = testData.nickname,
   date = testData.date,
   answer = testData.answer,
-  userType = 'question',
+  checkId,
+  userType = 'answer',
   onCheck
 }: AnswerContentProps) => {
   const formattedDate = useDate(date)
@@ -42,6 +49,8 @@ const AnswerContent = ({
   const { openModal, closeModal } = useModal()
   const [isTextareaOpen, setIsTextareaOpen] = useState(false)
 
+  const { mutate } = usePostReaction(questionId)
+  
   const handlePopupOpen = () => {
     setIsPopupOpen(!isPopupOpen)
   }
@@ -80,8 +89,16 @@ const AnswerContent = ({
     )
   }
 
+  const handleAnswerCheck = () => {
+    mutate({ emoji: `/${answerId}`, type: 'increase' })
+  }
+
   return (
-    <div className={cx('answercontent')}>
+    <div
+      className={cx('answercontent', {
+        'answercontent-check': checkId?.replace('/', '') === answerId
+      })}
+    >
       <div className={cx('answercontent-top')}>
         <div className={cx('answercontent-top-profile')}>
           <div>
@@ -127,7 +144,7 @@ const AnswerContent = ({
         <div className={cx('answercontent-bottom')}>
           <button
             className={cx('answercontent-bottom-check')}
-            onClick={onCheck}
+            onClick={handleAnswerCheck}
           >
             <CheckCircle2 className={cx('answercontent-bottom-check-image')} />
             <p>채택하기</p>

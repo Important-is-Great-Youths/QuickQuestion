@@ -10,8 +10,28 @@
   border: 1px solid $secondary;
   width: 100%;
 
-  @include responsive(T){
+  @include responsive(T) {
     padding: 16px;
+  }
+
+  &-check {
+    position: relative;
+    border: 1px solid $primary;
+
+    &::after {
+      @include text-style(14, bold);
+      display: flex;
+      position: absolute;
+      top: -14px;
+      left: 52px;
+      height: 28px;
+      padding: 0 24px;
+      align-items: center;
+      background-color: $primary;
+      color: $white;
+      border-radius: 99px;
+      content: '질문자 채택';
+    }
   }
 
   &-top {
@@ -34,7 +54,7 @@
         gap: 8px;
 
         p {
-          @include text-style-16
+          @include text-style-16;
         }
       }
 
@@ -45,7 +65,7 @@
       p {
         margin: 0;
         color: $gray20;
-        @include text-style-14
+        @include text-style-14;
       }
     }
 
@@ -112,7 +132,7 @@
 
       p {
         margin: 0;
-        @include text-style-16
+        @include text-style-16;
       }
     }
   }
