@@ -7,6 +7,10 @@
   background-color: $white;
   margin-right: 8px;
 
+  &-none {
+    pointer-events: none;
+  }
+
   &-emoji {
     display: inline-block;
     width: 16px;
