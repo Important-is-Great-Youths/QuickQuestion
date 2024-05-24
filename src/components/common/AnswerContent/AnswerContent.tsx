@@ -28,7 +28,7 @@ interface AnswerContentProps {
   answer: string
   checkId: string
   userType: 'question' | 'answer'
-  onCheck: () => void
+  onCheck?: () => void
 }
 
 const AnswerContent = ({
