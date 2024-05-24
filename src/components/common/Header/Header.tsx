@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
@@ -17,10 +17,35 @@ const Header = () => {
   const [isOpenPopup, setIsOpenPopup] = useState(false)
   const { theme } = useTheme()
   const params = usePathname()
+  const buttonRef = useRef<HTMLDivElement>(null)
+  const popupRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node) &&
+        popupRef.current &&
+        !popupRef.current.contains(e.target as Node)
+      ) {
+        setIsOpenPopup(false)
+      }
+    }
+
+    if (isOpenPopup) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpenPopup])
 
   const isParams = params.includes('questionlist')
 
@@ -45,7 +70,7 @@ const Header = () => {
         </Link>
         {isParams ? (
           <>
-            <div className={cx(`header-button`)}>
+            <div ref={buttonRef} className={cx(`header-button`)}>
               <Button
                 text="내 질문 찾기"
                 size="md"
@@ -55,7 +80,7 @@ const Header = () => {
               />
             </div>
             {isOpenPopup && (
-              <div className={cx('header-popup')}>
+              <div className={cx('header-popup')} ref={popupRef}>
                 <FindPopUp />
               </div>
             )}
