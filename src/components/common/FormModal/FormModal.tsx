@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import { usePostRecipientsCreate } from '@/hooks/useRecipients'
 import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인터페이스를 가져옴
+import { CircleUser } from 'lucide-react'
 
 const cx = classNames.bind(styles)
 
@@ -62,13 +63,7 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
           <div className={cx('content-container')}>
             <label className={cx('label')}>프로필 사진</label>
             <div onClick={handleProfileImage}>
-              <Image
-                src={profileImage}
-                alt="프로필 이미지"
-                width={60}
-                height={60}
-                className={cx('img')}
-              />
+              <CircleUser className={cx('img')} strokeWidth={0.5} />
             </div>
           </div>
           <div className={cx('content-container')}>

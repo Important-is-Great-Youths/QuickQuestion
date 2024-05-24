@@ -70,6 +70,11 @@
       @include text-style(18, bold);
     }
   }
+  .img {
+    width: 66px;
+    height: 66px;
+    color: $gray20;
+  }
 }
 
 .button-container {
