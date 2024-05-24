@@ -31,7 +31,7 @@
   &-error {
     margin: 0;
 
-    @include text-style-12;
+    @include text-style(12);
     color: $red;
   }
 }
