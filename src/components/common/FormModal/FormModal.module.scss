@@ -27,11 +27,10 @@
     padding: 16px;
   }
 
-  &-title {
+  .title {
     @include text-style(16);
   }
-  &-question {
-    color: $gray20;
+  .question {
     @include text-style(18, bold);
   }
 }
