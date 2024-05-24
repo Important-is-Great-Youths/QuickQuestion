@@ -39,7 +39,7 @@
       background-color: $secondary;
       border: none;
 
-      &:hover::after:not(:disabled) {
+      &:not(:disabled):hover::after {
         position: absolute;
         top: 0;
         right: 0;
@@ -58,7 +58,7 @@
       background-color: $white;
       border: 1px solid $secondary;
 
-      &:hover::after:not(:disabled) {
+      &:not(:disabled):hover::after {
         position: absolute;
         top: 0;
         right: 0;
