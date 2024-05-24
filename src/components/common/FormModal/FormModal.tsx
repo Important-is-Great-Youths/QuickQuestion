@@ -38,6 +38,8 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     formState: { errors }
   } = useForm()
 
+  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
+
   const [imgSrc, setImgSrc] = useState('')
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
 
@@ -67,8 +69,6 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
   const handleCancel = () => {
     onClose()
   }
-
-  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
 
   const saveProfileImage = (fileBlob: any) => {
     const fileUrl = URL.createObjectURL(fileBlob)
