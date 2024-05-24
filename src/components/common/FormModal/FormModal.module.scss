@@ -70,10 +70,23 @@
       @include text-style(18, bold);
     }
   }
-  .img {
-    width: 66px;
-    height: 66px;
-    color: $gray20;
+  .uploadBtn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid $gray20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    .imgBox {
+      display: none;
+    }
+    .img {
+      width: 8px;
+      height: 8px;
+      color: $secondary;
+    }
   }
 }
 

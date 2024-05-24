@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './FormModal.module.scss'
+import Image from 'next/image'
 import Button from '@/components/common/Button/Button'
 import Input from '@/components/common/Input/Input'
 import Textarea from '@/components/common/Textarea/Textarea'
 import { useForm } from 'react-hook-form'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import { usePostRecipientsCreate } from '@/hooks/useRecipients'
-import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인터페이스를 가져옴
-import { CircleUser } from 'lucide-react'
+import { GetRecipientsList } from '@/types/recipients'
+import { Plus } from 'lucide-react'
 
 const cx = classNames.bind(styles)
 
@@ -30,8 +31,11 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
     formState: { errors }
   } = useForm()
 
+  const [imgSrc, setImgSrc] = useState('')
+
   const onSubmit = async (formData: any) => {
     console.log(formData)
+    console.log(imgSrc)
     // 선택된 질문 객체에 데이터 추가 또는 API 호출
     postRecipientsCreate(formData, {
       onSuccess: () => {
@@ -48,8 +52,18 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
     onClose()
   }
 
-  const handleProfileImage = () => {
-    alert('이미지등록')
+  const saveProfileImage = (fileBlob: any) => {
+    const fileUrl = URL.createObjectURL(fileBlob)
+    setImgSrc(fileUrl)
+  }
+  const imageStyle = {
+    padding: '10px'
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      saveProfileImage(e.target.files[0])
+    }
   }
 
   return (
@@ -64,9 +78,29 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
       >
         <div className={cx('questionField')}>
           <div className={cx('content-container')}>
-            <label className={cx('label')}>프로필 사진</label>
-            <div onClick={handleProfileImage}>
-              <CircleUser className={cx('img')} strokeWidth={0.5} />
+            <div className={cx('label')}>프로필 사진</div>
+            <div>
+              <label className={cx('uploadBtn')}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className={cx('imgBox')}
+                  onChange={handleFileChange}
+                />
+                {imgSrc ? (
+                  <div className={cx('imgWrap')}>
+                    <Image
+                      src={imgSrc}
+                      alt="이미지 미리보기"
+                      width={60}
+                      height={60}
+                      style={imageStyle}
+                    />
+                  </div>
+                ) : (
+                  <Plus className={cx('img')} />
+                )}
+              </label>
             </div>
           </div>
           <div className={cx('content-container')}>
