@@ -5,7 +5,6 @@ import Button from '@/components/common/Button/Button'
 import Input from '@/components/common/Input/Input'
 import Textarea from '@/components/common/Textarea/Textarea'
 import { useForm } from 'react-hook-form'
-import Image from 'next/image'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import { usePostRecipientsCreate } from '@/hooks/useRecipients'
 import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인터페이스를 가져옴
@@ -20,7 +19,6 @@ interface FormModalProps {
 
 const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
   const { mutate: postRecipientsCreate } = usePostRecipientsCreate()
-  const profileImage = '/assets/images/account_circle.svg'
   const {
     register,
     handleSubmit,
