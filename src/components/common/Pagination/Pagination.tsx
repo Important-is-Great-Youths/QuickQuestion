@@ -1,10 +1,11 @@
 import classNames from 'classnames/bind'
 import styles from './Pagination.module.scss'
 import { GetRecipientsList } from '@/types/recipients'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
 const cx = classNames.bind(styles)
 
 interface PaginationProps {
-  size?: 'lg' | 'md'
   data: GetRecipientsList
   limit: number
   currentPage: number
@@ -18,7 +19,6 @@ export const Pagination = ({
   limit,
   currentPage,
   totalCount,
-  size,
   viewCount,
   onPageChange
 }: PaginationProps) => {
@@ -53,8 +53,8 @@ export const Pagination = ({
       <button
         key={i}
         type="button"
-        className={cx('button', `button-size-${size}`, {
-          'button-active': i === currentPage
+        className={cx('pagination-button', {
+          'pagination-button-active': i === currentPage
         })}
         onMouseDown={handleButtonClick}
         value={i.toString()}
@@ -68,21 +68,21 @@ export const Pagination = ({
   return (
     <div className={cx('pagination')}>
       <button
-        className={cx('pageButton', `button-size-${size}`)}
+        className={cx('pagination-button')}
         disabled={currentPage === 1}
         onClick={() => handlePageChange(prev)}
       >
-        &lt;
+        <ChevronLeft className={cx('pagination-button-icon')} />
       </button>
 
       {buttons}
 
       <button
-        className={cx('pageButton', `button-size-${size}`)}
+        className={cx('pagination-button')}
         disabled={currentPage === totalPage}
         onClick={() => handlePageChange(next)}
       >
-        &gt;
+        <ChevronRight className={cx('pagination-button-icon')} />
       </button>
     </div>
   )
