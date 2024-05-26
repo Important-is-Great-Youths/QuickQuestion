@@ -24,7 +24,7 @@ const AlertModal = ({ onCancel, onDelete }: AlertModalProps) => {
           variant="another"
           onClick={onCancel}
         />
-        <Button text="답변하기" size="md" type="button" onClick={onDelete} />
+        <Button text="삭제하기" size="md" type="button" onClick={onDelete} />
       </div>
     </div>
   )
