@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
 import Textarea from '@/components/common/Textarea/Textarea'
+import { deleteRecipientsDelete } from '@/apis/recipients'
 
 const cx = classNames.bind(styles)
 
@@ -50,7 +51,7 @@ const AnswerContent = ({
   const [isTextareaOpen, setIsTextareaOpen] = useState(false)
 
   const { mutate } = usePostReaction(questionId)
-  
+
   const handlePopupOpen = () => {
     setIsPopupOpen(!isPopupOpen)
   }
@@ -70,18 +71,19 @@ const AnswerContent = ({
       setIsTextareaOpen(true)
       handlePopupOpen()
     } else if (popupMode === 'delete') {
-      handleTestModal()
+      handleAlertModal()
       handlePopupOpen()
     }
   }
 
-  const handleTestModal = () => {
+  const handleAlertModal = () => {
     openModal(
       <AlertModal
         onCancel={() => {
           closeModal(modalId)
         }}
         onDelete={() => {
+          deleteRecipientsDelete(answerId)
           closeModal(modalId)
         }}
       />,
