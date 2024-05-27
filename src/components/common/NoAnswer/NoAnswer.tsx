@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './NoAnswer.module.scss'
 import Image from 'next/image'
-
+import { SquareCheck, Square } from 'lucide-react'
 const cx = classNames.bind(styles)
 
 interface NoAnswerProps {
@@ -27,13 +27,13 @@ const NoAnswer: React.FC<NoAnswerProps> = ({ setShowNoAnswer }) => {
         checked={isChecked}
         onChange={handleCheckboxChange}
       />
+      <span>미답변만 보기</span>
       <label htmlFor="customCheckbox">
         {isChecked ? (
-          <Image src="/checked.svg" alt="Checked" width={24} height={24} />
+          <SquareCheck className={cx('checkbox')} />
         ) : (
-          'null'
+          <Square className={cx('checkbox')} />
         )}
-        <span>미답변만 보기</span>
       </label>
     </div>
   )
