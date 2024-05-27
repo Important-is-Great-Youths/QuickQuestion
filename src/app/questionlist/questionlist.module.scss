@@ -5,7 +5,7 @@
 }
 .title {
   color: $white;
-  font-family: YANGJIN;
+  font-family: 'Yangjin';
   letter-spacing: 2px;
   @include text-style(52);
   @include responsive(T) {
