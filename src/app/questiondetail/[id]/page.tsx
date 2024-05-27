@@ -66,27 +66,29 @@ const QuestionDetailPage = () => {
         {empty === 0 ? (
           <AnswerEmpty userStatus={userState} />
         ) : (
-          recentMessages.map(
-            ({
-              id,
-              profileImageURL,
-              sender,
-              createdAt,
-              content
-            }: RecentMessages) => (
-              <AnswerContent
-                key={id}
-                answerId={String(id)}
-                questionId={questionId}
-                profileImage={profileImageURL}
-                nickname={sender}
-                date={createdAt}
-                answer={content}
-                checkId={checkId}
-                userType={userState}
-              />
-            )
-          )
+          <div className={cx("answer-wrap")}>
+            {recentMessages.map(
+              ({
+                id,
+                profileImageURL,
+                sender,
+                createdAt,
+                content
+              }: RecentMessages) => (
+                <AnswerContent
+                  key={id}
+                  answerId={String(id)}
+                  questionId={questionId}
+                  profileImage={profileImageURL}
+                  nickname={sender}
+                  date={createdAt}
+                  answer={content}
+                  checkId={checkId}
+                  userType={userState}
+                />
+              )
+            )}
+          </div>
         )}
       </ContentLayout>
     </div>

@@ -55,15 +55,17 @@ const QuestionContent = ({
 
   return (
     <div className={cx('questionContent')}>
-      <div className={cx('questionHeader')}>
-        <i className={cx('questionHeader-icon')}>Q</i>
-        <span className={cx('questionHeader-category')}>{tagName}</span>
+      <div className={cx('questionInformation')}>
+        <div className={cx('questionHeader')}>
+          <i className={cx('questionHeader-icon')}>Q</i>
+          <span className={cx('questionHeader-category')}>{tagName}</span>
+        </div>
+        <div className={cx('questionDetails')}>
+          <span className={cx('questionDetails-author')}>{userName}</span>
+          <span className={cx('questionDetails-date')}>{date}</span>
+        </div>
+        <div className={cx('questionText')}>{questionText}</div>
       </div>
-      <div className={cx('questionDetails')}>
-        <span className={cx('questionDetails-author')}>{userName}</span>
-        <span className={cx('questionDetails-date')}>{date}</span>
-      </div>
-      <div className={cx('questionText')}>{questionText}</div>
       {userStatus === 'answer' && !isChecked && (
         <div className={cx('questionBtn')}>
           <Button

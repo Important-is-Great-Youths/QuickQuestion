@@ -2,8 +2,23 @@
   background: $white;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+
+  @include responsive(M) {
+    gap: 12px;
+  }
 }
+
+.questionInformation {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include responsive(M) {
+    gap: 8px;
+  }
+}
+
 .questionHeader {
   display: flex;
   align-items: center;

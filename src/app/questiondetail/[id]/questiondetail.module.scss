@@ -7,3 +7,13 @@
     gap: 40px;
   }
 }
+
+.answer-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  @include responsive(M) {
+    gap: 20px;
+  }
+}

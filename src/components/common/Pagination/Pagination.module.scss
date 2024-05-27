@@ -1,76 +1,52 @@
 .pagination {
   display: inline-flex;
-  align-items: flex-start;
+  margin: 0 auto;
   gap: 10px;
-}
-.pageButton {
-  align-items: center;
-  font-size: 18px;
-  justify-content: center;
-  border-radius: 12px;
-  border: $white;
-  color: $secondary;
-  background: $white;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  &:active {
-    border: 1px solid $secondary;
-    background: $secondary;
-    color: $white;
-  }
 
-  @include responsive(T) {
-    &-lg {
-      height: 55px;
-      width: 55px;
-      padding: 17px 30px;
+  &-button {
+    @include text-style(18);
+    display: flex;
+    width: 52px;
+    height: 52px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid $white;
+    color: $secondary;
+    background: $white;
+    box-shadow: $main-shadow;
+
+    &:hover {
+      border: 1px solid $secondary;
     }
-  }
 
-  @include responsive(M) {
-    &-md {
-      height: 20px;
-      width: 20px;
-      padding: 17px 30px;
-      font-size: 14px;
+    &:disabled {
+      color: $gray10;
+      cursor: auto;
     }
-  }
-}
-.button {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  justify-content: center;
-  border-radius: 12px;
-  border: $white;
-  color: $secondary;
-  background: $white;
-  transition:
-    border-color 0.3s ease-in-out,
-    background-color 0.3s ease-in-out,
-    color 0.3s ease-in-out;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  &:hover,
-  &:focus {
-    border: 1px solid $secondary;
-    background: $secondary;
-    color: $white;
-    cursor: pointer;
-  }
 
-  @include responsive(T) {
-    &-lg {
-      height: 55px;
-      width: 55px;
-      padding: 17px 30px;
+    &:disabled:hover {
+      border: none;
     }
-  }
 
-  @include responsive(M) {
-    &-md {
-      height: 20px;
-      width: 20px;
-      padding: 17px 30px;
-      font-size: 14px;
+    @include responsive(M) {
+      @include text-style(14);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    &-active {
+      border: 1px solid $secondary;
+      background: $secondary;
+      color: $white;
+    }
+
+    &-icon {
+      @include responsive(M) {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 }
