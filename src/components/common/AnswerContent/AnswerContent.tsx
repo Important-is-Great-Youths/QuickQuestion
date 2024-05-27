@@ -10,6 +10,7 @@ import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
 import Textarea from '@/components/common/Textarea/Textarea'
 import { deleteRecipientsDelete } from '@/apis/recipients'
+import Button from '../Button/Button'
 
 const cx = classNames.bind(styles)
 
@@ -49,6 +50,7 @@ const AnswerContent = ({
   const modalId = crypto.randomUUID()
   const { openModal, closeModal } = useModal()
   const [isTextareaOpen, setIsTextareaOpen] = useState(false)
+  const [answerEditValue, setAnswerEditValue] = useState('')
 
   const { mutate } = usePostReaction(questionId)
 
@@ -89,6 +91,14 @@ const AnswerContent = ({
       />,
       modalId
     )
+  }
+
+  const handleEditChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setAnswerEditValue(event.target.value)
+  }
+
+  const handleEditAnswer = () => {
+    console.log(answerEditValue)
   }
 
   const handleAnswerCheck = () => {
@@ -138,7 +148,22 @@ const AnswerContent = ({
         )}
       </div>
       {isTextareaOpen ? (
-        <Textarea id="0" placeholder={answer} maxLength={30} />
+        <div className={cx('answercontent-top-textarea')}>
+          <Textarea
+            id="0"
+            placeholder={answer}
+            maxLength={30}
+            onChange={handleEditChange}
+          />
+          <div className={cx('answercontent-top-textarea-button')}>
+            <Button
+              text="수정하기"
+              size="sm"
+              type="button"
+              onClick={() => handleEditAnswer()}
+            />
+          </div>
+        </div>
       ) : (
         <p className={cx('answercontent-middle')}>{answer}</p>
       )}
