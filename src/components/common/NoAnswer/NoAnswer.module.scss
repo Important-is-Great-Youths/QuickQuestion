@@ -6,26 +6,29 @@
   align-items: center;
   border-radius: 12px;
   background: $white;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: $main-shadow;
   color: $secondary;
   gap: 8px;
-
+  @include text-style(18);
+  @include responsive(M) {
+    @include text-style(16);
+    width: 170px;
+    height: 48px;
+    padding: 0 24px;
+  }
   label {
     display: flex;
     align-items: center;
     cursor: pointer;
-
     gap: 8px;
   }
 }
-
+.checkbox {
+  @include responsive(M) {
+    width: 24px;
+    height: 24px;
+  }
+}
 .customCheckbox {
   display: none;
-
-  &:checked + label {
-    background: url('/checked.svg') no-repeat center;
-  }
-  // &:not(:checked) + label {
-  //   background:
-  // }
 }

@@ -1,6 +1,6 @@
 export interface GetRecipientsList {
   id: number
-  backgroundColor: string
+  backgroundColor: 'beige' | 'purple' | 'blue' | 'green'
   backgroundImageURL: string | null
   createdAt: string
   messageCount: number

@@ -2,12 +2,9 @@
 
 import classNames from 'classnames/bind'
 import styles from './questionlist.module.scss'
-import { useModal } from '@/contexts/ModalProvider'
-import AlertModal from '@/components/common/AlertModal/AlertModal'
 import { useGetRecipientsList } from '@/hooks/useRecipients'
 import { GetRecipientsList } from '@/types/recipients'
 import { useState } from 'react'
-import FormModal from '@/components/common/FormModal/FormModal'
 import { Pagination } from '@/components/common/Pagination/Pagination'
 import Card from '@/components/common/Card/Card'
 import Tags from '@/components/common/Tags/Tags'
@@ -16,12 +13,10 @@ import NoAnswer from '@/components/common/NoAnswer/NoAnswer'
 const cx = classNames.bind(styles)
 
 const QuestionListPage = () => {
-  const modalId = crypto.randomUUID()
-  const { openModal, closeModal } = useModal()
   const [selectedQuestion, setSelectedQuestion] = useState<GetRecipientsList>()
   const [currentPage, setCurrentPage] = useState(1)
   const [showNoAnswer, setShowNoAnswer] = useState(false)
-  const limit = 100 // 페이지당 보여줄 항목의 수
+  const limit = 100
   const viewCount = 6
   const { data, isLoading, error } = useGetRecipientsList(limit, 0)
 
@@ -33,27 +28,9 @@ const QuestionListPage = () => {
     return <p>Error loading questions</p>
   }
 
-  const handleTestModal = () => {
-    openModal(
-      <AlertModal
-        onCancel={() => {
-          closeModal(modalId)
-        }}
-        onDelete={() => {
-          closeModal(modalId)
-        }}
-      />,
-      modalId
-    )
-  }
-
-  const totalCount = data.results.length
-
-  const pageGroup = Math.ceil(currentPage / 5)
   const startIndex = (currentPage - 1) * 6
   const endIndex = startIndex + viewCount
 
-  // 필터링된 데이터
   const filteredData = showNoAnswer
     ? data.results.filter((question: any) => question.messageCount === 0)
     : data.results
@@ -62,13 +39,14 @@ const QuestionListPage = () => {
 
   return (
     <div className={cx('main')}>
-      <p className={cx('title')}>당신의 지식을 뽐내보세요!</p>
+      <h1 className={cx('title')}>당신의 지식을 뽐내보세요!</h1>
 
       <div className={cx('header')}>
-        <Tags />
+        <div className={cx('tagsContainer')}>
+          <Tags />
+        </div>
         <NoAnswer setShowNoAnswer={setShowNoAnswer} />
       </div>
-      <button onClick={handleTestModal}>openmodal</button>
       <ul className={cx('cardContainer')}>
         {paginatedData.map((question: GetRecipientsList) => (
           <Card
