@@ -9,10 +9,11 @@ interface TextareaProps {
   id: string
   placeholder: string
   maxLength?: number
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ id, placeholder, maxLength, ...props }, ref) => {
+  ({ id, placeholder, maxLength, onChange, ...props }, ref) => {
     return (
       <textarea
         className={cx('textarea')}
@@ -20,6 +21,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         placeholder={placeholder}
         ref={ref}
         maxLength={maxLength}
+        onChange={onChange}
         {...props}
       />
     )

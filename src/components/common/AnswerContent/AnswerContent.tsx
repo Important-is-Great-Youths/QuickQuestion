@@ -9,6 +9,8 @@ import { useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
 import Textarea from '@/components/common/Textarea/Textarea'
+import { deleteRecipientsDelete } from '@/apis/recipients'
+import Button from '../Button/Button'
 
 const cx = classNames.bind(styles)
 
@@ -48,9 +50,10 @@ const AnswerContent = ({
   const modalId = crypto.randomUUID()
   const { openModal, closeModal } = useModal()
   const [isTextareaOpen, setIsTextareaOpen] = useState(false)
+  const [answerEditValue, setAnswerEditValue] = useState('')
 
   const { mutate } = usePostReaction(questionId)
-  
+
   const handlePopupOpen = () => {
     setIsPopupOpen(!isPopupOpen)
   }
@@ -70,23 +73,32 @@ const AnswerContent = ({
       setIsTextareaOpen(true)
       handlePopupOpen()
     } else if (popupMode === 'delete') {
-      handleTestModal()
+      handleAlertModal()
       handlePopupOpen()
     }
   }
 
-  const handleTestModal = () => {
+  const handleAlertModal = () => {
     openModal(
       <AlertModal
         onCancel={() => {
           closeModal(modalId)
         }}
         onDelete={() => {
+          deleteRecipientsDelete(answerId)
           closeModal(modalId)
         }}
       />,
       modalId
     )
+  }
+
+  const handleEditChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setAnswerEditValue(event.target.value)
+  }
+
+  const handleEditAnswer = () => {
+    console.log(answerEditValue)
   }
 
   const handleAnswerCheck = () => {
@@ -136,7 +148,22 @@ const AnswerContent = ({
         )}
       </div>
       {isTextareaOpen ? (
-        <Textarea id="0" placeholder={answer} maxLength={30} />
+        <div className={cx('answercontent-top-textarea')}>
+          <Textarea
+            id="0"
+            placeholder={answer}
+            maxLength={30}
+            onChange={handleEditChange}
+          />
+          <div className={cx('answercontent-top-textarea-button')}>
+            <Button
+              text="수정하기"
+              size="sm"
+              type="button"
+              onClick={() => handleEditAnswer()}
+            />
+          </div>
+        </div>
       ) : (
         <p className={cx('answercontent-middle')}>{answer}</p>
       )}

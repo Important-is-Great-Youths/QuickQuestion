@@ -23,10 +23,13 @@ const PwPopUp = ({ onCheck }: PwPopUpProps) => {
     formState: { errors },
     handleSubmit
   } = useForm<PwPopUpFormValues>()
+  const password = localStorage.getItem('password')
 
   const onSubmit: SubmitHandler<PwPopUpFormValues> = (data) => {
     console.log(data)
-    onCheck()
+    if (data.password === password) {
+      onCheck()
+    }
   }
 
   return (
