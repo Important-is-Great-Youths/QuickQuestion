@@ -1,6 +1,10 @@
 .container {
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   background-color: $primary;
+
+  @include responsive(M) {
+    min-height: calc(100vh - 80px);
+  }
 }
 
 .main {
