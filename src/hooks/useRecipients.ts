@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { UseFormReturn } from 'react-hook-form'
 
 import {
@@ -59,10 +59,15 @@ export const usePostProfileImageUrlCreate = (
 
 export const usePostRecipientsMessagesCreate = (id: string) => {
   const router = useRouter()
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (formData: PostRecipientsMessagesCreateData) =>
       postRecipientsMessagesCreate(id, formData),
-    onSuccess(data) {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ['recipientsRead', id],
+        refetchType: 'inactive'
+      })
       router.push(`/questiondetail/${data.recipientId}`)
     }
   })

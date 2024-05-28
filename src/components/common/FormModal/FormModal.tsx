@@ -31,8 +31,6 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     error
   } = usePostRecipientsMessagesCreate(id)
 
-  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
-
   const {
     register,
     handleSubmit,
@@ -40,19 +38,23 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     formState: { errors }
   } = useForm()
 
+  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
+
   const [imgSrc, setImgSrc] = useState('')
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
 
   const onSubmit = async (data: any) => {
+    console.log(data)
     const formData = {
       relationship: '친구',
       font: 'Noto Sans',
       recipientId: id,
       sender: `${data.sender}/${data.password}`,
       content: data.content,
-      profileImageURL: data.profileImageURL
-        ? data.profileImageURL
-        : noImageSelect
+      profileImageURL: 'https://ibb.co/d7sX3FK'
+      // profileImageURL: data.profileImageURL
+      //   ? data.profileImageURL
+      //   : noImageSelect
     }
     console.log(formData)
     PostRecipientsMessagesCreateData(formData, {
