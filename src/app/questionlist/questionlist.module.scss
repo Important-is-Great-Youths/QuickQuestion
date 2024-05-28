@@ -36,9 +36,6 @@
   border-radius: 12px;
   background: $white;
   box-shadow: $main-shadow;
-  @include responsive(T) {
-    padding: 8px;
-  }
   @include responsive(M) {
     padding: 8px;
   }
