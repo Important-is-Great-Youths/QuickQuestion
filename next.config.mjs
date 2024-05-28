@@ -4,7 +4,7 @@ const nextConfig = {
     additionalData: '@import "@/styles/main.scss";'
   },
   images: {
-    domains: ['ifh.cc', 'i.ibb.co']
+    domains: ['ifh.cc', 'i.ibb.co', 'ibb.co']
   }
 }
 
