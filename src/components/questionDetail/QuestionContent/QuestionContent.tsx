@@ -44,6 +44,7 @@ const QuestionContent = ({
     console.log('답변하기')
     openModal(
       <FormModal
+        id={id}
         question={questionText}
         onClose={() => {
           closeModal(modalId)

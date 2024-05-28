@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { UseFormReturn } from 'react-hook-form'
 
 import {
@@ -8,11 +8,13 @@ import {
   postImageUrlCreate,
   getRecipientsReactionsList,
   postRecipientsReactionsCreate,
-  getRecipientsRead
+  getRecipientsRead,
+  postRecipientsMessagesCreate
 } from '@/apis/recipients'
 import {
   PostRecipientsCreate,
-  PostRecipientsReactionsCreate
+  PostRecipientsReactionsCreate,
+  PostRecipientsMessagesCreateData
 } from '@/types/recipients'
 
 export const useGetRecipientsList = (limit?: number, offset?: number) =>
@@ -44,6 +46,32 @@ export const usePostImageUrlCreate = (setValue: UseFormReturn['setValue']) =>
       setValue('backgroundImageURL', data.data.url)
     }
   })
+
+export const usePostProfileImageUrlCreate = (
+  setValue: UseFormReturn['setValue']
+) =>
+  useMutation({
+    mutationFn: (formData: FormData) => postImageUrlCreate(formData),
+    onSuccess(data) {
+      setValue('profileImageURL', data.data.url)
+    }
+  })
+
+export const usePostRecipientsMessagesCreate = (id: string) => {
+  const router = useRouter()
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (formData: PostRecipientsMessagesCreateData) =>
+      postRecipientsMessagesCreate(id, formData),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ['recipientsRead', id],
+        refetchType: 'inactive'
+      })
+      router.push(`/questiondetail/${data.recipientId}`)
+    }
+  })
+}
 
 export const useGetReaction = (id: string, limit?: number, offset?: number) =>
   useQuery({

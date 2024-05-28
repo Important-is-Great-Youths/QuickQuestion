@@ -1,39 +1,63 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './FormModal.module.scss'
+import Image from 'next/image'
 import Button from '@/components/common/Button/Button'
 import Input from '@/components/common/Input/Input'
 import Textarea from '@/components/common/Textarea/Textarea'
 import { useForm } from 'react-hook-form'
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
-import { usePostRecipientsCreate } from '@/hooks/useRecipients'
-import { GetRecipientsList } from '@/types/recipients' // GetRecipientsList 인터페이스를 가져옴
-import { CircleUser } from 'lucide-react'
+import {
+  usePostRecipientsCreate,
+  usePostRecipientsMessagesCreate,
+  usePostProfileImageUrlCreate
+} from '@/hooks/useRecipients'
+
+import { GetRecipientsList } from '@/types/recipients'
+import { Plus } from 'lucide-react'
 
 const cx = classNames.bind(styles)
 
 interface FormModalProps {
-  question: GetRecipientsList // 선택된 질문 객체
+  id: string
+  question: string // 선택된 질문 객체
   onClose: () => void // 모달 닫기 함수
 }
 
-const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
+const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
   const {
-    mutate: postRecipientsCreate,
+    mutate: PostRecipientsMessagesCreateData,
     status,
     error
-  } = usePostRecipientsCreate()
+  } = usePostRecipientsMessagesCreate(id)
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm()
 
-  const onSubmit = async (formData: any) => {
+  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
+
+  const [imgSrc, setImgSrc] = useState('')
+  const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
+
+  const onSubmit = async (data: any) => {
+    console.log(data)
+    const formData = {
+      relationship: '친구',
+      font: 'Noto Sans',
+      recipientId: id,
+      sender: `${data.sender}/${data.password}`,
+      content: data.content,
+      profileImageURL: 'https://ibb.co/d7sX3FK'
+      // profileImageURL: data.profileImageURL
+      //   ? data.profileImageURL
+      //   : noImageSelect
+    }
     console.log(formData)
-    // 선택된 질문 객체에 데이터 추가 또는 API 호출
-    postRecipientsCreate(formData, {
+    PostRecipientsMessagesCreateData(formData, {
       onSuccess: () => {
         console.log('Success!')
         onClose()
@@ -48,15 +72,26 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
     onClose()
   }
 
-  const handleProfileImage = () => {
-    alert('이미지등록')
+  const saveProfileImage = (fileBlob: any) => {
+    const fileUrl = URL.createObjectURL(fileBlob)
+    setImgSrc(fileUrl)
+
+    const imgData = new FormData()
+    imgData.append('image', fileBlob)
+    getImageUrl(imgData)
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      saveProfileImage(e.target.files[0])
+    }
   }
 
   return (
     <div className={cx('modalWrapper')}>
       <div className={cx('question-container')}>
         <p className={cx('question-title')}>질문</p>
-        <p className={cx('question')}>{question.name}</p>
+        <p className={cx('question')}>{question}</p>
       </div>
       <form
         className={cx('questionFieldWrap')}
@@ -64,9 +99,29 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
       >
         <div className={cx('questionField')}>
           <div className={cx('content-container')}>
-            <label className={cx('label')}>프로필 사진</label>
-            <div onClick={handleProfileImage}>
-              <CircleUser className={cx('img')} strokeWidth={0.5} />
+            <div className={cx('label')}>프로필 사진</div>
+            <div>
+              <label className={cx('uploadBtn')}>
+                <input
+                  {...register('profileImageURL')}
+                  type="file"
+                  accept="image/*"
+                  className={cx('imgBox')}
+                  onChange={handleFileChange}
+                />
+                {imgSrc ? (
+                  <div className={cx('imgWrap')}>
+                    <Image
+                      src={imgSrc}
+                      alt="이미지 미리보기"
+                      width={60}
+                      height={60}
+                    />
+                  </div>
+                ) : (
+                  <Plus className={cx('img')} />
+                )}
+              </label>
             </div>
           </div>
           <div className={cx('content-container')}>
@@ -75,7 +130,14 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
               size="responsive"
               type="text"
               {...register('sender', {
-                required: ERROR_MESSAGE.nickname.required,
+                required: {
+                  value: true,
+                  message: ERROR_MESSAGE.nickname.required
+                },
+                minLength: {
+                  value: 1,
+                  message: ERROR_MESSAGE.nickname.max
+                },
                 maxLength: {
                   value: 4,
                   message: ERROR_MESSAGE.nickname.max
@@ -97,7 +159,14 @@ const FormModal: React.FC<FormModalProps> = ({ question, onClose }) => {
               size="responsive"
               type="password"
               {...register('password', {
-                required: ERROR_MESSAGE.password.required,
+                required: {
+                  value: true,
+                  message: ERROR_MESSAGE.password.required
+                },
+                minLength: {
+                  value: 4,
+                  message: ERROR_MESSAGE.nickname.max
+                },
                 maxLength: {
                   value: 4,
                   message: ERROR_MESSAGE.password.letters
