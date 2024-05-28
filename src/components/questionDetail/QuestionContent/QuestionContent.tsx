@@ -36,6 +36,7 @@ const QuestionContent = ({
   const userName = name.split('/')[0]
   const questionText = name.split('/')[2]
   const date = useDate(data.createdAt)
+  const image = data.backgroundImageURL
 
   const modalId = crypto.randomUUID()
   const { openModal, closeModal } = useModal()
@@ -65,6 +66,13 @@ const QuestionContent = ({
           <span className={cx('questionDetails-date')}>{date}</span>
         </div>
         <div className={cx('questionText')}>{questionText}</div>
+        {image && (
+          <img
+            className={cx('questionImage')}
+            src={image}
+            alt="질문 첨부 사진"
+          />
+        )}
       </div>
       {userStatus === 'answer' && !isChecked && (
         <div className={cx('questionBtn')}>

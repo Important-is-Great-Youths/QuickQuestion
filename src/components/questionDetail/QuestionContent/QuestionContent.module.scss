@@ -56,6 +56,12 @@
   @include text-style(20, bold);
 }
 
+.questionImage {
+  max-width: 400px;
+  border-radius: 12px;
+  border: 1px solid $secondary;
+}
+
 .questionBtn {
   margin-left: auto;
 }
