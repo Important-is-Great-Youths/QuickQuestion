@@ -31,14 +31,14 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     error
   } = usePostRecipientsMessagesCreate(id)
 
+  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
+
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors }
   } = useForm()
-
-  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
 
   const [imgSrc, setImgSrc] = useState('')
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
@@ -128,7 +128,10 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
               size="responsive"
               type="text"
               {...register('sender', {
-                required: true,
+                required: {
+                  value: true,
+                  message: ERROR_MESSAGE.nickname.required
+                },
                 minLength: {
                   value: 1,
                   message: ERROR_MESSAGE.nickname.max
@@ -154,7 +157,10 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
               size="responsive"
               type="password"
               {...register('password', {
-                required: true,
+                required: {
+                  value: true,
+                  message: ERROR_MESSAGE.password.required
+                },
                 minLength: {
                   value: 4,
                   message: ERROR_MESSAGE.nickname.max
