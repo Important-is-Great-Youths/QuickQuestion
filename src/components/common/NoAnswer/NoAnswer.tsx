@@ -19,7 +19,7 @@ const NoAnswer: React.FC<NoAnswerProps> = ({ setShowNoAnswer }) => {
   }
 
   return (
-    <div className={cx('button')}>
+    <label className={cx('button')} htmlFor="customCheckbox">
       <input
         className={cx('customCheckbox')}
         type="checkbox"
@@ -28,14 +28,12 @@ const NoAnswer: React.FC<NoAnswerProps> = ({ setShowNoAnswer }) => {
         onChange={handleCheckboxChange}
       />
       <span>미답변만 보기</span>
-      <label htmlFor="customCheckbox">
-        {isChecked ? (
-          <SquareCheck className={cx('checkbox')} />
-        ) : (
-          <Square className={cx('checkbox')} />
-        )}
-      </label>
-    </div>
+      {isChecked ? (
+        <SquareCheck className={cx('checkbox')} />
+      ) : (
+        <Square className={cx('checkbox')} />
+      )}
+    </label>
   )
 }
 
