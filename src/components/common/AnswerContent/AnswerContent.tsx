@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
 import Textarea from '@/components/common/Textarea/Textarea'
-import { deleteRecipientsDelete } from '@/apis/recipients'
+import { deleteMessagesDelete } from '@/apis/messages'
 import Button from '../Button/Button'
 
 const cx = classNames.bind(styles)
@@ -85,7 +85,7 @@ const AnswerContent = ({
           closeModal(modalId)
         }}
         onDelete={() => {
-          deleteRecipientsDelete(answerId)
+          deleteMessagesDelete(Number(answerId))
           closeModal(modalId)
         }}
       />,
