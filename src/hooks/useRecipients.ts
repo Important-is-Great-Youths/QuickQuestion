@@ -54,6 +54,7 @@ export const usePostProfileImageUrlCreate = (
   useMutation({
     mutationFn: (formData: FormData) => postImageUrlCreate(formData),
     onSuccess(data) {
+      console.log('이미지 URL:', data.data.url)
       setValue('profileImageURL', data.data.url)
     }
   })
@@ -73,6 +74,10 @@ export const usePostRecipientsMessagesCreate = (id: string) => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['recipientsRead', id],
+        refetchType: 'active'
+      })
+      queryClient.invalidateQueries({
+        queryKey: ['messagesList', id],
         refetchType: 'active'
       })
       router.push(`/questiondetail/${data.recipientId}`)
