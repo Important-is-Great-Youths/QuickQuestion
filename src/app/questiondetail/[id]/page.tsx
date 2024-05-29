@@ -8,7 +8,10 @@ import {
   PostRecipientsReactionsCreate,
   RecentMessages
 } from '@/types/recipients'
-import { useGetRecipientsRead } from '@/hooks/useRecipients'
+import {
+  useGetRecipientsMessagesList,
+  useGetRecipientsRead
+} from '@/hooks/useRecipients'
 import ReactionContent from '@/components/questionDetail/ReactionContent/ReactionContent'
 import ContentLayout from '@/components/questionDetail/ContentLayout/ContentLayout'
 import QuestionContent from '@/components/questionDetail/QuestionContent/QuestionContent'
@@ -23,6 +26,7 @@ const QuestionDetailPage = () => {
   const params = usePathname()
   const questionId = params.split('/')[2]
   const { data } = useGetRecipientsRead(questionId)
+  const { data: answerListData } = useGetRecipientsMessagesList(questionId)
 
   const [userState, setUserState] = useState<'question' | 'answer'>('answer')
 
@@ -42,11 +46,11 @@ const QuestionDetailPage = () => {
     return <div>Loading...</div>
   }
 
-  const userId = data.id
+  const userId = String(data.id)
   const messageCount = data.messageCount
   const empty = data.messageCount
 
-  const recentMessages = data.recentMessages
+  const recentMessages = answerListData?.results
   const checkId = data?.topReactions.find(
     (reaction: PostRecipientsReactionsCreate) => reaction.emoji.includes('/')
   )?.emoji
@@ -66,8 +70,8 @@ const QuestionDetailPage = () => {
         {empty === 0 ? (
           <AnswerEmpty userStatus={userState} />
         ) : (
-          <div className={cx("answer-wrap")}>
-            {recentMessages.map(
+          <div className={cx('answer-wrap')}>
+            {recentMessages?.map(
               ({
                 id,
                 profileImageURL,

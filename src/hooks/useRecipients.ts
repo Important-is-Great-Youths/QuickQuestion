@@ -9,7 +9,8 @@ import {
   getRecipientsReactionsList,
   postRecipientsReactionsCreate,
   getRecipientsRead,
-  postRecipientsMessagesCreate
+  postRecipientsMessagesCreate,
+  getRecipientsMessagesList
 } from '@/apis/recipients'
 import {
   PostRecipientsCreate,
@@ -57,6 +58,12 @@ export const usePostProfileImageUrlCreate = (
     }
   })
 
+export const useGetRecipientsMessagesList = (id: string) =>
+  useQuery({
+    queryKey: ['messagesList', id],
+    queryFn: () => getRecipientsMessagesList(id)
+  })
+
 export const usePostRecipientsMessagesCreate = (id: string) => {
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -66,7 +73,7 @@ export const usePostRecipientsMessagesCreate = (id: string) => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: ['recipientsRead', id],
-        refetchType: 'inactive'
+        refetchType: 'active'
       })
       router.push(`/questiondetail/${data.recipientId}`)
     }
