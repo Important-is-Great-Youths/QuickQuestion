@@ -16,6 +16,7 @@ const QuestionListPage = () => {
   const [selectedQuestion, setSelectedQuestion] = useState<GetRecipientsList>()
   const [currentPage, setCurrentPage] = useState(1)
   const [showNoAnswer, setShowNoAnswer] = useState(false)
+  const [selectedTag, setSelectedTag] = useState<string>('')
   const limit = 100
   const viewCount = 6
   const { data, isLoading, error } = useGetRecipientsList(limit, 0)
@@ -31,10 +32,12 @@ const QuestionListPage = () => {
   const startIndex = (currentPage - 1) * 6
   const endIndex = startIndex + viewCount
 
-  const filteredData = showNoAnswer
-    ? data.results.filter((question: any) => question.messageCount === 0)
-    : data.results
-
+  const filteredData = data.results.filter((question: any) => {
+    const tagMatch =
+      selectedTag === '' || question.backgroundColor === selectedTag
+    const noAnswerMatch = !showNoAnswer || question.messageCount === 0
+    return tagMatch && noAnswerMatch
+  })
   const paginatedData = filteredData.slice(startIndex, endIndex)
 
   return (
@@ -43,7 +46,7 @@ const QuestionListPage = () => {
 
       <div className={cx('header')}>
         <div className={cx('tagsContainer')}>
-          <Tags />
+          <Tags isAll onTagChange={(tag) => setSelectedTag(tag)} />
         </div>
         <NoAnswer setShowNoAnswer={setShowNoAnswer} />
       </div>
@@ -52,7 +55,7 @@ const QuestionListPage = () => {
           <Card
             key={question.id}
             id={question.id.toString()}
-            cardTitle={'beige'}
+            cardTitle={question.backgroundColor}
             cardText={question.name}
             answerCount={question.messageCount}
           />

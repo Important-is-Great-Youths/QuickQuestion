@@ -6,11 +6,12 @@ const cx = classNames.bind(styles)
 
 interface TagsProps extends React.InputHTMLAttributes<HTMLInputElement> {
   isAll?: boolean
+  onTagChange: (tag: string) => void
 }
 
 type TagKey = '전체' | '학문' | '연예' | '게임' | '기타'
 const tagList = {
-  전체: 'all',
+  전체: '',
   학문: 'beige',
   연예: 'purple',
   게임: 'blue',
@@ -18,7 +19,7 @@ const tagList = {
 }
 
 const Tags = React.forwardRef<HTMLInputElement, TagsProps>(
-  ({ isAll = false, ...props }, ref) => {
+  ({ isAll = false, onTagChange, ...props }, ref) => {
     const filteredTagList = isAll
       ? Object.keys(tagList)
       : Object.keys(tagList).slice(1)
@@ -33,8 +34,9 @@ const Tags = React.forwardRef<HTMLInputElement, TagsProps>(
               name="tags"
               value={tagList[tag as TagKey]}
               className={cx('radio')}
-              defaultChecked={index === 0} // 첫번째 tag가 기본 선택
+              defaultChecked={index === 0}
               ref={ref}
+              onChange={() => onTagChange(tagList[tag as TagKey])}
               {...props}
             />
             <label htmlFor={tag} className={cx('label')}>
