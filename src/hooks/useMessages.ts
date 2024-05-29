@@ -1,9 +1,28 @@
-import { useRouter } from 'next/navigation'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { UseFormReturn } from 'react-hook-form'
 import {
   getMessagesRead,
   putMessagesUpdate,
   patchMessagesPartialUpdate,
   deleteMessagesDelete
 } from '@/apis/messages'
+import { PatchMessagesPartialUpdate, PutMessagesUpdate } from '@/types/messages'
+
+export const useGetMessagesRead = (id: number) =>
+  useQuery({
+    queryKey: ['messagesRead'],
+    queryFn: () => getMessagesRead(id)
+  })
+
+export const usePutMessagesUpdate = (id: number) =>
+  useMutation({
+    mutationFn: (value: PutMessagesUpdate) => putMessagesUpdate(id, value)
+  })
+
+export const usePatchMessagesPartialUpdate = (id: string) =>
+  useMutation({
+    mutationFn: (value: PatchMessagesPartialUpdate) =>
+      patchMessagesPartialUpdate(id, value)
+  })
+
+export const useDeleteMessagesDelete = (id: number) =>
+  useMutation({ mutationFn: () => deleteMessagesDelete(id) })
