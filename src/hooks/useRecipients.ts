@@ -54,7 +54,6 @@ export const usePostProfileImageUrlCreate = (
   useMutation({
     mutationFn: (formData: FormData) => postImageUrlCreate(formData),
     onSuccess(data) {
-      console.log('이미지 URL:', data.data.url)
       setValue('profileImageURL', data.data.url)
     }
   })
