@@ -71,7 +71,7 @@ const QuestionDetailPage = () => {
           <AnswerEmpty userStatus={userState} />
         ) : (
           <div className={cx('answer-wrap')}>
-            {recentMessages.map(
+            {recentMessages?.map(
               ({
                 id,
                 profileImageURL,
