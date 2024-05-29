@@ -35,26 +35,30 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     register,
     handleSubmit,
     setValue,
-    watch,
     formState: { errors }
   } = useForm()
 
   const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
-  const watchedProfileImageURL = watch('profileImageURL')
 
   const [imgSrc, setImgSrc] = useState('')
+  const [isUploading, setIsUploading] = useState(false)
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
 
   const onSubmit = async (data: any) => {
+    if (isUploading) {
+      alert('이미지 업로드 중입니다. 잠시만 기다려주세요.')
+      return
+    }
     const formData = {
       relationship: '친구',
       font: 'Noto Sans',
       recipientId: id,
       sender: `${data.sender}/${data.password}`,
       content: data.content,
-      profileImageURL: data.profileImageURL
-        ? watchedProfileImageURL
-        : noImageSelect
+      profileImageURL:
+        data.profileImageURL && data.profileImageURL.length > 0
+          ? data.profileImageURL
+          : noImageSelect
     }
     PostRecipientsMessagesCreateData(formData, {
       onSuccess: () => {
@@ -72,12 +76,22 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
   }
 
   const saveProfileImage = (fileBlob: any) => {
+    setIsUploading(true)
     const fileUrl = URL.createObjectURL(fileBlob)
     setImgSrc(fileUrl)
 
     const imgData = new FormData()
     imgData.append('image', fileBlob)
-    getImageUrl(imgData)
+    getImageUrl(imgData, {
+      onSuccess: () => {
+        setIsUploading(false)
+      },
+      onError: () => {
+        setIsUploading(false)
+        alert('이미지 업로드에 실패했습니다.')
+        setImgSrc('')
+      }
+    })
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -218,7 +232,13 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
             type="button"
             onClick={handleCancel}
           />
-          <Button text="답변하기" size="md" variant="default" type="submit" />
+          <Button
+            text="답변하기"
+            size="md"
+            variant="default"
+            type="submit"
+            isDisabled={isUploading}
+          />
         </div>
       </form>
     </div>
