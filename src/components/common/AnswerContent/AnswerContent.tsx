@@ -13,14 +13,14 @@ import {
   deleteMessagesDelete,
   patchMessagesPartialUpdate
 } from '@/apis/messages'
-import Button from '../Button/Button'
+import Button from '@/components/common/Button/Button'
 import { usePatchMessagesPartialUpdate } from '@/hooks/useMessages'
 
 const cx = classNames.bind(styles)
 
 const testData = {
   src: 'https://images.unsplash.com/photo-1525351326368-efbb5cb6814d?q=80&w=1180&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  nickname: '김답변',
+  sender: '김답변',
   date: new Date().toISOString(),
   answer: `병아리들은 애기때는 깃털이 아닌 솜털이에요! 부화한지 일주일정도 지나게 되면 노란 솜털이 빠지고하얀 깃털, 갈색 깃털 등 다양한 색의 깃털이 나오게 되는거죵. 쉽게말해 깃털 색이 노란색에서 하얀색으로 변화하는게 아닌 그냥 솜털 자체가 빠지면서 다른색깔인 새 깃털로 바뀐다는겁니다!`
 }
@@ -29,7 +29,7 @@ interface AnswerContentProps {
   answerId: string
   questionId: string
   profileImage: string
-  nickname: string
+  sender: string
   date: string
   answer: string
   checkId: string
@@ -41,7 +41,7 @@ const AnswerContent = ({
   answerId,
   questionId,
   profileImage = testData.src,
-  nickname = testData.nickname,
+  sender = testData.sender,
   date = testData.date,
   answer = testData.answer,
   checkId,
@@ -59,6 +59,8 @@ const AnswerContent = ({
   const { mutate } = usePostReaction(questionId)
   const { mutate: editAnswer, isSuccess: isEditAnswerSuccess } =
     usePatchMessagesPartialUpdate(answerId)
+
+  const [nickname, password] = sender.split('/')
 
   const handlePopupOpen = () => {
     setIsPopupOpen(!isPopupOpen)
@@ -162,7 +164,10 @@ const AnswerContent = ({
             </button>
             {isPopupOpen && (
               <div className={cx('answercontent-top-pwpopup')}>
-                <PwPopUp onCheck={() => handlePopupCheck()} />
+                <PwPopUp
+                  password={password}
+                  onCheck={() => handlePopupCheck()}
+                />
               </div>
             )}
           </div>

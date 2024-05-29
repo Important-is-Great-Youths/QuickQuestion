@@ -84,7 +84,7 @@ const QuestionDetailPage = () => {
                   answerId={String(id)}
                   questionId={questionId}
                   profileImage={profileImageURL}
-                  nickname={sender}
+                  sender={sender}
                   date={createdAt}
                   answer={content}
                   checkId={checkId}
