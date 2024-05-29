@@ -5,12 +5,16 @@ import { CheckCircle2, SquarePen, SquareX } from 'lucide-react'
 import useDate from '@/hooks/useDate'
 import { usePostReaction } from '@/hooks/useRecipients'
 import PwPopUp from '@/components/common/PopUp/PwPopUp'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
 import Textarea from '@/components/common/Textarea/Textarea'
-import { deleteRecipientsDelete } from '@/apis/recipients'
+import {
+  deleteMessagesDelete,
+  patchMessagesPartialUpdate
+} from '@/apis/messages'
 import Button from '../Button/Button'
+import { usePatchMessagesPartialUpdate } from '@/hooks/useMessages'
 
 const cx = classNames.bind(styles)
 
@@ -53,6 +57,8 @@ const AnswerContent = ({
   const [answerEditValue, setAnswerEditValue] = useState('')
 
   const { mutate } = usePostReaction(questionId)
+  const { mutate: editAnswer, isSuccess: isEditAnswerSuccess } =
+    usePatchMessagesPartialUpdate(answerId)
 
   const handlePopupOpen = () => {
     setIsPopupOpen(!isPopupOpen)
@@ -85,7 +91,7 @@ const AnswerContent = ({
           closeModal(modalId)
         }}
         onDelete={() => {
-          deleteRecipientsDelete(answerId)
+          deleteMessagesDelete(Number(answerId))
           closeModal(modalId)
         }}
       />,
@@ -96,10 +102,25 @@ const AnswerContent = ({
   const handleEditChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAnswerEditValue(event.target.value)
   }
-
+  // 수정 완료 버튼
   const handleEditAnswer = () => {
     console.log(answerEditValue)
+    editAnswer({
+      team: '2-3',
+      recipientId: Number(questionId),
+      sender: nickname,
+      profileImageURL: profileImage,
+      relationship: '친구',
+      content: answerEditValue,
+      font: 'Noto Sans'
+    })
   }
+
+  useEffect(() => {
+    if (isEditAnswerSuccess) {
+      setIsTextareaOpen(false)
+    }
+  }, [isEditAnswerSuccess])
 
   const handleAnswerCheck = () => {
     mutate({ emoji: `/${answerId}`, type: 'increase' })
