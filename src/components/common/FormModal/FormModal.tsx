@@ -20,8 +20,8 @@ const cx = classNames.bind(styles)
 
 interface FormModalProps {
   id: string
-  question: string // 선택된 질문 객체
-  onClose: () => void // 모달 닫기 함수
+  question: string
+  onClose: () => void
 }
 
 const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
@@ -56,7 +56,6 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
         ? watchedProfileImageURL
         : noImageSelect
     }
-    console.log(formData)
     PostRecipientsMessagesCreateData(formData, {
       onSuccess: () => {
         console.log('Success!')
