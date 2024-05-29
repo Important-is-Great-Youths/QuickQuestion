@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './FormModal.module.scss'
 import Image from 'next/image'
@@ -35,26 +35,26 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors }
   } = useForm()
 
   const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
+  const watchedProfileImageURL = watch('profileImageURL')
 
   const [imgSrc, setImgSrc] = useState('')
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
 
   const onSubmit = async (data: any) => {
-    console.log(data)
     const formData = {
       relationship: '친구',
       font: 'Noto Sans',
       recipientId: id,
       sender: `${data.sender}/${data.password}`,
       content: data.content,
-      profileImageURL: 'https://ibb.co/d7sX3FK'
-      // profileImageURL: data.profileImageURL
-      //   ? data.profileImageURL
-      //   : noImageSelect
+      profileImageURL: data.profileImageURL
+        ? watchedProfileImageURL
+        : noImageSelect
     }
     console.log(formData)
     PostRecipientsMessagesCreateData(formData, {
