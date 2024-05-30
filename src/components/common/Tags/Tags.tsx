@@ -6,7 +6,7 @@ const cx = classNames.bind(styles)
 
 interface TagsProps extends React.InputHTMLAttributes<HTMLInputElement> {
   isAll?: boolean
-  onTagChange: (tag: string) => void
+  onTagChange?: (tag: string) => void
 }
 
 type TagKey = '전체' | '학문' | '연예' | '게임' | '기타'
@@ -36,7 +36,9 @@ const Tags = React.forwardRef<HTMLInputElement, TagsProps>(
               className={cx('radio')}
               defaultChecked={index === 0}
               ref={ref}
-              onChange={() => onTagChange(tagList[tag as TagKey])}
+              onChange={() =>
+                onTagChange && onTagChange(tagList[tag as TagKey])
+              }
               {...props}
             />
             <label htmlFor={tag} className={cx('label')}>

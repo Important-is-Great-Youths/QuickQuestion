@@ -2,7 +2,6 @@ import axios from 'axios'
 
 export const instance = axios.create({
   baseURL: 'https://rolling-api.vercel.app/2-3',
-  timeout: 5000,
   headers: {
     'Content-Type': 'application/json'
   }
