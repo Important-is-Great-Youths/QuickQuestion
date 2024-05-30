@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   getMessagesRead,
   putMessagesUpdate,
@@ -24,5 +24,7 @@ export const usePatchMessagesPartialUpdate = (id: string) =>
       patchMessagesPartialUpdate(id, value)
   })
 
-export const useDeleteMessagesDelete = (id: number) =>
-  useMutation({ mutationFn: () => deleteMessagesDelete(id) })
+export const useDeleteMessagesDelete = (id: string) =>
+  useMutation({
+    mutationFn: () => deleteMessagesDelete(id)
+  })
