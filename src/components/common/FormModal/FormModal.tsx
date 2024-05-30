@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './FormModal.module.scss'
 import Image from 'next/image'
@@ -20,8 +20,8 @@ const cx = classNames.bind(styles)
 
 interface FormModalProps {
   id: string
-  question: string
-  onClose: () => void
+  question: string // 선택된 질문 객체
+  onClose: () => void // 모달 닫기 함수
 }
 
 const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
@@ -38,17 +38,14 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     formState: { errors }
   } = useForm()
 
-  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
+  const { mutate: getImageUrl, isPending: isPendingGetImageUrl } =
+    usePostProfileImageUrlCreate(setValue)
 
   const [imgSrc, setImgSrc] = useState('')
-  const [isUploading, setIsUploading] = useState(false)
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
 
   const onSubmit = async (data: any) => {
-    if (isUploading) {
-      alert('이미지 업로드 중입니다. 잠시만 기다려주세요.')
-      return
-    }
+    console.log(data)
     const formData = {
       relationship: '친구',
       font: 'Noto Sans',
@@ -60,6 +57,7 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
           ? data.profileImageURL
           : noImageSelect
     }
+
     PostRecipientsMessagesCreateData(formData, {
       onSuccess: () => {
         console.log('Success!')
@@ -76,22 +74,12 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
   }
 
   const saveProfileImage = (fileBlob: any) => {
-    setIsUploading(true)
     const fileUrl = URL.createObjectURL(fileBlob)
     setImgSrc(fileUrl)
 
     const imgData = new FormData()
     imgData.append('image', fileBlob)
-    getImageUrl(imgData, {
-      onSuccess: () => {
-        setIsUploading(false)
-      },
-      onError: () => {
-        setIsUploading(false)
-        alert('이미지 업로드에 실패했습니다.')
-        setImgSrc('')
-      }
-    })
+    getImageUrl(imgData)
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -237,7 +225,7 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
             size="md"
             variant="default"
             type="submit"
-            isDisabled={isUploading}
+            isDisabled={isPendingGetImageUrl}
           />
         </div>
       </form>
