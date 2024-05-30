@@ -2,7 +2,7 @@
   min-height: calc(100vh - 100px);
   background-color: $primary;
 
-  @include responsive(M) {
+  @include responsive(T) {
     min-height: calc(100vh - 80px);
   }
 }

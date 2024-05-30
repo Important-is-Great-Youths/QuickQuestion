@@ -45,14 +45,13 @@
 }
 .cardContainer {
   display: grid;
+  min-height: 212px;
   margin: 40px 0 60px 0;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
   gap: 20px;
   @include responsive(T) {
     margin: 32px 0 40px 0;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
     gap: 16px;
   }
   @include responsive(M) {
