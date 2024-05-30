@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import styles from './AnswerContent.module.scss'
 import Image from 'next/image'
 import { CheckCircle2, SquarePen, SquareX } from 'lucide-react'
+import { useQueryClient } from '@tanstack/react-query'
 import useDate from '@/hooks/useDate'
 import { usePostReaction } from '@/hooks/useRecipients'
 import PwPopUp from '@/components/common/PopUp/PwPopUp'
@@ -56,7 +57,9 @@ const AnswerContent = ({
   const [isTextareaOpen, setIsTextareaOpen] = useState(false)
   const [answerEditValue, setAnswerEditValue] = useState('')
 
-  const { mutate } = usePostReaction(questionId)
+  const queryClient = useQueryClient()
+
+  const { mutate, isSuccess } = usePostReaction(questionId)
   const { mutate: editAnswer, isSuccess: isEditAnswerSuccess } =
     usePatchMessagesPartialUpdate(answerId)
 
@@ -126,6 +129,17 @@ const AnswerContent = ({
 
   const handleAnswerCheck = () => {
     mutate({ emoji: `/${answerId}`, type: 'increase' })
+  }
+
+  if (isSuccess) {
+    queryClient.invalidateQueries({
+      queryKey: ['messagesList', questionId],
+      refetchType: 'active'
+    })
+    queryClient.invalidateQueries({
+      queryKey: ['recipientsRead', questionId],
+      refetchType: 'active'
+    })
   }
 
   return (

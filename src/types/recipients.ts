@@ -25,8 +25,8 @@ export interface PostRecipientsReactionsCreate {
 }
 
 export interface RecentMessages {
-  id: number
-  recipientId: number
+  id: string
+  recipientId: string
   sender: string
   profileImageURL: string
   relationship: string
