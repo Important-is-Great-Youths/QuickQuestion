@@ -112,7 +112,7 @@ const AnswerContent = ({
     editAnswer({
       team: '2-3',
       recipientId: Number(questionId),
-      sender: nickname,
+      sender: sender,
       profileImageURL: profileImage,
       relationship: '친구',
       content: answerEditValue,
@@ -128,6 +128,10 @@ const AnswerContent = ({
     if (isEditAnswerSuccess) {
       setIsTextareaOpen(false)
     }
+    queryClient.invalidateQueries([
+      'messagesList',
+      questionId
+    ] as InvalidateQueryFilters)
   }, [isEditAnswerSuccess])
 
   useEffect(() => {
