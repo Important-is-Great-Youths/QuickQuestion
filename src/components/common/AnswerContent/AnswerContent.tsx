@@ -9,10 +9,6 @@ import { useEffect, useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
 import AlertModal from '@/components/common/AlertModal/AlertModal'
 import Textarea from '@/components/common/Textarea/Textarea'
-import {
-  deleteMessagesDelete,
-  patchMessagesPartialUpdate
-} from '@/apis/messages'
 import Button from '@/components/common/Button/Button'
 import {
   useDeleteMessagesDelete,
