@@ -14,7 +14,11 @@ import {
   patchMessagesPartialUpdate
 } from '@/apis/messages'
 import Button from '@/components/common/Button/Button'
-import { usePatchMessagesPartialUpdate } from '@/hooks/useMessages'
+import {
+  useDeleteMessagesDelete,
+  usePatchMessagesPartialUpdate
+} from '@/hooks/useMessages'
+import { InvalidateQueryFilters, useQueryClient } from '@tanstack/react-query'
 
 const cx = classNames.bind(styles)
 
@@ -59,6 +63,9 @@ const AnswerContent = ({
   const { mutate } = usePostReaction(questionId)
   const { mutate: editAnswer, isSuccess: isEditAnswerSuccess } =
     usePatchMessagesPartialUpdate(answerId)
+  const { mutate: deleteAnswer, isSuccess: isDeleteAnswerSuccess } =
+    useDeleteMessagesDelete(answerId)
+  const queryClient = useQueryClient()
 
   const [nickname, password] = sender.split('/')
 
@@ -93,7 +100,7 @@ const AnswerContent = ({
           closeModal(modalId)
         }}
         onDelete={() => {
-          deleteMessagesDelete(Number(answerId))
+          deleteAnswer()
           closeModal(modalId)
         }}
       />,
@@ -104,9 +111,8 @@ const AnswerContent = ({
   const handleEditChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAnswerEditValue(event.target.value)
   }
-  // 수정 완료 버튼
+
   const handleEditAnswer = () => {
-    console.log(answerEditValue)
     editAnswer({
       team: '2-3',
       recipientId: Number(questionId),
@@ -118,15 +124,22 @@ const AnswerContent = ({
     })
   }
 
+  const handleAnswerCheck = () => {
+    mutate({ emoji: `/${answerId}`, type: 'increase' })
+  }
+
   useEffect(() => {
     if (isEditAnswerSuccess) {
       setIsTextareaOpen(false)
     }
   }, [isEditAnswerSuccess])
 
-  const handleAnswerCheck = () => {
-    mutate({ emoji: `/${answerId}`, type: 'increase' })
-  }
+  useEffect(() => {
+    queryClient.invalidateQueries([
+      'messagesList',
+      questionId
+    ] as InvalidateQueryFilters)
+  }, [isDeleteAnswerSuccess])
 
   return (
     <div

@@ -22,7 +22,7 @@ export const patchMessagesPartialUpdate = async (
   return res.data
 }
 
-export const deleteMessagesDelete = async (id: number) => {
-  const res = await instance.get(`messages/${id}/`)
+export const deleteMessagesDelete = async (id: string) => {
+  const res = await instance.delete(`messages/${id}/`)
   return res.data
 }
