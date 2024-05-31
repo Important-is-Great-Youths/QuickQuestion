@@ -126,89 +126,95 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
           </div>
           <div className={cx('content-container')}>
             <label className={cx('label')}>닉네임</label>
-            <Input
-              size="responsive"
-              type="text"
-              {...register('sender', {
-                required: {
-                  value: true,
-                  message: ERROR_MESSAGE.nickname.required
-                },
-                minLength: {
-                  value: 1,
-                  message: ERROR_MESSAGE.nickname.max
-                },
-                maxLength: {
-                  value: 4,
-                  message: ERROR_MESSAGE.nickname.max
-                },
-                pattern: {
-                  value: /^[A-Za-z0-9가-힣]*$/,
-                  message: ERROR_MESSAGE.nickname.letters
-                }
-              })}
-              placeholder={PLACEHOLDER.nickname}
-            />
-            {errors.sender && (
-              <p className={cx('error')}>{errors.sender.message?.toString()}</p>
-            )}
+            <div className={cx('input')}>
+              <Input
+                size="responsive"
+                type="text"
+                placeholder={PLACEHOLDER.nickname}
+                maxLength={4}
+                {...register('sender', {
+                  required: {
+                    value: true,
+                    message: ERROR_MESSAGE.nickname.required
+                  },
+                  maxLength: {
+                    value: 4,
+                    message: ERROR_MESSAGE.nickname.max
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
+                    message: ERROR_MESSAGE.nickname.letters
+                  }
+                })}
+              />
+              {errors.sender && (
+                <p className={cx('input-error')}>
+                  {errors.sender.message?.toString()}
+                </p>
+              )}
+            </div>
           </div>
           <div className={cx('content-container')}>
             <label className={cx('label')}>비밀번호</label>
-            <Input
-              size="responsive"
-              type="password"
-              {...register('password', {
-                required: {
-                  value: true,
-                  message: ERROR_MESSAGE.password.required
-                },
-                minLength: {
-                  value: 4,
-                  message: ERROR_MESSAGE.nickname.max
-                },
-                maxLength: {
-                  value: 4,
-                  message: ERROR_MESSAGE.password.letters
-                },
-                pattern: {
-                  value: /^[0-9]*$/,
-                  message: ERROR_MESSAGE.password.number
-                }
-              })}
-              placeholder={PLACEHOLDER.password}
-            />
-            {errors.password && (
-              <p className={cx('error')}>
-                {errors.password.message?.toString()}
-              </p>
-            )}
+            <div className={cx('input')}>
+              <Input
+                size="responsive"
+                type="password"
+                placeholder={PLACEHOLDER.password}
+                maxLength={4}
+                {...register('password', {
+                  required: {
+                    value: true,
+                    message: ERROR_MESSAGE.password.required
+                  },
+                  minLength: {
+                    value: 4,
+                    message: ERROR_MESSAGE.nickname.letters
+                  },
+                  maxLength: {
+                    value: 4,
+                    message: ERROR_MESSAGE.password.letters
+                  },
+                  pattern: {
+                    value: /^\d{4}$/,
+                    message: ERROR_MESSAGE.password.number
+                  }
+                })}
+              />
+              {errors.password && (
+                <p className={cx('input-error')}>
+                  {errors.password.message?.toString()}
+                </p>
+              )}
+            </div>
           </div>
-          <div className={cx('content-container')}>
+          <div className={cx('content-container', 'textarea')}>
             <label className={cx('label')}>답변 내용</label>
-            <Textarea
-              {...register('content', {
-                required: {
-                  value: true,
-                  message: ERROR_MESSAGE.answer.required
-                },
-                minLength: {
-                  value: 5,
-                  message: ERROR_MESSAGE.answer.min
-                },
-                maxLength: {
-                  value: 255,
-                  message: ERROR_MESSAGE.answer.max
-                }
-              })}
-              id="content"
-              placeholder={PLACEHOLDER.answer}
-            />
-            {errors.content && (
-              <p className={cx('error')}>
-                {errors.content.message?.toString()}
-              </p>
-            )}
+            <div className={cx('input')}>
+              <Textarea
+                {...register('content', {
+                  required: {
+                    value: true,
+                    message: ERROR_MESSAGE.answer.required
+                  },
+                  minLength: {
+                    value: 5,
+                    message: ERROR_MESSAGE.answer.min
+                  },
+                  maxLength: {
+                    value: 255,
+                    message: ERROR_MESSAGE.answer.max
+                  }
+                })}
+                id="content"
+                placeholder={PLACEHOLDER.answer}
+              />
+              {errors.content && (
+                <p className={cx('input-error')}>
+                  {errors.content.message?.toString()}
+                </p>
+              )}
+            </div>
           </div>
         </div>
         <div className={cx('button-container')}>
