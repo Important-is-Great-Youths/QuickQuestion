@@ -7,7 +7,7 @@
   padding: 28px;
   align-items: center;
   gap: 28px;
-  @include responsive(T) {
+  @include responsive(M) {
     padding: 20px;
     gap: 20px;
     width: 340px;
@@ -23,7 +23,7 @@
   background: $secondary;
   color: $white;
 
-  @include responsive(T) {
+  @include responsive(M) {
     padding: 16px;
   }
 
@@ -51,7 +51,7 @@
   border: 1px solid $secondary;
   width: 100%;
   padding: 24px;
-  @include responsive(T) {
+  @include responsive(M) {
     padding: 16px;
     gap: 28px;
   }
@@ -66,7 +66,7 @@
     color: $secondary;
     margin-bottom: 8px;
     @include text-style(20, bold);
-    @include responsive(T) {
+    @include responsive(M) {
       @include text-style(18, bold);
     }
   }
@@ -79,6 +79,8 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    cursor: pointer;
+
     .imgBox {
       display: none;
     }
@@ -95,8 +97,25 @@
   gap: 20px;
 }
 
-.error {
-  margin-top: 4px;
-  color: $red;
-  @include text-style-12;
+.input {
+  position: relative;
+
+  &-error {
+    @include text-style(14);
+    position: absolute;
+    color: $red;
+
+    @include responsive(M) {
+      @include text-style(12);
+      margin-top: 2px;
+    }
+  }
+}
+
+.textarea {
+  margin-bottom: 12px;
+
+  @include responsive(M) {
+    margin-bottom: 8px;
+  }
 }

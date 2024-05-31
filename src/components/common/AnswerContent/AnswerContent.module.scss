@@ -10,7 +10,7 @@
   border: 1px solid $secondary;
   width: 100%;
 
-  @include responsive(T) {
+  @include responsive(M) {
     padding: 16px;
   }
 
@@ -98,13 +98,32 @@
     }
 
     &-textarea {
-      position: relative;
       width: 100%;
+      margin-bottom: 12px;
 
-      &-button {
+      @include responsive(M) {
+        margin-bottom: 8px;
+      }
+
+      &-wrap {
+        position: relative;
+
+        &-button {
+          position: absolute;
+          bottom: 16px;
+          right: 16px;
+        }
+      }
+
+      &-message {
+        @include text-style(14);
         position: absolute;
-        bottom: 16px;
-        right: 16px;
+        color: $red;
+
+        @include responsive(M) {
+          @include text-style(12);
+          margin-top: 4px;
+        }
       }
     }
   }
