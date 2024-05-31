@@ -1,9 +1,11 @@
 import classNames from 'classnames/bind'
 import styles from './AnswerContent.module.scss'
 import Image from 'next/image'
+import { useForm, FieldValues, SubmitHandler } from 'react-hook-form'
 import { CheckCircle2, SquarePen, SquareX } from 'lucide-react'
 import useDate from '@/hooks/useDate'
 import { usePostReaction } from '@/hooks/useRecipients'
+import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/formMessage'
 import PwPopUp from '@/components/common/PopUp/PwPopUp'
 import { useEffect, useState } from 'react'
 import { useModal } from '@/contexts/ModalProvider'
@@ -48,6 +50,12 @@ const AnswerContent = ({
   userType = 'answer',
   onCheck
 }: AnswerContentProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
   const formattedDate = useDate(date)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [popupMode, setPopupMode] = useState('')
@@ -108,14 +116,14 @@ const AnswerContent = ({
     setAnswerEditValue(event.target.value)
   }
 
-  const handleEditAnswer = () => {
+  const handleEditAnswer: SubmitHandler<FieldValues> = (value) => {
     editAnswer({
       team: '2-3',
       recipientId: Number(questionId),
       sender: sender,
       profileImageURL: profileImage,
       relationship: '친구',
-      content: answerEditValue,
+      content: value.content,
       font: 'Noto Sans'
     })
   }
@@ -172,7 +180,7 @@ const AnswerContent = ({
           </div>
           <p>{formattedDate}</p>
         </div>
-        {userType === 'answer' && (
+        {userType === 'answer' && !(checkId?.replace('/', '') === answerId) && (
           <div className={cx('answercontent-top-buttons')}>
             <button
               onClick={handleEditButton}
@@ -199,25 +207,37 @@ const AnswerContent = ({
       </div>
       {isTextareaOpen ? (
         <div className={cx('answercontent-top-textarea')}>
-          <Textarea
-            id="0"
-            placeholder={answer}
-            maxLength={30}
-            onChange={handleEditChange}
-          />
-          <div className={cx('answercontent-top-textarea-button')}>
-            <Button
-              text="수정하기"
-              size="sm"
-              type="button"
-              onClick={() => handleEditAnswer()}
+          <div className={cx('answercontent-top-textarea-wrap')}>
+            <Textarea
+              id="0"
+              placeholder={PLACEHOLDER.answer}
+              defaultValue={answer}
+              maxLength={255}
+              {...register('content', {
+                required: ERROR_MESSAGE.answer.required,
+                minLength: { value: 5, message: ERROR_MESSAGE.answer.min },
+                maxLength: { value: 255, message: ERROR_MESSAGE.answer.max }
+              })}
             />
+            <div className={cx('answercontent-top-textarea-wrap-button')}>
+              <Button
+                text="수정하기"
+                size="sm"
+                type="button"
+                onClick={handleSubmit(handleEditAnswer)}
+              />
+            </div>
           </div>
+          {errors.content && (
+            <p className={cx('answercontent-top-textarea-message')}>
+              {errors.content.message?.toString()}
+            </p>
+          )}
         </div>
       ) : (
         <p className={cx('answercontent-middle')}>{answer}</p>
       )}
-      {userType === 'question' && (
+      {userType === 'question' && !checkId && (
         <div className={cx('answercontent-bottom')}>
           <button
             className={cx('answercontent-bottom-check')}
