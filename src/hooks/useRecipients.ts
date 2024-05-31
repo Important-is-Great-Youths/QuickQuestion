@@ -75,6 +75,10 @@ export const usePostRecipientsMessagesCreate = (id: string) => {
         queryKey: ['recipientsRead', id],
         refetchType: 'active'
       })
+      queryClient.invalidateQueries({
+        queryKey: ['messagesList', id],
+        refetchType: 'active'
+      })
       router.push(`/questiondetail/${data.recipientId}`)
     }
   })

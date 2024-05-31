@@ -38,7 +38,8 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     formState: { errors }
   } = useForm()
 
-  const { mutate: getImageUrl } = usePostProfileImageUrlCreate(setValue)
+  const { mutate: getImageUrl, isPending: isPendingGetImageUrl } =
+    usePostProfileImageUrlCreate(setValue)
 
   const [imgSrc, setImgSrc] = useState('')
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
@@ -51,12 +52,12 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
       recipientId: id,
       sender: `${data.sender}/${data.password}`,
       content: data.content,
-      profileImageURL: 'https://ibb.co/d7sX3FK'
-      // profileImageURL: data.profileImageURL
-      //   ? data.profileImageURL
-      //   : noImageSelect
+      profileImageURL:
+        data.profileImageURL && data.profileImageURL.length > 0
+          ? data.profileImageURL
+          : noImageSelect
     }
-    console.log(formData)
+
     PostRecipientsMessagesCreateData(formData, {
       onSuccess: () => {
         console.log('Success!')
@@ -219,7 +220,13 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
             type="button"
             onClick={handleCancel}
           />
-          <Button text="답변하기" size="md" variant="default" type="submit" />
+          <Button
+            text="답변하기"
+            size="md"
+            variant="default"
+            type="submit"
+            isDisabled={isPendingGetImageUrl}
+          />
         </div>
       </form>
     </div>
