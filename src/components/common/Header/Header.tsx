@@ -58,7 +58,7 @@ const Header = () => {
       <div className={cx(`header-frame`)}>
         <Link href={'/'}>
           <div className={cx(`header-logo`)}>
-            {mounted && (
+            {mounted && theme && (
               <Image
                 fill
                 src={`/assets/images/logo-${theme}-title.png`}
