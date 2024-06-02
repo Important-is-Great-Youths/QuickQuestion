@@ -12,6 +12,7 @@ import {
   useGetRecipientsMessagesList,
   useGetRecipientsRead
 } from '@/hooks/useRecipients'
+import useGetWeather from '@/hooks/useGetWeather'
 import ReactionContent from '@/components/questionDetail/ReactionContent/ReactionContent'
 import ContentLayout from '@/components/questionDetail/ContentLayout/ContentLayout'
 import QuestionContent from '@/components/questionDetail/QuestionContent/QuestionContent'
@@ -29,6 +30,8 @@ const QuestionDetailPage = () => {
   const { data: answerListData } = useGetRecipientsMessagesList(questionId)
 
   const [userState, setUserState] = useState<'question' | 'answer'>('answer')
+
+  useGetWeather()
 
   useEffect(() => {
     const localStorageData = localStorage.getItem('user')

@@ -3,6 +3,7 @@
 import classNames from 'classnames/bind'
 import styles from './questionlist.module.scss'
 import { useGetRecipientsList } from '@/hooks/useRecipients'
+import useGetWeather from '@/hooks/useGetWeather'
 import { GetRecipientsList } from '@/types/recipients'
 import { useState } from 'react'
 import { Pagination } from '@/components/common/Pagination/Pagination'
@@ -20,6 +21,8 @@ const QuestionListPage = () => {
   const limit = 100
   const viewCount = 6
   const { data, isLoading, error } = useGetRecipientsList(limit, 0)
+
+  useGetWeather()
 
   if (isLoading) {
     return <p>Loading...</p>
