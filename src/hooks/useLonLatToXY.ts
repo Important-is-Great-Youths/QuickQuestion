@@ -9,10 +9,6 @@ const LamcParameterValue = {
   yo: 135, // 기준점 Y좌표 [격자거리]
   first: 0 // 시작여부 (0 = 시작)
 }
-
-const NX = 149 // X축 격자점 수
-const NY = 253 // Y축 격자점 수
-
 // lonLatToXY(경도, 위도)
 export const useLonLatToXY = (lon: number, lat: number) => {
   let lon1 = lon
