@@ -65,7 +65,7 @@ export const postRecipientsReactionsCreate = async (
 
 export const postImageUrlCreate = async (formData: FormData) => {
   const res = await instance.post(
-    'https://api.imgbb.com/1/upload?key=76c9edc5314add556ab072dbb9120f8b',
+    `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
     formData,
     {
       headers: {
