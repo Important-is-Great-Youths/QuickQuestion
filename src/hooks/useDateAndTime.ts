@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react'
 
-function useBaseTime() {
+export const useBaseDate = () => {
+  const date = new Date()
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+  const dateSlot = `${year}${month}${day}`
+  return dateSlot
+}
+
+export const useBaseTime = () => {
   const [timeSlot, setTimeSlot] = useState<string>('')
 
   useEffect(() => {
@@ -24,5 +33,3 @@ function useBaseTime() {
 
   return timeSlot
 }
-
-export default useBaseTime
