@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  gap: 60px;
+  flex-direction: column;
+
+  @include responsive(M) {
+    gap: 40px;
+  }
+}
+
+.answer-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  @include responsive(M) {
+    gap: 20px;
+  }
+}

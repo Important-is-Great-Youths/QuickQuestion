@@ -1,0 +1,60 @@
+.tags {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  @include responsive(M) {
+    gap:8px;
+  }
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  @include responsive(M) {
+    height: 32px;
+  }
+}
+
+.radio {
+  display: none;
+  margin: 0;
+  &:checked + .label {
+    color: $white;
+    background-color: $secondary;
+    border: 1px solid $secondary;
+  }
+}
+
+.label {
+  width: 100%;
+  height: -webkit-fill-available;
+
+  font-weight: 500;
+  font-style: normal;
+  text-align: center;
+  white-space: nowrap;
+
+  color: $black;  
+  background-color: $white;
+  border: 1px solid $gray20;
+  font-size: 16px;
+  padding: 0 24px;
+  border-radius: 12px;
+  line-height: 40px;
+  cursor: pointer;
+
+  @include responsive(M) {
+    font-size: 14px;
+    padding: 0 16px;
+    border-radius: 8px;
+    line-height: 32px;
+  }
+
+  &:hover{
+    border: 1px solid $secondary;
+  }
+}
+
+

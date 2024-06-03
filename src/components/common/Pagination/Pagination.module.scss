@@ -1,0 +1,52 @@
+.pagination {
+  display: inline-flex;
+  margin: 0 auto;
+  gap: 10px;
+
+  &-button {
+    @include text-style(18);
+    display: flex;
+    width: 52px;
+    height: 52px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid $white;
+    color: $secondary;
+    background: $white;
+    box-shadow: $main-shadow;
+
+    &:hover {
+      border: 1px solid $secondary;
+    }
+
+    &:disabled {
+      color: $gray10;
+      cursor: auto;
+    }
+
+    &:disabled:hover {
+      border: none;
+    }
+
+    @include responsive(M) {
+      @include text-style(14);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    &-active {
+      border: 1px solid $secondary;
+      background: $secondary;
+      color: $white;
+    }
+
+    &-icon {
+      @include responsive(M) {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}

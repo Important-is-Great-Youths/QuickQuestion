@@ -1,13 +1,32 @@
 'use client'
 
-import { useTheme } from 'next-themes'
 import classNames from 'classnames/bind'
+
+import useGetWeather from '@/hooks/useGetWeather'
+import CurationCardList from '@/components/home/CurationCardList/CurationCardList'
+import QuestionForm from '@/components/home/QuestionForm/QuestionForm'
+
 import styles from './page.module.scss'
 
 const cx = classNames.bind(styles)
 
-export default function Home() {
-  const { theme, setTheme } = useTheme()
+const Home = () => {
+  useGetWeather()
 
-  return <main className={styles.main}></main>
+  return (
+    <div className={styles.main}>
+      <div className={cx('container')}>
+        <div className={cx('curation-card-list')}>
+          <p className={cx('curation-card-list-title')}>인기 질문</p>
+          <CurationCardList />
+        </div>
+        <div>
+          <p className={cx('question-title')}>빠르게 질문 해보세요!</p>
+          <QuestionForm />
+        </div>
+      </div>
+    </div>
+  )
 }
+
+export default Home

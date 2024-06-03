@@ -1,0 +1,29 @@
+.button {
+  display: flex;
+  height: 64px;
+  padding: 0 32px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background: $white;
+  box-shadow: $main-shadow;
+  color: $secondary;
+  gap: 8px;
+  cursor: pointer;
+  @include text-style(18);
+  @include responsive(M) {
+    @include text-style(16);
+    width: 170px;
+    height: 48px;
+    padding: 0 24px;
+  }
+}
+.checkbox {
+  @include responsive(M) {
+    width: 20px;
+    height: 20px;
+  }
+}
+.customCheckbox {
+  display: none;
+}

@@ -1,0 +1,21 @@
+.container {
+  min-height: calc(100vh - 100px);
+  background-color: $primary;
+
+  @include responsive(T) {
+    min-height: calc(100vh - 80px);
+  }
+}
+
+.main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 24px;
+
+  @include responsive(T) {
+    padding: 32px 24px;
+  }
+  @include responsive(M) {
+    padding: 24px 16px;
+  }
+}

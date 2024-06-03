@@ -1,0 +1,32 @@
+.ContentLayout {
+  display: flex;
+  padding: 28px;
+  flex-direction: column;
+  gap: 40px;
+  border-radius: 20px;
+  background: $white;
+  box-shadow: $main-shadow;
+
+  @include responsive(M) {
+    padding: 20px;
+    gap: 28px;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 500px;
+    height: 48px;
+    border-radius: 16px;
+    background: $secondary;
+    color: $white;
+    @include text-style(24, bold);
+    gap: 4px;
+
+    @include responsive(M) {
+      width: 100%;
+    }
+  }
+}

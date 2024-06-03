@@ -1,27 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import Tags from "@/components/common/Tags";
+import Tags from '@/components/common/Tags/Tags'
+
 
 const meta = {
-  title: "Tags",
+  title: 'Tags',
   component: Tags,
   parameters: {
-    layout: "centered",
+    layout: 'centered'
   },
-  tags: ["autodocs"],
-} satisfies Meta<typeof Tags>;
+  tags: ['autodocs']
+} satisfies Meta<typeof Tags>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Small: Story = {
+export const Default: Story = {
   args: {
-    size: "sm",
-  },
-};
+    isAll: false
+  }
+}
 
-export const Medium: Story = {
+export const IsAll: Story = {
   args: {
-    size: "md",
-  },
-};
+    isAll: true
+  }
+}

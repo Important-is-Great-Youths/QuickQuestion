@@ -1,8 +1,14 @@
 .button {
   @include text-style(16, bold);
-
+  width: fit-content;
+  margin: 0 auto;
   border-radius: 12px;
+  white-space: nowrap;
   overflow: hidden;
+
+  &:disabled {
+    background-color: $gray10;
+  }
 
   &-size {
     &-full {
@@ -33,7 +39,7 @@
       background-color: $secondary;
       border: none;
 
-      &:hover::after {
+      &:not(:disabled):hover::after {
         position: absolute;
         top: 0;
         right: 0;
@@ -52,7 +58,7 @@
       background-color: $white;
       border: 1px solid $secondary;
 
-      &:hover::after {
+      &:not(:disabled):hover::after {
         position: absolute;
         top: 0;
         right: 0;

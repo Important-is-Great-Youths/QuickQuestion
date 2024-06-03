@@ -1,0 +1,19 @@
+.reaction {
+  @include text-style(14);
+  padding: 2px 6px;
+  border-radius: 36px;
+  border: 1px solid $secondary;
+  color: $secondary;
+  background-color: $white;
+  margin-right: 8px;
+
+  &-none {
+    pointer-events: none;
+  }
+
+  &-emoji {
+    display: inline-block;
+    width: 16px;
+    margin-right: 4px;
+  }
+}

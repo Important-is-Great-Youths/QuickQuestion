@@ -12,3 +12,8 @@
   --primary: #{$snowy-primary};
   --secondary: #{$snowy-secondary};
 }
+
+@font-face {
+  font-family: 'Yangjin';
+  src: url('/assets/fonts/YangjinV0.9.ttf') format('woff2');
+}
