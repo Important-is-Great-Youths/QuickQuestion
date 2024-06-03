@@ -53,17 +53,21 @@ const QuestionListPage = () => {
         </div>
         <NoAnswer setShowNoAnswer={setShowNoAnswer} />
       </div>
-      <ul className={cx('cardContainer')}>
-        {paginatedData.map((question: GetRecipientsList) => (
-          <Card
-            key={question.id}
-            id={question.id.toString()}
-            cardTitle={question.backgroundColor}
-            cardText={question.name}
-            answerCount={question.messageCount}
-          />
-        ))}
-      </ul>
+      {paginatedData.length > 0 ? (
+        <ul className={cx('cardContainer')}>
+          {paginatedData.map((question: GetRecipientsList) => (
+            <Card
+              key={question.id}
+              id={question.id.toString()}
+              cardTitle={question.backgroundColor}
+              cardText={question.name}
+              answerCount={question.messageCount}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p className={cx('noQuestions')}>질문을 생성해주세요!</p>
+      )}
       <div className={cx('paginationContainer')}>
         <Pagination
           data={filteredData}
