@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react'
 
-function useTimeSlot() {
+function useBaseTime() {
   const [timeSlot, setTimeSlot] = useState<string>('')
 
   useEffect(() => {
     const updateTimeSlot = () => {
-      const currentHour = new Date().getHours()
+      const now = new Date()
+      const currentHour = now.getHours()
+      const currentMinute = now.getMinutes()
 
-      const formattedTimeSlot =
-        currentHour === 0
-          ? '2300'
-          : currentHour < 11
-            ? `0${currentHour - 1}00`
-            : `${currentHour - 1}00`
+      let nextHour =
+        currentMinute >= 40 ? currentHour : (currentHour - 1 + 24) % 24
+      let formattedTimeSlot = nextHour < 10 ? `0${nextHour}00` : `${nextHour}00`
+
       setTimeSlot(formattedTimeSlot)
     }
 
@@ -25,4 +25,4 @@ function useTimeSlot() {
   return timeSlot
 }
 
-export default useTimeSlot
+export default useBaseTime
