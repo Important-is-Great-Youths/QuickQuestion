@@ -4,7 +4,6 @@ import classNames from 'classnames/bind'
 
 import { Providers } from '@/app/providers'
 import Header from '@/components/common/Header/Header'
-import ThemeButton from '@/components/common/Button/ThemeButton'
 
 import '@/styles/base/common.scss'
 import styles from './layout.module.scss'
@@ -32,7 +31,6 @@ const RootLayout = ({
           <Header />
           <div className={cx('container')}>
             <main className={cx('main')}>{children}</main>
-            <ThemeButton />
           </div>
         </Providers>
       </body>

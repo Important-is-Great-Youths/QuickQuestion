@@ -2,6 +2,7 @@
 
 import classNames from 'classnames/bind'
 
+import useGetWeather from '@/hooks/useGetWeather'
 import CurationCardList from '@/components/home/CurationCardList/CurationCardList'
 import QuestionForm from '@/components/home/QuestionForm/QuestionForm'
 
@@ -10,6 +11,8 @@ import styles from './page.module.scss'
 const cx = classNames.bind(styles)
 
 const Home = () => {
+  useGetWeather()
+
   return (
     <div className={styles.main}>
       <div className={cx('container')}>
