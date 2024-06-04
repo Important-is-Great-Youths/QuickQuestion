@@ -11,9 +11,8 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    size: 'full',
-    text: '텍스트',
-    type: 'button',
-    variant: 'another'
+    id: '1234',
+    question: '이런 테스트 질문은 어때요?',
+    onClose: () => alert('close')
   }
 }

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
 import PwPopUp from '@/components/common/PopUp/PwPopUp'
 
 const meta = {
@@ -15,5 +14,8 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {}
+  args: {
+    password: '1234',
+    onCheck: () => alert('onCheck!')
+  }
 }
