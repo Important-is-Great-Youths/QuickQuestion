@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Card>
 
 export const Default: Story = {
   args: {
-    cardTitle: '전체',
+    cardTitle: 'beige',
     cardText: '테스트',
     answerCount: 0
   }
