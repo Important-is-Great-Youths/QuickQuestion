@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import classNames from 'classnames/bind'
 import styles from './questionlist.module.scss'
 import { useGetRecipientsList } from '@/hooks/useRecipients'
@@ -10,6 +11,7 @@ import { Pagination } from '@/components/common/Pagination/Pagination'
 import Card from '@/components/common/Card/Card'
 import Tags from '@/components/common/Tags/Tags'
 import NoAnswer from '@/components/common/NoAnswer/NoAnswer'
+import Button from '@/components/common/Button/Button'
 
 const cx = classNames.bind(styles)
 
@@ -54,30 +56,37 @@ const QuestionListPage = () => {
         <NoAnswer setShowNoAnswer={setShowNoAnswer} />
       </div>
       {paginatedData.length > 0 ? (
-        <ul className={cx('cardContainer')}>
-          {paginatedData.map((question: GetRecipientsList) => (
-            <Card
-              key={question.id}
-              id={question.id.toString()}
-              cardTitle={question.backgroundColor}
-              cardText={question.name}
-              answerCount={question.messageCount}
+        <>
+          <ul className={cx('cardContainer')}>
+            {paginatedData.map((question: GetRecipientsList) => (
+              <Card
+                key={question.id}
+                id={question.id.toString()}
+                cardTitle={question.backgroundColor}
+                cardText={question.name}
+                answerCount={question.messageCount}
+              />
+            ))}
+          </ul>
+          <div className={cx('paginationContainer')}>
+            <Pagination
+              data={filteredData}
+              viewCount={viewCount}
+              totalCount={filteredData.length}
+              limit={limit}
+              currentPage={currentPage}
+              onPageChange={(page) => setCurrentPage(page)}
             />
-          ))}
-        </ul>
+          </div>
+        </>
       ) : (
-        <p className={cx('noQuestions')}>질문을 생성해주세요!</p>
+        <div className={cx('noQuestions')}>
+          <p className={cx('noQuestions-text')}>아직 등록된 질문이 없어요</p>
+          <Link className={cx('noQuestions-button')} href={'/'}>
+            <Button text="질문 등록하러 가기" size="lg" type="button" />
+          </Link>
+        </div>
       )}
-      <div className={cx('paginationContainer')}>
-        <Pagination
-          data={filteredData}
-          viewCount={viewCount}
-          totalCount={filteredData.length}
-          limit={limit}
-          currentPage={currentPage}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
-      </div>
     </div>
   )
 }
