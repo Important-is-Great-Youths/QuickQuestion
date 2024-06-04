@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { getWeather } from '@/apis/getWeather'
 import { useBaseDate, useBaseTime } from '@/hooks/useDateAndTime'
+import useGetGeolocation from '@/hooks/useGetGeolocation'
 import { useLonLatToXY } from '@/hooks/useLonLatToXY'
 
 const useGetWeather = () => {
@@ -11,7 +12,8 @@ const useGetWeather = () => {
 
   const dateSlot = useBaseDate()
   const timeSlot = useBaseTime()
-  const { x, y } = useLonLatToXY(126.980008333333, 37.5635694444444) // 임시값
+  const { longitude, latitude } = useGetGeolocation()
+  const { x, y } = useLonLatToXY(longitude, latitude) // 임시값
 
   const { data } = useQuery({
     queryKey: ['weather'],
@@ -19,7 +21,7 @@ const useGetWeather = () => {
     enabled: !!timeSlot
   })
 
-  const obsrValueCode = data?.data.response.body.items.item[0].obsrValue
+  const obsrValueCode = data?.data.response.body?.items.item[0].obsrValue
 
   const getWeatherCode = (code: string) => {
     if (code === '1' || code === '2' || code === '5') {
