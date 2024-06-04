@@ -65,9 +65,23 @@
   align-items: flex-start;
   gap: 10px;
 }
+
 .noQuestions {
-  text-align: center;
-  font-size: 30px;
-  color: $white;
-  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 200px;
+
+  &-text {
+    @include text-style(24, bold);
+    color: $white;
+  }
+
+  &-button {
+    width: fit-content;
+    border-radius: 12px;
+    box-shadow: $main-shadow;
+  }
 }
