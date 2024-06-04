@@ -11,8 +11,8 @@ import { Pagination } from '@/components/common/Pagination/Pagination'
 import Card from '@/components/common/Card/Card'
 import Tags from '@/components/common/Tags/Tags'
 import NoAnswer from '@/components/common/NoAnswer/NoAnswer'
-import useGetGeolocation from '@/hooks/useGeGeolocation'
 import Button from '@/components/common/Button/Button'
+
 const cx = classNames.bind(styles)
 
 const QuestionListPage = () => {
@@ -44,7 +44,7 @@ const QuestionListPage = () => {
     return tagMatch && noAnswerMatch
   })
   const paginatedData = filteredData.slice(startIndex, endIndex)
-  console.log(location)
+  
   return (
     <div className={cx('main')}>
       <h1 className={cx('title')}>당신의 지식을 뽐내보세요!</h1>
