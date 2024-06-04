@@ -171,7 +171,7 @@ const AnswerContent = ({
           <div>
             <Image
               src={profileImage}
-              alt="test"
+              alt="프로필 이미지"
               width={28}
               height={28}
               className={cx('answercontent-top-profile-image')}
