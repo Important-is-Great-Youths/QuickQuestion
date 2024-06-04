@@ -51,7 +51,13 @@ const QuestionListPage = () => {
 
       <div className={cx('header')}>
         <div className={cx('tagsContainer')}>
-          <Tags isAll onTagChange={(tag) => setSelectedTag(tag)} />
+          <Tags
+            isAll
+            onTagChange={(tag) => {
+              setSelectedTag(tag)
+              setCurrentPage(1)
+            }}
+          />
         </div>
         <NoAnswer setShowNoAnswer={setShowNoAnswer} />
       </div>
