@@ -44,7 +44,7 @@ const useGetWeather = () => {
     } else {
       const newlinkTag = document.createElement('link')
       newlinkTag.rel = 'icon'
-      newlinkTag.href = `/assets/images/logo-${getWeatherCode('1')}.png`
+      newlinkTag.href = `/assets/images/logo-${getWeatherCode(obsrValueCode)}.png`
       document.head.appendChild(newlinkTag)
     }
   }, [data])
