@@ -13,7 +13,7 @@ const useGetWeather = () => {
   const dateSlot = useBaseDate()
   const timeSlot = useBaseTime()
   const { longitude, latitude } = useGetGeolocation()
-  const { x, y } = useLonLatToXY(longitude, latitude) // 임시값
+  const { x, y } = useLonLatToXY(longitude, latitude)
 
   const { data } = useQuery({
     queryKey: ['weather'],
@@ -35,6 +35,18 @@ const useGetWeather = () => {
 
   useEffect(() => {
     setTheme(getWeatherCode(obsrValueCode))
+    const linkTag = document.querySelector('link[rel="icon"]')
+    if (linkTag) {
+      linkTag.setAttribute(
+        'href',
+        `/assets/images/logo-${getWeatherCode(obsrValueCode)}.png`
+      )
+    } else {
+      const newlinkTag = document.createElement('link')
+      newlinkTag.rel = 'icon'
+      newlinkTag.href = `/assets/images/logo-${getWeatherCode('1')}.png`
+      document.head.appendChild(newlinkTag)
+    }
   }, [data])
 }
 
