@@ -45,7 +45,6 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
   const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
 
   const onSubmit = async (data: any) => {
-    console.log(data)
     const formData = {
       relationship: '친구',
       font: 'Noto Sans',
@@ -60,7 +59,6 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
 
     PostRecipientsMessagesCreateData(formData, {
       onSuccess: () => {
-        console.log('Success!')
         onClose()
       },
       onError: (err) => {

@@ -26,7 +26,6 @@ const PwPopUp = ({ password, onCheck }: PwPopUpProps) => {
   } = useForm<PwPopUpFormValues>()
 
   const onSubmit: SubmitHandler<PwPopUpFormValues> = (data) => {
-    console.log(data)
     if (data.password === password) {
       onCheck()
     }

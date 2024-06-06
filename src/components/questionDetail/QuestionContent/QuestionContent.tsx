@@ -42,7 +42,6 @@ const QuestionContent = ({
   const { openModal, closeModal } = useModal()
 
   const handleAnswerModal = () => {
-    console.log('답변하기')
     openModal(
       <FormModal
         id={id}

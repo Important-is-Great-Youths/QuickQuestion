@@ -44,7 +44,7 @@ const QuestionListPage = () => {
     return tagMatch && noAnswerMatch
   })
   const paginatedData = filteredData.slice(startIndex, endIndex)
-
+  
   return (
     <div className={cx('main')}>
       <h1 className={cx('title')}>당신의 지식을 뽐내보세요!</h1>
