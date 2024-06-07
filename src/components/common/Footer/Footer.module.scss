@@ -1,0 +1,63 @@
+.footer {
+  height: 160px;
+  background-color: $white;
+
+  @include responsive(T) {
+    height: 140px;
+  }
+
+  &-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+
+    @include responsive(M) {
+      justify-content: space-evenly;
+      flex-direction: column;
+      padding: 0 16px;
+    }
+
+    &-information {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      @include responsive(M) {
+        gap: 8px;
+      }
+
+      &-logo {
+        position: relative;
+        width: 68px;
+        height: 68px;
+
+        @include responsive(M) {
+          width: 40px;
+          height: 40px;
+        }
+
+        &-image {
+          position: absolute;
+        }
+      }
+
+      &-text {
+        @include text-style(16);
+
+        @include responsive(M) {
+          @include text-style(14);
+        }
+      }
+    }
+
+    &-about {
+      @include text-style(16);
+      display: flex;
+      gap: 8px;
+    }
+  }
+}

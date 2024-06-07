@@ -4,6 +4,7 @@ import classNames from 'classnames/bind'
 
 import { Providers } from '@/app/providers'
 import Header from '@/components/common/Header/Header'
+import Footer from '@/components/common/Footer/Footer'
 
 import '@/styles/base/common.scss'
 import styles from './layout.module.scss'
@@ -32,6 +33,7 @@ const RootLayout = ({
           <div className={cx('container')}>
             <main className={cx('main')}>{children}</main>
           </div>
+          <Footer />
         </Providers>
       </body>
     </html>
