@@ -21,7 +21,7 @@ const useGetWeather = () => {
     enabled: !!timeSlot
   })
 
-  const obsrValueCode = data?.data.response.body?.items.item[0].obsrValue
+  const obsrValueCode = data?.data.response?.body?.items.item[0].obsrValue
 
   const getWeatherCode = (code: string) => {
     if (code === '1' || code === '2' || code === '5') {
