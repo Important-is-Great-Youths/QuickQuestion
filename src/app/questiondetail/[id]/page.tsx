@@ -17,7 +17,7 @@ import ReactionContent from '@/components/questionDetail/ReactionContent/Reactio
 import ContentLayout from '@/components/questionDetail/ContentLayout/ContentLayout'
 import QuestionContent from '@/components/questionDetail/QuestionContent/QuestionContent'
 import AnswerEmpty from '@/components/questionDetail/AnswerEmpty/AnswerEmpty'
-import AnswerContent from '@/components/common/AnswerContent/AnswerContent'
+import AnswerContent from '@/components/questionDetail/AnswerContent/AnswerContent'
 
 import styles from './questiondetail.module.scss'
 

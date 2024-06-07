@@ -42,7 +42,7 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
     usePostProfileImageUrlCreate(setValue)
 
   const [imgSrc, setImgSrc] = useState('')
-  const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default.png'
+  const noImageSelect = 'https://i.ibb.co/D7MM9NT/logo-default-gray.png'
 
   const onSubmit = async (data: any) => {
     const formData = {
