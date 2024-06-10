@@ -197,6 +197,7 @@ const QuestionForm = () => {
                     className={cx('form-field-image-input')}
                     id="backgroundImageSelect"
                     type="file"
+                    accept="image/*"
                     {...register('backgroundImageSelect', {
                       onChange: (value) => handleCreateImageUrl(value)
                     })}

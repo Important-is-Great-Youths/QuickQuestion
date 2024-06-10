@@ -87,152 +87,154 @@ const FormModal: React.FC<FormModalProps> = ({ id, question, onClose }) => {
   }
 
   return (
-    <div className={cx('modalWrapper')}>
-      <div className={cx('question-container')}>
-        <p className={cx('question-title')}>질문</p>
-        <p className={cx('question')}>{question}</p>
-      </div>
-      <form
-        className={cx('questionFieldWrap')}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div className={cx('questionField')}>
-          <div className={cx('content-container')}>
-            <div className={cx('label')}>프로필 사진</div>
-            <div>
-              <label className={cx('uploadBtn')}>
-                <input
-                  {...register('profileImageURL')}
-                  type="file"
-                  accept="image/*"
-                  className={cx('imgBox')}
-                  onChange={handleFileChange}
+    <div className={cx('modal')}>
+      <div className={cx('modal-wrap')}>
+        <div className={cx('question-container')}>
+          <p className={cx('question-title')}>질문</p>
+          <p className={cx('question')}>{question}</p>
+        </div>
+        <form
+          className={cx('questionFieldWrap')}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className={cx('questionField')}>
+            <div className={cx('content-container')}>
+              <div className={cx('label')}>프로필 사진</div>
+              <div>
+                <label className={cx('uploadBtn')}>
+                  <input
+                    {...register('profileImageURL')}
+                    type="file"
+                    accept="image/*"
+                    className={cx('imgBox')}
+                    onChange={handleFileChange}
+                  />
+                  {imgSrc ? (
+                    <div className={cx('imgWrap')}>
+                      <Image
+                        src={imgSrc}
+                        alt="이미지 미리보기"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                  ) : (
+                    <Plus className={cx('img')} />
+                  )}
+                </label>
+              </div>
+            </div>
+            <div className={cx('content-container')}>
+              <label className={cx('label')}>닉네임</label>
+              <div className={cx('input')}>
+                <Input
+                  size="responsive"
+                  type="text"
+                  placeholder={PLACEHOLDER.nickname}
+                  maxLength={4}
+                  {...register('sender', {
+                    required: {
+                      value: true,
+                      message: ERROR_MESSAGE.nickname.required
+                    },
+                    maxLength: {
+                      value: 4,
+                      message: ERROR_MESSAGE.nickname.max
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
+                      message: ERROR_MESSAGE.nickname.letters
+                    }
+                  })}
                 />
-                {imgSrc ? (
-                  <div className={cx('imgWrap')}>
-                    <Image
-                      src={imgSrc}
-                      alt="이미지 미리보기"
-                      width={60}
-                      height={60}
-                    />
-                  </div>
-                ) : (
-                  <Plus className={cx('img')} />
+                {errors.sender && (
+                  <p className={cx('input-error')}>
+                    {errors.sender.message?.toString()}
+                  </p>
                 )}
-              </label>
+              </div>
+            </div>
+            <div className={cx('content-container')}>
+              <label className={cx('label')}>비밀번호</label>
+              <div className={cx('input')}>
+                <Input
+                  size="responsive"
+                  type="password"
+                  placeholder={PLACEHOLDER.password}
+                  maxLength={4}
+                  {...register('password', {
+                    required: {
+                      value: true,
+                      message: ERROR_MESSAGE.password.required
+                    },
+                    minLength: {
+                      value: 4,
+                      message: ERROR_MESSAGE.nickname.letters
+                    },
+                    maxLength: {
+                      value: 4,
+                      message: ERROR_MESSAGE.password.letters
+                    },
+                    pattern: {
+                      value: /^\d{4}$/,
+                      message: ERROR_MESSAGE.password.number
+                    }
+                  })}
+                />
+                {errors.password && (
+                  <p className={cx('input-error')}>
+                    {errors.password.message?.toString()}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className={cx('content-container', 'textarea')}>
+              <label className={cx('label')}>답변 내용</label>
+              <div className={cx('input')}>
+                <Textarea
+                  {...register('content', {
+                    required: {
+                      value: true,
+                      message: ERROR_MESSAGE.answer.required
+                    },
+                    minLength: {
+                      value: 5,
+                      message: ERROR_MESSAGE.answer.min
+                    },
+                    maxLength: {
+                      value: 255,
+                      message: ERROR_MESSAGE.answer.max
+                    }
+                  })}
+                  id="content"
+                  placeholder={PLACEHOLDER.answer}
+                />
+                {errors.content && (
+                  <p className={cx('input-error')}>
+                    {errors.content.message?.toString()}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-          <div className={cx('content-container')}>
-            <label className={cx('label')}>닉네임</label>
-            <div className={cx('input')}>
-              <Input
-                size="responsive"
-                type="text"
-                placeholder={PLACEHOLDER.nickname}
-                maxLength={4}
-                {...register('sender', {
-                  required: {
-                    value: true,
-                    message: ERROR_MESSAGE.nickname.required
-                  },
-                  maxLength: {
-                    value: 4,
-                    message: ERROR_MESSAGE.nickname.max
-                  },
-                  pattern: {
-                    value: /^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣]*$/,
-                    message: ERROR_MESSAGE.nickname.letters
-                  }
-                })}
-              />
-              {errors.sender && (
-                <p className={cx('input-error')}>
-                  {errors.sender.message?.toString()}
-                </p>
-              )}
-            </div>
+          <div className={cx('button-container')}>
+            <Button
+              text="취소하기"
+              size="md"
+              variant="another"
+              type="button"
+              onClick={handleCancel}
+            />
+            <Button
+              text="답변하기"
+              size="md"
+              variant="default"
+              type="submit"
+              isDisabled={isPendingGetImageUrl}
+            />
           </div>
-          <div className={cx('content-container')}>
-            <label className={cx('label')}>비밀번호</label>
-            <div className={cx('input')}>
-              <Input
-                size="responsive"
-                type="password"
-                placeholder={PLACEHOLDER.password}
-                maxLength={4}
-                {...register('password', {
-                  required: {
-                    value: true,
-                    message: ERROR_MESSAGE.password.required
-                  },
-                  minLength: {
-                    value: 4,
-                    message: ERROR_MESSAGE.nickname.letters
-                  },
-                  maxLength: {
-                    value: 4,
-                    message: ERROR_MESSAGE.password.letters
-                  },
-                  pattern: {
-                    value: /^\d{4}$/,
-                    message: ERROR_MESSAGE.password.number
-                  }
-                })}
-              />
-              {errors.password && (
-                <p className={cx('input-error')}>
-                  {errors.password.message?.toString()}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className={cx('content-container', 'textarea')}>
-            <label className={cx('label')}>답변 내용</label>
-            <div className={cx('input')}>
-              <Textarea
-                {...register('content', {
-                  required: {
-                    value: true,
-                    message: ERROR_MESSAGE.answer.required
-                  },
-                  minLength: {
-                    value: 5,
-                    message: ERROR_MESSAGE.answer.min
-                  },
-                  maxLength: {
-                    value: 255,
-                    message: ERROR_MESSAGE.answer.max
-                  }
-                })}
-                id="content"
-                placeholder={PLACEHOLDER.answer}
-              />
-              {errors.content && (
-                <p className={cx('input-error')}>
-                  {errors.content.message?.toString()}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className={cx('button-container')}>
-          <Button
-            text="취소하기"
-            size="md"
-            variant="another"
-            type="button"
-            onClick={handleCancel}
-          />
-          <Button
-            text="답변하기"
-            size="md"
-            variant="default"
-            type="submit"
-            isDisabled={isPendingGetImageUrl}
-          />
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   )
 }
