@@ -97,8 +97,7 @@
 
 ## Question Detail Page
 
-https://github.com/Important-is-Great-Youths/QuickQuestion/assets/79896328/484e9b5e-6f86-415e-a836-b28aed13de3a
-
+https://github.com/Important-is-Great-Youths/QuickQuestion/assets/79896328/70ad46f6-2bff-49f3-b5cd-06680c48bec2
 
 1. **이모지 리액션 기능** : 해당 질문에 대한 사람들의 느낌을 이모지의 형태로 알 수 있으며, 사용자 또한 이모지로 느낌을 남길 수 있다.
 2. **질문 상세 파악** : 해당 질문의 분야, 작성자, 작성일, 내용, 첨부 이미지(선택)을 볼 수 있다.
