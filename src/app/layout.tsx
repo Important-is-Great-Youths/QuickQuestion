@@ -39,6 +39,15 @@ export const metadata: Metadata = {
       }
     ]
   },
+  twitter: {
+    title: 'Quick Question',
+    description: '빠르게, 익명으로 함께하는 Quick Question',
+    images: [
+      {
+        url: 'https://quick-question-weather.vercel.app/assets/images/opengraph-image.png'
+      }
+    ]
+  },
   robots: {
     index: true,
     follow: false,
