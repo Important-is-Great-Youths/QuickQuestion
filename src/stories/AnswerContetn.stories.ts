@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import AnswerContent from '@/components/common/AnswerContent/AnswerContent'
+import AnswerContent from '@/components/questionDetail/AnswerContent/AnswerContent'
 
 const meta = {
   title: 'AnswerContent',
