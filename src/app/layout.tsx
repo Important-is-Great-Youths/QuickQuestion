@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: 'https://quick-question-weather.vercel.app/',
     images: [
       {
-        url: '/assets/images/opengraph-image.png'
+        url: 'https://quick-question-weather.vercel.app/assets/images/opengraph-image.png'
       }
     ]
   },
